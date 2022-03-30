@@ -1,6 +1,7 @@
 <?php
 namespace SUPV;
 
+use SUPV\Admin\AJAX;
 use SUPV\Admin\Dashboard;
 
 /**
@@ -49,6 +50,7 @@ class Loader {
 
 		// Loads the Dashboard.
 		$this->dashboard = new Dashboard();
+		new AJAX();
 
 		// Loads the CLI class.
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {

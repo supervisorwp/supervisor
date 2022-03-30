@@ -51,8 +51,26 @@ class Dashboard {
 	 * @since 1.0.0
 	 */
 	public function init() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		add_action( 'admin_init', [ $this, 'load_resources' ] );
 		add_action( 'admin_menu', [ $this, 'admin_menu' ], 5 );
 		add_action( 'admin_notices', [ $this, 'admin_notices' ] );
+	}
+
+	/**
+	 * Loads the admin resources.
+	 *
+	 * @since 1.0.0
+	 */
+	public function load_resources() {
+		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
+		wp_register_script( 'wp-healthcheck-js', SUPV_PLUGIN_URL . '/resources/assets/js/supervisor' . $suffix . '.js', false, SUPV_VERSION );
+
+		wp_enqueue_script( 'wp-healthcheck-js' );
 	}
 
 	/**
@@ -89,7 +107,6 @@ class Dashboard {
 			return;
 		}
 
-		//$notices = array( 'php', 'database', 'wordpress', 'web', 'ssl', 'https', 'plugins' );
 		$notices = [ 'https', 'ssl' ];
 
 		$notices_transient = get_transient( self::HIDE_NOTICES_TRANSIENT );
