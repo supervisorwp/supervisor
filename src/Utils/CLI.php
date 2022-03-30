@@ -1,8 +1,8 @@
 <?php
-namespace SUPV\Core;
+namespace SUPV\Utils;
 
 /**
- * The Core class.
+ * The CLI class.
  *
  * @package supervisor
  *

@@ -54,4 +54,21 @@ class Loader {
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		}
 	}
+
+	/**
+	 * Core loader.
+	 *
+	 * @since 1.0.0.
+	 *
+	 * @return \SUPV\Core\Loader
+	 */
+	public function core() {
+		static $core;
+
+		if ( ! $core ) {
+			$core = new SUPV\Core\Loader();
+		}
+
+		return $core;
+	}
 }
