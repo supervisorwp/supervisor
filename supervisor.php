@@ -24,7 +24,7 @@ define( 'SUPV_VERSION', '1.0.0' );
 define( 'SUPV_PLUGIN_DIR', dirname( __FILE__ ) );
 define( 'SUPV_PLUGIN_URL', plugins_url( '', __FILE__ ) );
 
-define( 'SUPV_INC_DIR', WPHV_PLUGIN_DIR . '/includes' );
+define( 'SUPV_INC_DIR', SUPV_PLUGIN_DIR . '/includes' );
 
 /**
  * Plugin loader.

@@ -1,6 +1,8 @@
 <?php
 namespace SUPV;
 
+use SUPV\Admin\Dashboard;
+
 /**
  * The Loader class.
  *
@@ -9,6 +11,15 @@ namespace SUPV;
  * @since 1.0.0
  */
 class Loader {
+	/**
+	 * The Dashboard object.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var Dashboard
+	 */
+	public $dashboard;
+
 	/**
 	 * Constructor.
 	 *
@@ -35,6 +46,9 @@ class Loader {
 	public function loader() {
 		// Autoload classes.
 		require_once SUPV_PLUGIN_DIR . '/vendor/autoload.php';
+
+		// Loads the Dashboard.
+		$this->dashboard = new Dashboard();
 
 		// Loads the CLI class.
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
