@@ -1,0 +1,16 @@
+{
+	"require-dev": {
+		"wp-coding-standards/wpcs": "^2.3",
+		"phpcompatibility/php-compatibility": "^9.3"
+	},
+	"autoload": {
+		"psr-4": {
+			"SUPV\\": "src"
+		}
+	},
+	"scripts": {
+		"post-update-cmd": [
+			"./vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs/,vendor/phpcompatibility/php-compatibility/"
+		]
+	}
+}
