@@ -66,7 +66,7 @@ class Loader {
 		static $core;
 
 		if ( ! $core ) {
-			$core = new SUPV\Core\Loader();
+			$core = new Core\Loader();
 		}
 
 		return $core;

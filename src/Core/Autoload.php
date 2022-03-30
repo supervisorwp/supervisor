@@ -78,6 +78,38 @@ class Autoload {
 	}
 
 	/**
+	 * Returns the autoload options deactivated via Supervisor.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array|false Name and timestamp of the options or false if none.
+	 */
+	public function get_autoload_history() {
+		$history = get_option( self::DISABLE_AUTOLOAD_OPTION );
+
+		if ( $history ) {
+			$updated    = false;
+			$expiration = strtotime( '-2 weeks' );
+
+			foreach ( $history as $name => $timestamp ) {
+				if ( ! get_option( $name ) || ( get_option( $name ) && $timestamp < $expiration ) ) {
+					unset( $history[ $name ] );
+
+					$updated = true;
+				}
+			}
+
+			if ( $updated ) {
+				update_option( self::DISABLE_AUTOLOAD_OPTION, $history );
+			}
+
+			$history = array_reverse( $history, true );
+		}
+
+		return $history;
+	}
+
+	/**
 	 * Determine if an option is set to autoload or not.
 	 *
 	 * @since 1.0.0
@@ -111,6 +143,33 @@ class Autoload {
 		}
 
 		return ( in_array( $option_name, $wp_opts ) );
+	}
+
+	/**
+	 * Deactivates an autoload option.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string  $option_name The name of the option to disable.
+	 * @param boolean $logging Save deactivation to history.
+	 *
+	 * @return int|false Number of affected rows or false on error.
+	 */
+	public function deactivate_autoload_option( $option_name, $logging = true ) {
+		return $this->_update_autoload_option( $option_name, 'no', $logging );
+	}
+
+	/**
+	 * Reactivates an autoload option that was disabled previously.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $option_name The name of the option to disable.
+	 *
+	 * @return int|false Number of affected rows or false on error.
+	 */
+	public function reactivate_autoload_option( $option_name ) {
+		return $this->_update_autoload_option( $option_name, 'yes' );
 	}
 
 	/**

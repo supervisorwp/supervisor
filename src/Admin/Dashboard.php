@@ -10,6 +10,33 @@ namespace SUPV\Admin;
  */
 class Dashboard {
 	/**
+	 * Option to disable admin notices.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	const DISABLE_NOTICES_OPTION = 'supv_disable_admin_notices';
+
+	/**
+	 * Transient to store if an admin notice should be displayed or not.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	const HIDE_NOTICES_TRANSIENT = 'supv_hide_admin_notices';
+
+	/**
+	 * Admin page hookname.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	private static $hookname = null;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 1.0.0
@@ -25,6 +52,7 @@ class Dashboard {
 	 */
 	public function init() {
 		add_action( 'admin_menu', [ $this, 'admin_menu' ], 5 );
+		add_action( 'admin_notices', [ $this, 'admin_notices' ] );
 	}
 
 	/**
@@ -33,7 +61,7 @@ class Dashboard {
 	 * @since 1.0.0
 	 */
 	public function admin_menu() {
-		add_menu_page( 'Supervisor', 'Supervisor', 'manage_options', 'supervisor', [ $this, 'admin_page' ], 'none', 200 );
+		self::$hookname = add_menu_page( 'Supervisor', 'Supervisor', 'manage_options', 'supervisor', [ $this, 'admin_page' ], 'none', 200 );
 	}
 
 	/**
@@ -43,6 +71,34 @@ class Dashboard {
 	 */
 	public function admin_page() {
 		$this->view( 'admin/dashboard' );
+	}
+
+	/**
+	 * Loads the admin notices.
+	 *
+	 * @since 1.0.0
+	 */
+	public function admin_notices() {
+		if ( get_option( self::DISABLE_NOTICES_OPTION ) ) {
+			return;
+		}
+
+		$screen = get_current_screen();
+
+		if ( ! preg_match( '/^(' . self::$hookname . '|dashboard)$/', $screen->id ) ) {
+			return;
+		}
+
+		//$notices = array( 'php', 'database', 'wordpress', 'web', 'ssl', 'https', 'plugins' );
+		$notices = [ 'https', 'ssl' ];
+
+		$notices_transient = get_transient( self::HIDE_NOTICES_TRANSIENT );
+
+		foreach ( $notices as $notice ) {
+			if ( ! isset( $notices_transient[ $notice ] ) ) {
+				$this->view( 'admin/notices/' . $notice );
+			}
+		}
 	}
 
 	/**
