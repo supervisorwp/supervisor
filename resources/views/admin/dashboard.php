@@ -14,6 +14,36 @@ if ( ! defined( 'SUPV' ) ) {
 	</div>
 
 	<div class="supv-container">
-		<p class="supv_welcome"><?php esc_html_e( 'Welcome and thank you for choosing the Supervisor plugin.', 'supervisor' ); ?></p>
+		<div class="supv-row">
+			<div class="supv-col col-md-4">
+				<div class="supv-card">
+					<div class="header">
+						<div class="text">Autoload Options</div>
+					</div>
+
+					<div class="content">
+						<p>WordPress autoload options are very similar to transients. The main difference is: transients are used to store temporary data, while options are used to store permanent data.</p>
+
+						<p>All the autoload options, as well as transients, are loaded automatically when WordPress loads itself. Thus, the number and size of these options can directly affect your site performance.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="supv-col col-md-4">
+				<div class="supv-card">
+					<div class="header">
+						<div class="text">Transients</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="supv-col col-md-4">
+				<div class="supv-card">
+					<div class="header">
+						<div class="text">SSL</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
