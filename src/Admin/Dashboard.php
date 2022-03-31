@@ -34,7 +34,7 @@ class Dashboard {
 	 *
 	 * @var string
 	 */
-	private static $hookname = null;
+	private $hookname = null;
 
 	/**
 	 * Constructor.
@@ -66,11 +66,15 @@ class Dashboard {
 	 * @since 1.0.0
 	 */
 	public function load_resources() {
+		// TODO: disable JS and CSS for non-Supervisor screens.
+
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		wp_register_script( 'wp-healthcheck-js', SUPV_PLUGIN_URL . '/resources/assets/js/supervisor' . $suffix . '.js', false, SUPV_VERSION );
+		wp_register_script( 'supv-js', SUPV_PLUGIN_URL . '/resources/assets/js/supervisor' . $suffix . '.js', false, SUPV_VERSION );
+		wp_register_style( 'supv-css', SUPV_PLUGIN_URL . '/resources/assets/css/supervisor' . $suffix . '.css', false, SUPV_VERSION );
 
-		wp_enqueue_script( 'wp-healthcheck-js' );
+		wp_enqueue_script( 'supv-js' );
+		wp_enqueue_style( 'supv-css' );
 	}
 
 	/**
@@ -79,7 +83,7 @@ class Dashboard {
 	 * @since 1.0.0
 	 */
 	public function admin_menu() {
-		self::$hookname = add_menu_page( 'Supervisor', 'Supervisor', 'manage_options', 'supervisor', [ $this, 'admin_page' ], 'none', 200 );
+		$this->hookname = add_menu_page( 'Supervisor', 'Supervisor', 'manage_options', 'supervisor', [ $this, 'admin_page' ], 'none', 200 );
 	}
 
 	/**
@@ -103,7 +107,7 @@ class Dashboard {
 
 		$screen = get_current_screen();
 
-		if ( ! preg_match( '/^(' . self::$hookname . '|dashboard)$/', $screen->id ) ) {
+		if ( ! preg_match( '/^(' . $this->hookname . '|dashboard)$/', $screen->id ) ) {
 			return;
 		}
 
