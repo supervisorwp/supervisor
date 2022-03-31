@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: "supervisor";
+	src:url("../fonts/supervisor.eot");
+	src:url("../fonts/supervisor.eot?#iefix") format("embedded-opentype"),
+	url("../fonts/supervisor.woff") format("woff"),
+	url("../fonts/supervisor.ttf") format("truetype"),
+	url("../fonts/supervisor.svg#supervisor") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="supv-icon-"]:before,
+[class*=" supv-icon-"]:before,
+#adminmenu #toplevel_page_supervisor div.wp-menu-image:before {
+	font-family: "supervisor" !important;
+	font-style: normal !important;
+	font-weight: normal !important;
+	font-variant: normal !important;
+	text-transform: none !important;
+	speak: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.supv-icon-supervisor:before {
+	content: "\61";
+}
+
+#adminmenu #toplevel_page_supervisor div.wp-menu-image:before {
+	content: "\61";
+}
+
+#adminmenu #toplevel_page_supervisor div.wp-menu-image img {
+	display: none;
+}
