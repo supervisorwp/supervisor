@@ -1,0 +1,56 @@
+.supv-header {
+	background-color: $header-bg;
+	box-shadow: 0px 5px 1px -5px $shadow;
+	margin-left: -20px !important;
+	padding: 15px 20px;
+	width: 100%;
+}
+
+.supv-container {
+	margin-left: -20px !important;
+	padding: 0px 20px;
+
+	.supv-overview {
+		margin-top: 20px;
+
+		&-box {
+			background: $white;
+			box-shadow: 0px 5px 1px -5px $shadow;
+			display: inline-block;
+			padding: 10px 15px;
+			margin-right: 20px;
+
+			p {
+				float: left;
+				margin: 0;
+
+				&:first-child {
+					color: $red;
+					font-weight: bold;
+					padding-right: 8px;
+				}
+
+				&:last-child {
+					color: $gray;
+				}
+			}
+		}
+	}
+}
+
+.supv-card {
+	background: $white;
+	padding: 10px 20px;
+	max-width: 200px;
+}
+
+.supv-box {
+	margin-bottom: 10px;
+
+	h3 {
+		border-bottom: 1px solid $red;
+		color: $red;
+		font-size: 20px;
+		padding: 0 0 10px 5px;
+	}
+}

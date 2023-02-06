@@ -3,7 +3,7 @@ if ( ! defined( 'SUPV' ) ) {
 	exit;
 }
 
-if ( supv()->core()->ssl->is_ssl_available() ) {
+if ( supv()->core()->ssl()->is_available() ) {
 	return;
 }
 ?>

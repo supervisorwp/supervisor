@@ -3,7 +3,7 @@ if ( ! defined( 'SUPV' ) ) {
 	exit;
 }
 
-$days_to_expire = supv()->core()->ssl->is_ssl_expiring();
+$days_to_expire = supv()->core()->ssl()->is_expiring();
 
 if ( false === $days_to_expire || ! is_int( $days_to_expire ) ) {
 	return false;

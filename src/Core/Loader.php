@@ -5,18 +5,17 @@ namespace SUPV\Core;
  * The Loader class.
  *
  * @package supervisor
- *
  * @since 1.0.0
  */
 class Loader {
 	/**
-	 * The Autoload object.
+	 * The Server object.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var Autoload
+	 * @var Server
 	 */
-	public $autoload;
+	private $server;
 
 	/**
 	 * The SSL object.
@@ -25,25 +24,7 @@ class Loader {
 	 *
 	 * @var SSL
 	 */
-	public $ssl;
-
-	/**
-	 * The Transients object.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var Transients
-	 */
-	public $transients;
-
-	/**
-	 * The Updates object.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var Updates
-	 */
-	public $updates;
+	private $ssl;
 
 	/**
 	 * Constructor.
@@ -51,19 +32,42 @@ class Loader {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$this->loader();
+
+		$this->setup();
 	}
 
 	/**
-	 * Initialize the WordPress hooks.
+	 * Get the Server object.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return Server
+	 */
+	public function server() {
+
+		return $this->server;
+	}
+
+	/**
+	 * Get the SSL object.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return SSL
+	 */
+	public function ssl() {
+
+		return $this->ssl;
+	}
+
+	/**
+	 * Set all the things up.
 	 *
 	 * @since 1.0.0
 	 */
-	public function loader() {
-		// Loads the Core classes.
-		$this->autoload   = new Autoload();
-		$this->transients = new Transients();
-		$this->ssl        = new SSL();
-		$this->updates    = new Updates();
+	public function setup() {
+
+		$this->server = new Server();
+		$this->ssl    = new SSL();
 	}
 }

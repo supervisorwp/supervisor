@@ -21,15 +21,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'SUPV', true );
 define( 'SUPV_VERSION', '1.0.0' );
+
 define( 'SUPV_PLUGIN_DIR', dirname( __FILE__ ) );
 define( 'SUPV_PLUGIN_URL', plugins_url( '', __FILE__ ) );
+define( 'SUPV_PLUGIN_FILE', __FILE__ );
 
 define( 'SUPV_INC_DIR', SUPV_PLUGIN_DIR . '/includes' );
+
+if ( file_exists( SUPV_PLUGIN_DIR . '/vendor/autoload.php' ) ) {
+	require_once SUPV_PLUGIN_DIR . '/vendor/autoload.php';
+}
 
 /**
  * Plugin loader.
  *
- * @since 1.0.0.
+ * @since 1.0.0
  *
  * @return \SUPV\Loader
  */
@@ -43,5 +49,4 @@ function supv() {
 	return $supv;
 }
 
-require_once SUPV_PLUGIN_DIR . '/src/Loader.php';
 supv();

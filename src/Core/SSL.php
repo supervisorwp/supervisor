@@ -42,7 +42,7 @@ class SSL {
 	 * @since 1.0.0
 	 */
 	public function init() {
-		add_action( 'shutdown', [ $this, 'get_ssl_data' ] );
+		add_action( 'shutdown', [ $this, 'get_data' ] );
 	}
 
 	/**
@@ -52,7 +52,7 @@ class SSL {
 	 *
 	 * @return array|false SSL data or false on error.
 	 */
-	public function get_ssl_data() {
+	public function get_data() {
 		if ( ! is_ssl() && ( ! defined( 'WP_CLI' ) || ! WP_CLI ) ) {
 			return false;
 		}
@@ -111,7 +111,7 @@ class SSL {
 	 *
 	 * @return bool True if SSL is available.
 	 */
-	public function is_ssl_available() {
+	public function is_available() {
 		if ( is_ssl() ) {
 			return true;
 		}
@@ -142,7 +142,7 @@ class SSL {
 	 *
 	 * @return int|false Number of days until certificate expiration or false on error.
 	 */
-	public function is_ssl_expiring() {
+	public function is_expiring() {
 		$ssl_data = get_transient( self::SSL_DATA_TRANSIENT );
 
 		if ( false !== $ssl_data && ! empty( $ssl_data['validity']['to'] ) ) {

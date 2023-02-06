@@ -5,7 +5,6 @@ namespace SUPV\Admin;
  * The Dashboard class.
  *
  * @package supervisor
- *
  * @since 1.0.0
  */
 class Dashboard {
@@ -42,7 +41,8 @@ class Dashboard {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$this->init();
+
+		$this->hooks();
 	}
 
 	/**
@@ -50,10 +50,7 @@ class Dashboard {
 	 *
 	 * @since 1.0.0
 	 */
-	public function init() {
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return;
-		}
+	public function hooks() {
 
 		add_action( 'admin_init', [ $this, 'load_resources' ] );
 		add_action( 'admin_menu', [ $this, 'admin_menu' ], 5 );
@@ -66,7 +63,6 @@ class Dashboard {
 	 * @since 1.0.0
 	 */
 	public function load_resources() {
-		// TODO: disable JS and CSS for non-Supervisor screens.
 
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
@@ -83,6 +79,7 @@ class Dashboard {
 	 * @since 1.0.0
 	 */
 	public function admin_menu() {
+
 		$this->hookname = add_menu_page( 'Supervisor', 'Supervisor', 'manage_options', 'supervisor', [ $this, 'admin_page' ], 'none', 200 );
 	}
 
@@ -92,6 +89,7 @@ class Dashboard {
 	 * @since 1.0.0
 	 */
 	public function admin_page() {
+
 		$this->view( 'admin/dashboard' );
 	}
 
@@ -101,6 +99,7 @@ class Dashboard {
 	 * @since 1.0.0
 	 */
 	public function admin_notices() {
+
 		if ( get_option( self::DISABLE_NOTICES_OPTION ) ) {
 			return;
 		}
@@ -130,6 +129,7 @@ class Dashboard {
 	 * @param string $name The name of the view to load.
 	 */
 	private function view( $name ) {
+
 		$file = SUPV_PLUGIN_DIR . '/resources/views/' . $name . '.php';
 
 		if ( file_exists( $file ) ) {
