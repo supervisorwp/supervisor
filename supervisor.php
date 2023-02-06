@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Supervisor
  * Plugin URI:  https://supervisor-wp.com
- * Description: Checks the health and security of your WordPress install.
+ * Description: Checks the health of your WordPress install.
  * Version:     1.0.0
  * Author:      Supervisor Team
  * Author URI:  https://supervisor-wp.com/contributors
