@@ -1,0 +1,92 @@
+.supv-card {
+	color: $black;
+	background-color: $card-bg;
+	border: 1px solid $card-border;
+	box-shadow: 0px 1px 1px $shadow;
+	margin: 10px 0;
+
+	&.disabled {
+		.content {
+			background: $card-bg;
+			font-size: 16px;
+			line-height: 24px;
+		}
+	}
+
+	@media only screen and (max-width: 782px) {
+		margin: 20px 0;
+	}
+
+	svg.supv-circle-question-mark {
+		width: 17px;
+		height: 17px;
+		color: #8C8F99;
+		transition: background-color 0.2s ease;
+
+		&:hover {
+			color: darken(#8C8F99, 20%);
+		}
+	}
+
+	.header {
+		display: flex;
+		align-items: center;
+		height: 50px;
+		padding: 0 20px;
+		font-weight: 600;
+		font-size: $card-header-font-size;
+		border-bottom: 1px solid $card-border;
+
+		.header-icon {
+			display: flex;
+
+			svg {
+				width: 24px;
+				height: 24px;
+				margin-right: 16px;
+			}
+		}
+
+		.text {
+			color: $card-header-color;
+			flex: 1 1 auto;
+			display: flex;
+			align-items: center;
+		}
+
+		svg.supv-caret {
+			width: 24px;
+			height: 24px;
+			cursor: pointer;
+			transform: rotate(-180deg);
+			transition: transform 0.3s;
+
+			&.rotated {
+				transform: rotate(-90deg);
+			}
+		}
+
+		svg.supv-close {
+			width: 14px;
+			height: 14px;
+			cursor: pointer;
+		}
+	}
+
+	.content {
+		color: $card-content-color;
+		line-height: $card-content-line-height;
+		padding: 10px 20px;
+		position: relative;
+
+		p {
+			line-height: $card-content-line-height;
+		}
+	}
+
+	div.supv-settings-row:last-child {
+		margin-bottom: 0;
+		border-bottom: none;
+		padding-bottom: 0;
+	}
+}

@@ -1,13 +1,21 @@
-// General
-$shadow: #bbb;
-
-// Header
-$header-bg: #fff;
-
-// Colors
+// Colors.
 $black: #000;
 $green: #3aa346;
 $orange: #f55a03;
 $red: #8a1736;
 $white: #fff;
 $gray: #444;
+
+// General.
+$shadow: #bbb;
+
+// Header.
+$header-bg: #fff;
+
+// Card.
+$card-bg: #fff;
+$card-border: #efefef;
+$card-header-font-size: 16px;
+$card-header-color: $red;
+$card-content-color: $gray;
+$card-content-line-height: 1.6;

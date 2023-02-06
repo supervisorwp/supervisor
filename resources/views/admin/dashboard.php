@@ -55,9 +55,9 @@ $boxes = [
 		<?php endif; ?>
 	</div>
 
-	<div class="supv-boxes">
+	<div class="supv-boxes supv-row">
 		<?php foreach ( $boxes as $box ) : ?>
-			<div class="supv-box">
+			<div class="supv-box supv-col col-md-6">
 				<?php supv_output_view( 'admin/boxes/' . $box ); ?>
 			</div>
 		<?php endforeach; ?>
