@@ -9,6 +9,15 @@ namespace SUPV\Core;
  */
 class Loader {
 	/**
+	 * The Autoload object.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var Autoload
+	 */
+	private $autoload;
+
+	/**
 	 * The Server object.
 	 *
 	 * @since 1.0.0
@@ -27,6 +36,15 @@ class Loader {
 	private $ssl;
 
 	/**
+	 * The Transients object.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var Transients
+	 */
+	private $transients;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 1.0.0
@@ -34,6 +52,18 @@ class Loader {
 	public function __construct() {
 
 		$this->setup();
+	}
+
+	/**
+	 * Get the Autoload object.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return Autoload
+	 */
+	public function autoload() {
+
+		return $this->autoload;
 	}
 
 	/**
@@ -61,13 +91,27 @@ class Loader {
 	}
 
 	/**
+	 * Get the Transients object.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return Transients
+	 */
+	public function transients() {
+
+		return $this->transients;
+	}
+
+	/**
 	 * Set all the things up.
 	 *
 	 * @since 1.0.0
 	 */
 	public function setup() {
 
-		$this->server = new Server();
-		$this->ssl    = new SSL();
+		$this->server     = new Server();
+		$this->ssl        = new SSL();
+		$this->autoload   = new Autoload();
+		$this->transients = new Transients();
 	}
 }

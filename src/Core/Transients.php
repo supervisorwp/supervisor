@@ -9,32 +9,13 @@ namespace SUPV\Core;
  */
 class Transients {
 	/**
-	 * Constructor.
-	 *
-	 * @since 1.0.0
-	 */
-	public function __construct() {
-
-		$this->init();
-	}
-
-	/**
-	 * Initialize the WordPress hooks.
-	 *
-	 * @since 1.0.0
-	 */
-	public function init() {
-
-	}
-
-	/**
 	 * Returns the 10 biggest transients.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return array The name and size of the biggest transients.
 	 */
-	public function get_transients() {
+	public function get() {
 
 		global $wpdb;
 
@@ -56,7 +37,7 @@ class Transients {
 	 *
 	 * @return array Stats of the transients.
 	 */
-	public function get_transients_stats() {
+	public function get_stats() {
 
 		global $wpdb;
 
@@ -80,7 +61,7 @@ class Transients {
 	 *
 	 * @return int|false Number of affected rows or false on error.
 	 */
-	public function cleanup_transients( $only_expired = true ) {
+	public function cleanup( $only_expired = true ) {
 
 		global $wpdb;
 

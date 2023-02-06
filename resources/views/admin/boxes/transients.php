@@ -1,3 +1,9 @@
+<?php
+if ( ! defined( 'SUPV' ) ) {
+	exit;
+}
+?>
+
 <h3>Transients</h3>
 
 <div>
