@@ -6,7 +6,7 @@ if ( ! defined( 'SUPV' ) ) {
 
 <div class="supv-header">
 	<div class="supv-header-logo">
-		<img src="<?php echo SUPV_PLUGIN_URL . '/resources/assets/images/supervisor.png'; ?>" title="Supervisor" />
+		<img src="<?php echo esc_url( SUPV_PLUGIN_URL . '/resources/assets/images/supervisor.png' ); ?>" title="Supervisor" />
 	</div>
 </div>
 
@@ -39,17 +39,14 @@ if ( ! defined( 'SUPV' ) ) {
 			</p>
 		</div>
 
-		<div class="supv-overview-box">
-			<p>Server IP</p>
-			<p>
-				<?php echo ! empty( supv()->core()->server()->get_ip() ) ? supv()->core()->server()->get_ip() : '-'; ?>
-			</p>
-		</div>
-
-		<div class="supv-overview-box">
-			<p>SSL</p>
-			<p><?php echo ! supv()->core()->ssl()->is_available() ? 'Enabled' : 'Not available'; ?></p>
-		</div>
+		<?php if ( ! empty( supv()->core()->server()->get_ip() ) ) : ?>
+			<div class="supv-overview-box">
+				<p>Server IP</p>
+				<p>
+					<?php echo esc_html( supv()->core()->server()->get_ip() ); ?>
+				</p>
+			</div>
+		<?php endif; ?>
 	</div>
 
 	<div class="supv-box">
