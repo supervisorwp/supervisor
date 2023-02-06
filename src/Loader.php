@@ -53,6 +53,8 @@ class Loader {
 	 */
 	public function setup() {
 
+		require_once SUPV_PLUGIN_DIR . '/inc/helpers.php';
+
 		$this->core  = new Core\Loader();
 		$this->admin = new Admin\Loader();
 	}

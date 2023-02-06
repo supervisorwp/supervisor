@@ -6,7 +6,7 @@ if ( ! defined( 'SUPV' ) ) {
 
 <div class="supv-header">
 	<div class="supv-header-logo">
-		<img src="<?php echo esc_url( SUPV_PLUGIN_URL . '/resources/assets/images/supervisor.png' ); ?>" title="Supervisor" />
+		<img src="<?php echo esc_url( supv_get_asset_url( 'supervisor.png' ) ); ?>" title="Supervisor" />
 	</div>
 </div>
 

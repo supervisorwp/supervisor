@@ -66,8 +66,8 @@ class Dashboard {
 
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		wp_register_script( 'supv-js', SUPV_PLUGIN_URL . '/resources/assets/js/supervisor' . $suffix . '.js', false, SUPV_VERSION );
-		wp_register_style( 'supv-css', SUPV_PLUGIN_URL . '/resources/assets/css/supervisor' . $suffix . '.css', false, SUPV_VERSION );
+		wp_register_script( 'supv-js', supv_get_asset_url( 'supervisor' . $suffix . '.js', 'js' ), false, SUPV_VERSION );
+		wp_register_style( 'supv-css', supv_get_asset_url( 'supervisor' . $suffix . '.css', 'css' ), false, SUPV_VERSION );
 
 		wp_enqueue_script( 'supv-js' );
 		wp_enqueue_style( 'supv-css' );
