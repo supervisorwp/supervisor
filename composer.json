@@ -1,7 +1,17 @@
 {
+	"repositories": {
+		"wpforms-phpcs": {
+			"type": "git",
+			"url": "https://github.com/awesomemotive/wpforms-phpcs.git"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
 	"require-dev": {
-		"wp-coding-standards/wpcs": "^2.3",
-		"phpcompatibility/php-compatibility": "^9.3"
+		"awesomemotive/wpforms-phpcs": "^1.0"
 	},
 	"autoload": {
 		"psr-4": {
@@ -9,8 +19,6 @@
 		}
 	},
 	"scripts": {
-		"post-update-cmd": [
-			"./vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs/,vendor/phpcompatibility/php-compatibility/"
-		]
+		"phpcs": "phpcs --standard=phpcs.xml.dist -s --colors"
 	}
 }

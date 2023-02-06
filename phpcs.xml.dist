@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ruleset name="Supervisor">
+	<description>The coding standards for Supervisor plugin.</description>
+
+	<arg name="extensions" value="php"/>
+	<arg value="s"/>
+
+	<file>.</file>
+
+	<exclude-pattern>/(vendor|languages|tests|node_modules)/*</exclude-pattern>
+	<exclude-pattern>/index\.php</exclude-pattern>
+
+	<rule ref="WPForms">
+		<exclude name="WPForms.PHP.ConditionsYodaDisable.YodaRemove"/>
+		<exclude name="WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks"/>
+	</rule>
+
+	<rule ref="WordPress.PHP.YodaConditions"/>
+
+	<config name="minimum_supported_wp_version" value="5.2"/>
+	<config name="testVersion" value="5.6-"/>
+</ruleset>
