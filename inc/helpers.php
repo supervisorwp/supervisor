@@ -11,11 +11,11 @@
  */
 function supv_get_asset_url( $name, $type = 'images' ) {
 
-	$path = sprintf(
+	$file = sprintf(
 		'/resources/assets/%s/%s',
 		$type,
 		$name
 	);
 
-	return file_exists( SUPV_PLUGIN_DIR . $path ) ? SUPV_PLUGIN_URL . $path : '';
+	return file_exists( SUPV_PLUGIN_DIR . $file ) ? SUPV_PLUGIN_URL . $file : '';
 }
