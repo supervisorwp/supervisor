@@ -37,13 +37,13 @@ function supv_output_view( $name ) {
 }
 
 /**
- * Is Supervisor screen.
+ * Is Supervisor dashboard screen.
  *
  * @since 1.0.0
  *
- * @return bool True if it is the Supervisor screen on Dashboard.
+ * @return bool True if it is the Supervisor dashboard.
  */
 function supv_is_supervisor_screen() {
 
-	return is_admin() && isset( $_GET['page'] ) && 'supervisor' === sanitize_key( wp_unslash( $_GET['page'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	return is_admin() && ! empty( $_GET['page'] ) && 'supervisor' === sanitize_key( wp_unslash( $_GET['page'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 }
