@@ -5,7 +5,6 @@ namespace SUPV\Core;
  * The Transients class.
  *
  * @package supervisor
- *
  * @since 1.0.0
  */
 class Transients {
@@ -15,6 +14,7 @@ class Transients {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
+
 		$this->init();
 	}
 
@@ -24,6 +24,7 @@ class Transients {
 	 * @since 1.0.0
 	 */
 	public function init() {
+
 	}
 
 	/**
@@ -34,6 +35,7 @@ class Transients {
 	 * @return array The name and size of the biggest transients.
 	 */
 	public function get_transients() {
+
 		global $wpdb;
 
 		$transients = [];
@@ -55,6 +57,7 @@ class Transients {
 	 * @return array Stats of the transients.
 	 */
 	public function get_transients_stats() {
+
 		global $wpdb;
 
 		$result = $wpdb->get_row( "SELECT COUNT(*) AS count, SUM(LENGTH(option_value)) / POWER(1024,2) AS size FROM $wpdb->options WHERE option_name REGEXP '^_(site_)?transient';" );
@@ -78,6 +81,7 @@ class Transients {
 	 * @return int|false Number of affected rows or false on error.
 	 */
 	public function cleanup_transients( $only_expired = true ) {
+
 		global $wpdb;
 
 		if ( wp_using_ext_object_cache() ) {

@@ -5,7 +5,6 @@ namespace SUPV\Core;
  * The SSL class.
  *
  * @package supervisor
- *
  * @since 1.0.0
  */
 class SSL {
@@ -33,7 +32,8 @@ class SSL {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$this->init();
+
+		$this->hooks();
 	}
 
 	/**
@@ -41,7 +41,8 @@ class SSL {
 	 *
 	 * @since 1.0.0
 	 */
-	public function init() {
+	public function hooks() {
+
 		add_action( 'shutdown', [ $this, 'get_data' ] );
 	}
 
@@ -52,7 +53,8 @@ class SSL {
 	 *
 	 * @return array|false SSL data or false on error.
 	 */
-	public function get_data() {
+	public function get_data() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
+
 		if ( ! is_ssl() && ( ! defined( 'WP_CLI' ) || ! WP_CLI ) ) {
 			return false;
 		}
@@ -69,7 +71,7 @@ class SSL {
 				]
 			);
 
-			$siteurl = parse_url( get_option( 'siteurl' ) );
+			$siteurl = wp_parse_url( get_option( 'siteurl' ) );
 
 			if ( empty( $siteurl['host'] ) ) {
 				return false;
@@ -89,11 +91,11 @@ class SSL {
 				$certificate = openssl_x509_parse( $params['options']['ssl']['peer_certificate'] );
 
 				$ssl_data = [
-					'common_name' => $certificate['subject']['CN'],
-					'issuer'      => $certificate['issuer']['CN'],
+					'common_name' => ! empty( $certificate['subject']['CN'] ) ? $certificate['subject']['CN'] : '',
+					'issuer'      => ! empty( $certificate['issuer']['CN'] ) ? $certificate['issuer']['CN'] : '',
 					'validity'    => [
-						'from' => date( 'Y-m-d H:i:s', $certificate['validFrom_time_t'] ),
-						'to'   => date( 'Y-m-d H:i:s', $certificate['validTo_time_t'] ),
+						'from' => gmdate( 'Y-m-d H:i:s', $certificate['validFrom_time_t'] ),
+						'to'   => gmdate( 'Y-m-d H:i:s', $certificate['validTo_time_t'] ),
 					],
 				];
 
@@ -112,6 +114,7 @@ class SSL {
 	 * @return bool True if SSL is available.
 	 */
 	public function is_available() {
+
 		if ( is_ssl() ) {
 			return true;
 		}
@@ -119,15 +122,15 @@ class SSL {
 		$is_available = get_transient( self::SSL_AVAILABLE_TRANSIENT );
 
 		if ( false === $is_available ) {
-			$siteurl = parse_url( get_option( 'siteurl' ) );
+			$siteurl = wp_parse_url( get_option( 'siteurl' ) );
 
 			if ( empty( $siteurl['host'] ) ) {
 				return false;
 			}
 
-			$socket = @fsockopen( 'ssl://' . $siteurl['host'], 443, $errno, $errstr, 20 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+			$socket = @fsockopen( 'ssl://' . $siteurl['host'], 443, $errno, $errstr, 20 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged,WordPress.WP.AlternativeFunctions.file_system_read_fsockopen
 
-			$is_available = ( false != $socket );
+			$is_available = ( false !== $socket );
 
 			set_transient( self::SSL_AVAILABLE_TRANSIENT, $is_available, DAY_IN_SECONDS );
 		}
@@ -143,6 +146,7 @@ class SSL {
 	 * @return int|false Number of days until certificate expiration or false on error.
 	 */
 	public function is_expiring() {
+
 		$ssl_data = get_transient( self::SSL_DATA_TRANSIENT );
 
 		if ( false !== $ssl_data && ! empty( $ssl_data['validity']['to'] ) ) {

@@ -10,12 +10,14 @@
 	<exclude-pattern>/(vendor|languages|tests|node_modules)/*</exclude-pattern>
 	<exclude-pattern>/index\.php</exclude-pattern>
 
+	<rule ref="WordPress.PHP.YodaConditions"/>
+
 	<rule ref="WPForms">
 		<exclude name="WPForms.PHP.ConditionsYodaDisable.YodaRemove"/>
 		<exclude name="WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks"/>
+		<exclude name="WordPress.DB.DirectDatabaseQuery.NoCaching"/>
+		<exclude name="WPForms.PHP.ValidateHooks.InvalidHookName"/>
 	</rule>
-
-	<rule ref="WordPress.PHP.YodaConditions"/>
 
 	<config name="minimum_supported_wp_version" value="5.2"/>
 	<config name="testVersion" value="5.6-"/>

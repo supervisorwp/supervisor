@@ -33,7 +33,7 @@ class Server {
 	 *
 	 * @return array The server data.
 	 */
-	public function get_data() {
+	public function get_data() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 		global $wpdb;
 
@@ -85,6 +85,13 @@ class Server {
 			set_transient( self::SERVER_DATA_TRANSIENT, $server, DAY_IN_SECONDS );
 		}
 
+		/**
+		 * Filters the server data.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $server The server data.
+		 */
 		return apply_filters( 'supv_server_data', $server );
 	}
 
@@ -109,6 +116,13 @@ class Server {
 
 		$ip = ! empty( $ip ) && filter_var( $ip, FILTER_VALIDATE_IP ) ? $ip : false;
 
+		/**
+		 * Filters the server IP.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $server The server IP.
+		 */
 		return apply_filters( 'supv_server_ip', $ip );
 	}
 
@@ -140,6 +154,13 @@ class Server {
 			}
 		}
 
+		/**
+		 * Filters the server requirements.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $server The server requirements.
+		 */
 		return apply_filters( 'supv_server_requirements', $requirements );
 	}
 

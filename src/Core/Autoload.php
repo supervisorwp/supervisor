@@ -5,7 +5,6 @@ namespace SUPV\Core;
  * The Autoload class.
  *
  * @package supervisor
- *
  * @since 1.0.0
  */
 class Autoload {
@@ -24,6 +23,7 @@ class Autoload {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
+
 		$this->init();
 	}
 
@@ -42,7 +42,8 @@ class Autoload {
 	 *
 	 * @return array The name and size of the biggest autoload options.
 	 */
-	public function get_autoload_options() {
+	public function get_options() {
+
 		global $wpdb;
 
 		$options = [];
@@ -63,7 +64,8 @@ class Autoload {
 	 *
 	 * @return array Stats of the autoload options.
 	 */
-	public function get_autoload_stats() {
+	public function get_stats() {
+
 		global $wpdb;
 
 		$result = $wpdb->get_row( "SELECT COUNT(*) AS count, SUM(LENGTH(option_value)) / POWER(1024,2) AS size FROM $wpdb->options WHERE autoload = 'yes' AND option_name NOT REGEXP '^_(site_)?transient';" );
@@ -71,10 +73,10 @@ class Autoload {
 		$count = (int) $result->count;
 		$size  = (float) $result->size;
 
-		return array(
+		return [
 			'count' => $count,
 			'size'  => $size,
-		);
+		];
 	}
 
 	/**
@@ -84,7 +86,8 @@ class Autoload {
 	 *
 	 * @return array|false Name and timestamp of the options or false if none.
 	 */
-	public function get_autoload_history() {
+	public function get_history() {
+
 		$history = get_option( self::DISABLE_AUTOLOAD_OPTION );
 
 		if ( $history ) {
@@ -119,11 +122,12 @@ class Autoload {
 	 * @return boolean True if autoload is disabled.
 	 */
 	public function is_autoload_disabled( $option_name ) {
+
 		global $wpdb;
 
 		$autoload = $wpdb->get_var( $wpdb->prepare( "SELECT autoload FROM $wpdb->options WHERE option_name = %s;", $option_name ) );
 
-		return ( 'no' == $autoload );
+		return ( 'no' === $autoload );
 	}
 
 	/**
@@ -136,13 +140,14 @@ class Autoload {
 	 * @return boolean True if it is a WP core option.
 	 */
 	public function is_core_option( $option_name ) {
+
 		$wp_opts_file = WPHC_INC_DIR . '/data/wp_options.json';
 
 		if ( file_exists( $wp_opts_file ) ) {
 			$wp_opts = json_decode( file_get_contents( $wp_opts_file ) );
 		}
 
-		return ( in_array( $option_name, $wp_opts ) );
+		return ( in_array( $option_name, $wp_opts, true ) );
 	}
 
 	/**
@@ -151,12 +156,13 @@ class Autoload {
 	 * @since 1.0.0
 	 *
 	 * @param string  $option_name The name of the option to disable.
-	 * @param boolean $logging Save deactivation to history.
+	 * @param boolean $logging     Save deactivation to history.
 	 *
 	 * @return int|false Number of affected rows or false on error.
 	 */
 	public function deactivate_autoload_option( $option_name, $logging = true ) {
-		return $this->_update_autoload_option( $option_name, 'no', $logging );
+
+		return $this->update_autoload_option( $option_name, 'no', $logging );
 	}
 
 	/**
@@ -169,7 +175,8 @@ class Autoload {
 	 * @return int|false Number of affected rows or false on error.
 	 */
 	public function reactivate_autoload_option( $option_name ) {
-		return $this->_update_autoload_option( $option_name, 'yes' );
+
+		return $this->update_autoload_option( $option_name, 'yes' );
 	}
 
 	/**
@@ -178,12 +185,13 @@ class Autoload {
 	 * @since 1.0.0
 	 *
 	 * @param string $option_name The name of the option to disable.
-	 * @param string $autoload The new value for the autoload field. Only 'yes' or 'no'.
-	 * @param string $logging Save deactivation to history.
+	 * @param string $autoload    The new value for the autoload field. Only 'yes' or 'no'.
+	 * @param string $logging     Save deactivation to history.
 	 *
 	 * @return int|false Number of affected rows or false on error.
 	 */
-	private function _update_autoload_option( $option_name, $autoload = 'no', $logging = true ) {
+	private function update_autoload_option( $option_name, $autoload = 'no', $logging = true ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
+
 		global $wpdb;
 
 		if ( ! get_option( $option_name ) ) {
@@ -195,7 +203,7 @@ class Autoload {
 		// update option's autoload value to $autoload.
 		$result = $wpdb->query( $wpdb->prepare( "UPDATE $wpdb->options SET autoload = %s WHERE option_name LIKE %s;", $autoload, $option_name ) );
 
-		if ( 0 == $result ) {
+		if ( empty( $result ) || 0 === $result ) {
 			return false;
 		}
 
@@ -219,7 +227,7 @@ class Autoload {
 
 			if ( $history && is_array( $history ) ) {
 				foreach ( $history as $name => $timestamp ) {
-					if ( get_option( $name ) && $name == $option_name ) {
+					if ( get_option( $name ) && $name === $option_name ) {
 						unset( $history[ $name ] );
 
 						$updated = true;

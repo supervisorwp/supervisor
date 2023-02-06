@@ -24,6 +24,7 @@ class Updates {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
+
 		$this->init();
 	}
 
@@ -33,6 +34,7 @@ class Updates {
 	 * @since 1.0.0
 	 */
 	public function init() {
+
 		add_action( 'wp_loaded', [ $this, 'check_core_updates' ] );
 	}
 
@@ -42,6 +44,7 @@ class Updates {
 	 * @since 1.0.0
 	 */
 	public function check_core_updates() {
+
 		$core_auto_update_option = $this->get_core_auto_update_option();
 
 		if ( $core_auto_update_option && preg_match( '/^(minor|major|dev|disabled)$/', $core_auto_update_option ) ) {
@@ -61,6 +64,7 @@ class Updates {
 	 * @return string|bool It can assume 'disabled', 'minor', 'major', 'dev' or false.
 	 */
 	public function get_core_auto_update_option() {
+
 		if ( self::is_wp_auto_update_available() ) {
 			return false;
 		}
@@ -79,6 +83,7 @@ class Updates {
 	 * @since 1.3.0
 	 */
 	public function set_core_auto_update_option( $option_value ) {
+
 		$core_auto_update_option = get_option( self::CORE_AUTO_UPDATE_OPTION );
 
 		if ( $this->is_wp_auto_update_available() ) {
@@ -98,6 +103,7 @@ class Updates {
 	 * @return boolean True if WordPress auto update constants are available.
 	 */
 	public function is_wp_auto_update_available() {
+
 		return ( defined( 'AUTOMATIC_UPDATER_DISABLED' ) || defined( 'WP_AUTO_UPDATE_CORE' ) );
 	}
 }
