@@ -19,3 +19,19 @@ function supv_get_asset_url( $name, $type = 'images' ) {
 
 	return file_exists( SUPV_PLUGIN_DIR . $file ) ? SUPV_PLUGIN_URL . $file : '';
 }
+
+/**
+ * Outputs a view.
+ *
+ * @since 1.0.0
+ *
+ * @param string $name The name of the view to output.
+ */
+function supv_output_view( $name ) {
+
+	$file = sprintf( '/resources/views/%s.php', $name );
+
+	if ( file_exists( SUPV_PLUGIN_DIR . $file ) ) {
+		include SUPV_PLUGIN_DIR . $file;
+	}
+}

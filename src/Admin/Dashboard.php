@@ -90,7 +90,7 @@ class Dashboard {
 	 */
 	public function admin_page() {
 
-		$this->view( 'admin/dashboard' );
+		supv_output_view( 'admin/dashboard' );
 	}
 
 	/**
@@ -116,24 +116,8 @@ class Dashboard {
 
 		foreach ( $notices as $notice ) {
 			if ( ! isset( $notices_transient[ $notice ] ) ) {
-				$this->view( 'admin/notices/' . $notice );
+				supv_output_view( 'admin/notices/' . $notice );
 			}
-		}
-	}
-
-	/**
-	 * Includes a view.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $name The name of the view to load.
-	 */
-	private function view( $name ) {
-
-		$file = SUPV_PLUGIN_DIR . '/resources/views/' . $name . '.php';
-
-		if ( file_exists( $file ) ) {
-			include $file;
 		}
 	}
 }
