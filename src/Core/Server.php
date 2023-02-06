@@ -127,44 +127,6 @@ class Server {
 	}
 
 	/**
-	 * Retrieves the server requirements from our API.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return array|false The server requirements, or false on error.
-	 */
-	public function get_requirements() {
-
-		$requirements = get_transient( self::MIN_REQUIREMENTS_TRANSIENT );
-
-		if ( false === $requirements ) {
-			$options = [
-				'timeout'    => 20,
-				'user-agent' => 'Supervisor/' . WPHC_VERSION . '; ' . site_url(),
-			];
-
-			$res = wp_remote_get( 'https://api.wp-healthcheck.com/v1/requirements', $options );
-
-			if ( is_array( $res ) && 200 === wp_remote_retrieve_response_code( $res ) ) {
-				$requirements = json_decode( $res['body'], true );
-
-				set_transient( self::MIN_REQUIREMENTS_TRANSIENT, $requirements, WEEK_IN_SECONDS );
-			} else {
-				return false;
-			}
-		}
-
-		/**
-		 * Filters the server requirements.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param array $server The server requirements.
-		 */
-		return apply_filters( 'supv_server_requirements', $requirements );
-	}
-
-	/**
 	 * Determine if server software is up-to-date or not.
 	 *
 	 * @since 1.0.0
