@@ -35,3 +35,15 @@ function supv_output_view( $name ) {
 		include SUPV_PLUGIN_DIR . $file;
 	}
 }
+
+/**
+ * Is Supervisor screen.
+ *
+ * @since 1.0.0
+ *
+ * @return bool True if it is the Supervisor screen on Dashboard.
+ */
+function supv_is_supervisor_screen() {
+
+	return is_admin() && isset( $_GET['page'] ) && 'supervisor' === sanitize_key( wp_unslash( $_GET['page'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+}

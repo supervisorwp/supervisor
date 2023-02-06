@@ -121,7 +121,7 @@ class Autoload {
 	 *
 	 * @return boolean True if autoload is disabled.
 	 */
-	public function is_autoload_disabled( $option_name ) {
+	public function is_disabled( $option_name ) {
 
 		global $wpdb;
 
@@ -141,7 +141,7 @@ class Autoload {
 	 */
 	public function is_core_option( $option_name ) {
 
-		$wp_opts_file = WPHC_INC_DIR . '/data/wp_options.json';
+		$wp_opts_file = SUPV_PLUGIN_DIR . '/resources/assets/wp_options.json';
 
 		if ( file_exists( $wp_opts_file ) ) {
 			$wp_opts = json_decode( file_get_contents( $wp_opts_file ) );
@@ -160,9 +160,9 @@ class Autoload {
 	 *
 	 * @return int|false Number of affected rows or false on error.
 	 */
-	public function deactivate_autoload_option( $option_name, $logging = true ) {
+	public function deactivate_option( $option_name, $logging = true ) {
 
-		return $this->update_autoload_option( $option_name, 'no', $logging );
+		return $this->update_option( $option_name, 'no', $logging );
 	}
 
 	/**
@@ -174,9 +174,9 @@ class Autoload {
 	 *
 	 * @return int|false Number of affected rows or false on error.
 	 */
-	public function reactivate_autoload_option( $option_name ) {
+	public function reactivate_option( $option_name ) {
 
-		return $this->update_autoload_option( $option_name, 'yes' );
+		return $this->update_option( $option_name, 'yes' );
 	}
 
 	/**
@@ -190,7 +190,7 @@ class Autoload {
 	 *
 	 * @return int|false Number of affected rows or false on error.
 	 */
-	private function update_autoload_option( $option_name, $autoload = 'no', $logging = true ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
+	private function update_option( $option_name, $autoload = 'no', $logging = true ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
 		global $wpdb;
 
@@ -207,11 +207,11 @@ class Autoload {
 			return false;
 		}
 
-		if ( $should_autoload && $this->is_autoload_disabled( $option_name ) ) {
+		if ( $should_autoload && $this->is_disabled( $option_name ) ) {
 			return false;
 		}
 
-		if ( ! $should_autoload && ! $this->is_autoload_disabled( $option_name ) ) {
+		if ( ! $should_autoload && ! $this->is_disabled( $option_name ) ) {
 			return false;
 		}
 

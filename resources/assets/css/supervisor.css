@@ -86,3 +86,7 @@
   font-size: 20px;
   padding: 0 0 10px 5px;
 }
+
+.supv-notice-margin {
+  margin: 20px 0 !important;
+}
