@@ -36,7 +36,7 @@
 		-webkit-box-flex: 0;
 		-ms-flex: 0 0 auto;
 		flex: 0 0 auto;
-		padding: 0.5rem;
+		padding: 0 0.5rem 0.5rem 0.5rem;
 	}
 
 	&.col-xs {
@@ -370,7 +370,7 @@
 			-webkit-box-flex: 0;
 			-ms-flex: 0 0 auto;
 			flex: 0 0 auto;
-			padding: 0.5rem;
+			padding: 0 0.5rem 0.5rem 0.5rem;
 		}
 		&.col-sm {
 			-webkit-box-flex: 1;
@@ -532,7 +532,7 @@
 			-webkit-box-flex: 0;
 			-ms-flex: 0 0 auto;
 			flex: 0 0 auto;
-			padding: 0.5rem;
+			padding: 0 0.5rem 0.5rem 0.5rem;
 		}
 		&.col-md {
 			-webkit-box-flex: 1;
@@ -700,7 +700,7 @@
 			-webkit-box-flex: 0;
 			-ms-flex: 0 0 auto;
 			flex: 0 0 auto;
-			padding: 0.5rem;
+			padding: 0 0.5rem 0.5rem 0.5rem;
 		}
 		&.col-lg {
 			-webkit-box-flex: 1;
@@ -860,7 +860,7 @@
 			-webkit-box-flex: 0;
 			-ms-flex: 0 0 auto;
 			flex: 0 0 auto;
-			padding: 0.5rem;
+			padding: 0 0.5rem 0.5rem 0.5rem;
 		}
 		&.col-xl {
 			-webkit-box-flex: 1;

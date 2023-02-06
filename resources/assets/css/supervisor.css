@@ -276,7 +276,7 @@
   -webkit-box-flex: 0;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
-  padding: 0.5rem;
+  padding: 0 0.5rem 0.5rem 0.5rem;
 }
 .supv-col.col-xs {
   -webkit-box-flex: 1;
@@ -500,7 +500,7 @@
     -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
-    padding: 0.5rem;
+    padding: 0 0.5rem 0.5rem 0.5rem;
   }
   .supv-col.col-sm {
     -webkit-box-flex: 1;
@@ -635,7 +635,7 @@
     -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
-    padding: 0.5rem;
+    padding: 0 0.5rem 0.5rem 0.5rem;
   }
   .supv-col.col-md {
     -webkit-box-flex: 1;
@@ -778,7 +778,7 @@
     -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
-    padding: 0.5rem;
+    padding: 0 0.5rem 0.5rem 0.5rem;
   }
   .supv-col.col-lg {
     -webkit-box-flex: 1;
@@ -913,7 +913,7 @@
     -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
-    padding: 0.5rem;
+    padding: 0 0.5rem 0.5rem 0.5rem;
   }
   .supv-col.col-xl {
     -webkit-box-flex: 1;
@@ -1047,7 +1047,7 @@
   color: #000;
   background-color: #fff;
   border: 1px solid #efefef;
-  box-shadow: 0px 1px 1px #bbb;
+  box-shadow: 0px 5px 1px -5px #bbb;
   margin: 10px 0;
 }
 .supv-card.disabled .content {
@@ -1125,24 +1125,29 @@
 .supv-header {
   background-color: #fff;
   box-shadow: 0px 5px 1px -5px #bbb;
-  margin-left: -20px !important;
   padding: 15px 20px;
-  width: 100%;
 }
 
-.supv-container {
-  margin-left: -20px !important;
-  padding: 0px 20px;
+@media only screen and (min-width: 390px) {
+  .supv-container {
+    padding: 0px 20px;
+  }
+}
+@media only screen and (min-width: 782px) {
+  .supv-container {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 .supv-container .supv-overview {
-  margin-top: 20px;
+  margin-top: 1rem;
 }
 .supv-container .supv-overview-box {
   background: #fff;
   box-shadow: 0px 5px 1px -5px #bbb;
   display: inline-block;
   padding: 10px 15px;
-  margin-right: 20px;
+  margin-right: 12px;
 }
 .supv-container .supv-overview-box p {
   float: left;
