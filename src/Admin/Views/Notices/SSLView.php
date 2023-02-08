@@ -9,7 +9,7 @@ use SUPV\Admin\Views\AbstractView;
  * @package supervisor
  * @since 1.0.0
  */
-class SSLView extends AbstractView {
+final class SSLView extends AbstractView {
 
 	/**
 	 * Outputs the view.

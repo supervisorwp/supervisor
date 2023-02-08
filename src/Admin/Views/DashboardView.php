@@ -7,7 +7,7 @@ namespace SUPV\Admin\Views;
  * @package supervisor
  * @since 1.0.0
  */
-class DashboardView extends AbstractView {
+final class DashboardView extends AbstractView {
 
 	/**
 	 * The full qualified name for the views to load.

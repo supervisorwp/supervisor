@@ -7,7 +7,7 @@ namespace SUPV\Admin;
  * @package supervisor
  * @since 1.0.0
  */
-class Loader {
+final class Loader {
 	/**
 	 * The AJAX object.
 	 *

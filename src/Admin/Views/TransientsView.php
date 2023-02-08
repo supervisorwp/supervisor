@@ -7,7 +7,7 @@ namespace SUPV\Admin\Views;
  * @package supervisor
  * @since 1.0.0
  */
-class TransientsView extends AbstractView {
+final class TransientsView extends AbstractView {
 
 	/**
 	 * Outputs the view.

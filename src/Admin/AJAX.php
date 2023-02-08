@@ -8,7 +8,7 @@ namespace SUPV\Admin;
  *
  * @since 1.0.0
  */
-class AJAX {
+final class AJAX {
 	/**
 	 * Stores all the AJAX hooks.
 	 *

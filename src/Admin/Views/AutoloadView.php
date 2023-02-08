@@ -7,7 +7,7 @@ namespace SUPV\Admin\Views;
  * @package supervisor
  * @since 1.0.0
  */
-class AutoloadView extends AbstractView {
+final class AutoloadView extends AbstractView {
 
 	/**
 	 * Outputs the view.

@@ -7,7 +7,7 @@ namespace SUPV;
  * @package supervisor
  * @since 1.0.0
  */
-class Loader {
+final class Loader {
 	/**
 	 * The Admin\Loader object.
 	 *

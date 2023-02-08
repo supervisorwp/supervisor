@@ -11,7 +11,7 @@ use SUPV\Admin\Views\Notices\SSLView;
  * @package supervisor
  * @since 1.0.0
  */
-class Dashboard {
+final class Dashboard {
 	/**
 	 * Option to disable admin notices.
 	 *
