@@ -70,10 +70,14 @@ final class Dashboard {
 
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		wp_register_script( 'supv-js', supv_get_asset_url( 'supervisor' . $suffix . '.js', 'js' ), false, SUPV_VERSION );
-		wp_register_style( 'supv-css', supv_get_asset_url( 'supervisor' . $suffix . '.css', 'css' ), false, SUPV_VERSION );
+		// Loads JS only if current screen is the Supervisor dashboard.
+		if ( supv_is_supervisor_screen() ) {
+			wp_register_script( 'supv-js', supv_get_asset_url( 'supervisor' . $suffix . '.js', 'js' ), false, SUPV_VERSION );
+			wp_enqueue_script( 'supv-js' );
+		}
 
-		wp_enqueue_script( 'supv-js' );
+		// Loads the CSS.
+		wp_register_style( 'supv-css', supv_get_asset_url( 'supervisor' . $suffix . '.css', 'css' ), false, SUPV_VERSION );
 		wp_enqueue_style( 'supv-css' );
 	}
 

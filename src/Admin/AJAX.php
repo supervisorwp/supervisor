@@ -25,7 +25,12 @@ final class AJAX {
 	 */
 	public function __construct() {
 
-		$this->init();
+		$this->ajax_actions = [
+			'hide_admin_notice',
+			'transients_cleanup',
+		];
+
+		$this->hooks();
 	}
 
 	/**
@@ -33,28 +38,13 @@ final class AJAX {
 	 *
 	 * @since 1.0.0
 	 */
-	public function init() {
-
-		$this->add_ajax_actions();
-
-		add_action( 'admin_footer', [ $this, 'add_wp_nonces' ] );
-	}
-
-	/**
-	 * Add the AJAX hooks.
-	 *
-	 * @since 1.0.0
-	 */
-	public function add_ajax_actions() {
-
-		$this->ajax_actions = [
-			'hide_admin_notice',
-			'wp_auto_update',
-		];
+	public function hooks() {
 
 		foreach ( $this->ajax_actions as $action ) {
 			add_action( 'wp_ajax_supv_' . $action, [ $this, $action ] );
 		}
+
+		add_action( 'admin_footer', [ $this, 'add_wp_nonces' ] );
 	}
 
 	/**
@@ -82,7 +72,7 @@ final class AJAX {
 	}
 
 	/**
-	 * Hook: hide an admin notice.
+	 * Hides an admin notice.
 	 *
 	 * @since 1.0.0
 	 */
@@ -106,17 +96,15 @@ final class AJAX {
 	}
 
 	/**
-	 * Hook: set WordPress auto update option.
+	 * Cleans up the transients.
 	 *
-	 * @since 1.0.0
+	 * @since 1.0
 	 */
-	public function wp_auto_update() {
+	public function transients_cleanup() {
 
-		check_ajax_referer( 'supv_wp_auto_update' );
+		check_ajax_referer( 'supv_transients_cleanup' );
 
-		if ( isset( $_POST['wp_auto_update'] ) && preg_match( '/^(?:minor|major|disabled|dev)$/', sanitize_key( wp_unslash( $_POST['wp_auto_update'] ) ) ) ) {
-			supv()->core()->updates->set_core_auto_update_option( sanitize_key( wp_unslash( $_POST['wp_auto_update'] ) ) );
-		}
+		supv()->core()->transients()->cleanup( isset( $_POST['expired'] ) );
 
 		wp_die();
 	}

@@ -1,14 +1,17 @@
-jQuery(document).ready(function($) {
+jQuery( document ).ready( function( $ ) {
 	/**
 	 * Add the onclick actions.
 	 */
-	$(document)
+	$( document )
 		.on('click', '.supv-notice .notice-dismiss', function() {
-			const classes  = $(this).closest('.supv-notice').attr('class');
-			const software = classes.match(/supv-notice-(?:ssl|https)\s/)[0].replace('supv-notice-', '');
+			const classes  = $( this ).closest( '.supv-notice' ).attr( 'class' );
+			const software = classes.match(/supv-notice-(?:ssl|https)\s/)[0].replace( 'supv-notice-', '' );
 
-			supv_do_ajax('supv_hide_admin_notice', {'software': software}, false);
-		})
+			supv_do_ajax( 'supv_hide_admin_notice', {'software': software}, false );
+		} )
+		.on( 'click', '#supv-btn-transients-clear', function() {
+			supv_do_ajax( 'supv_transients_cleanup', null, 'wphc-transients-stats' );
+		} );
 });
 
 /**
@@ -43,6 +46,8 @@ function supv_do_ajax(action, params, target) {
 		}
 	}
 
+	console.log(data);
+
 	jQuery.ajax({
 		method: 'POST',
 		url: ajaxurl,
@@ -53,12 +58,12 @@ function supv_do_ajax(action, params, target) {
 			}
 		}
 	})
-		.done(function(response) {
-			if (target) {
-				target.html(response);
-			}
-		})
-		.fail(function() {
-			console.log('Supervisor: Unable to process the AJAX request for ' + action + '.');
-		});
+	.done(function(response) {
+		if (target) {
+			target.html(response);
+		}
+	})
+	.fail(function() {
+		console.log('Supervisor: Unable to process the AJAX request for ' + action + '.');
+	});
 }

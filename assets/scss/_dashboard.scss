@@ -43,7 +43,7 @@
 
 	.supv-stats {
 		margin: 0;
-		min-height: 54px;
+		min-height: 50px;
 		padding: 2px 0;
 		width: 100%;
 
@@ -86,6 +86,28 @@
 			font-size: 12px;
 			line-height: 0.8 !important;
 			margin-left: -3px !important;
+		}
+	}
+
+	.supv-ctas {
+		float: right;
+		margin-top: -47px;
+
+		.supv-button {
+			background: $red !important;
+			border: 1px solid $red !important;
+			color: $white !important;
+			font-weight: 700 !important;
+			padding: 5px 20px !important;
+
+			&:last-child {
+				margin-left: 5px;
+			}
+
+			&-secondary {
+				background: $gray !important;
+				border: 1px solid $red !important;
+			}
 		}
 	}
 }

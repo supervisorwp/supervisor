@@ -27,6 +27,7 @@ final class TransientsView extends AbstractView {
 				<p>However, some badly coded plugins and themes can store too much information on these transients, or can even create an excessively high number of transients, resulting in performance degradation.</p>
 
 				<?php $this->output_stats(); ?>
+				<?php $this->output_ctas(); ?>
 			</div>
 		</div>
 		<?php
@@ -55,6 +56,22 @@ final class TransientsView extends AbstractView {
 					</p>
 				</li>
 			</ul>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Outputs the CTAs.
+	 *
+	 * @since 1.0.0
+	 */
+	public function output_ctas() {
+
+		?>
+		<div class="supv-ctas">
+			<button type="button" class="button supv-button" id="supv-btn-transients-clear">
+				<?php _e( 'Clear All Transients', 'supervisor' ); ?>
+			</button>
 		</div>
 		<?php
 	}

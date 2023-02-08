@@ -27,6 +27,7 @@ final class AutoloadView extends AbstractView {
 				<p>All the autoload options, as well as transients, are loaded automatically when WordPress loads itself. Thus, the number and size of these options can directly affect your site performance.</p>
 
 				<?php $this->output_stats(); ?>
+				<?php $this->output_ctas(); ?>
 			</div>
 		</div>
 		<?php
@@ -55,6 +56,26 @@ final class AutoloadView extends AbstractView {
 					</p>
 				</li>
 			</ul>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Outputs the CTAs.
+	 *
+	 * @since 1.0.0
+	 */
+	public function output_ctas() {
+
+		?>
+		<div class="supv-ctas">
+			<button type="button" class="button supv-button" id="supv-btn-autoload-top">
+				<?php _e( 'Top Autoload Options', 'supervisor' ); ?>
+			</button>
+
+			<button type="button" class="button supv-button supv-button-secondary" id="supv-btn-autoload-history">
+				<?php _e( 'History', 'supervisor' ); ?>
+			</button>
 		</div>
 		<?php
 	}
