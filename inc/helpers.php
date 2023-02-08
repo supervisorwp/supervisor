@@ -12,7 +12,7 @@
 function supv_get_asset_url( $name, $type = 'images' ) {
 
 	$file = sprintf(
-		'/resources/assets/%s/%s',
+		'/assets/%s/%s',
 		$type,
 		$name
 	);

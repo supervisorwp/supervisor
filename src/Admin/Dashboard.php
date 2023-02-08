@@ -1,6 +1,10 @@
 <?php
 namespace SUPV\Admin;
 
+use SUPV\Admin\Views\DashboardView;
+use SUPV\Admin\Views\Notices\HTTPSView;
+use SUPV\Admin\Views\Notices\SSLView;
+
 /**
  * The Dashboard class.
  *
@@ -90,7 +94,7 @@ class Dashboard {
 	 */
 	public function admin_page() {
 
-		supv_output_view( 'admin/dashboard' );
+		( new DashboardView() )->output();
 	}
 
 	/**
@@ -110,13 +114,16 @@ class Dashboard {
 			return;
 		}
 
-		$notices = [ 'https', 'ssl' ];
+		$notices = [
+			HTTPSView::class,
+			SSLView::class,
+		];
 
 		$notices_transient = get_transient( self::HIDE_NOTICES_TRANSIENT );
 
 		foreach ( $notices as $notice ) {
 			if ( ! isset( $notices_transient[ $notice ] ) ) {
-				supv_output_view( 'admin/notices/' . $notice );
+				( new $notice() )->output();
 			}
 		}
 	}

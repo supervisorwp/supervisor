@@ -1,26 +1,72 @@
 <?php
-if ( ! defined( 'SUPV' ) ) {
-	exit;
-}
+namespace SUPV\Admin\Views;
 
-// Name of the box views to output on admin page.
-$boxes = [
-	'transients',
-	'autoload',
-];
-?>
+/**
+ * The DashboardView class.
+ *
+ * @package supervisor
+ * @since 1.0.0
+ */
+class DashboardView extends AbstractView {
 
-<div class="supv-container-fluid">
-	<div class="supv-header">
-		<div class="supv-header-logo">
-			<img src="<?php echo esc_url( supv_get_asset_url( 'supervisor.png' ) ); ?>" title="Supervisor" />
+	/**
+	 * The full qualified name for the views to load.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string[]
+	 */
+	private $views = [
+		TransientsView::class,
+		AutoloadView::class,
+	];
+
+	/**
+	 * Outputs the view.
+	 *
+	 * @since 1.0.0
+	 */
+	public function output() {
+
+		?>
+		<div class="supv-container-fluid">
+			<?php $this->output_header(); ?>
+
+			<div class="supv-container">
+				<?php $this->output_overview(); ?>
+
+				<?php $this->output_cards(); ?>
+			</div>
 		</div>
-	</div>
+		<?php
+	}
 
-	<div class="supv-container">
+	/**
+	 * Outputs the header.
+	 *
+	 * @since 1.0.0
+	 */
+	public function output_header() {
+
+		?>
+		<div class="supv-header">
+			<div class="supv-header-logo">
+				<img src="<?php echo esc_url( supv_get_asset_url( 'supervisor.png' ) ); ?>" title="Supervisor" />
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Outputs the software overview.
+	 *
+	 * @since 1.0.0
+	 */
+	public function output_overview() {
+
+		$server_info = supv()->core()->server()->get_data();
+		?>
 		<div class="supv-overview">
-			<?php $server_info = supv()->core()->server()->get_data(); ?>
-
 			<div class="supv-overview-box">
 				<p>WordPress</p>
 				<p><?php echo ! empty( $server_info['wp'] ) ? esc_html( $server_info['wp'] ) : '-'; ?></p>
@@ -55,13 +101,23 @@ $boxes = [
 				</div>
 			<?php endif; ?>
 		</div>
+		<?php
+	}
 
+	/**
+	 * Outputs the cards.
+	 *
+	 * @since 1.0.0
+	 */
+	public function output_cards() {
+		?>
 		<div class="supv-boxes supv-row">
-			<?php foreach ( $boxes as $box ) : ?>
+			<?php foreach ( $this->views as $view ) : ?>
 				<div class="supv-box supv-col col-md-6">
-					<?php supv_output_view( 'admin/boxes/' . $box ); ?>
+					<?php ( new $view() )->output(); ?>
 				</div>
 			<?php endforeach; ?>
 		</div>
-	</div>
-</div>
+		<?php
+	}
+}
