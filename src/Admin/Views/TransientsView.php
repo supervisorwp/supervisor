@@ -15,6 +15,7 @@ class TransientsView extends AbstractView {
 	 * @since 1.0.0
 	 */
 	public function output() {
+
 		?>
 		<div class="supv-card">
 			<div class="header">

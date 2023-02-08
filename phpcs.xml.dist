@@ -22,7 +22,7 @@
 
 	<rule ref="WPForms.PHP.ValidateDomain">
 		<properties>
-			<property name="supervisor" value="src,resources/views/"/>
+			<property name="supervisor" value="src/"/>
 		</properties>
 	</rule>
 
