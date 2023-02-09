@@ -9,7 +9,7 @@
 
 	<exclude-pattern>/(vendor|languages|tests|node_modules)/*</exclude-pattern>
 	<exclude-pattern>/index\.php</exclude-pattern>
-	<exclude-pattern>/supervisor\.php</exclude-pattern>
+	<exclude-pattern>/supervisor-wp\.php</exclude-pattern>
 
 	<rule ref="WordPress.PHP.YodaConditions"/>
 
