@@ -19,12 +19,12 @@ final class TransientsView extends AbstractView {
 		?>
 		<div class="supv-card">
 			<div class="header">
-				<div class="text">Transients</div>
+				<div class="text"><?php esc_html_e( 'Transients', 'supervisor-wp' ); ?></div>
 			</div>
 
 			<div class="content">
-				<p>WordPress transients are used to temporarily cache specific data. For example, developers often use them to improve their themes and plugins performance by caching database queries and script results.</p>
-				<p>However, some badly coded plugins and themes can store too much information on these transients, or can even create an excessively high number of transients, resulting in performance degradation.</p>
+				<p><?php esc_html_e( 'WordPress transients are used to temporarily cache specific data. For example, developers often use them to improve their themes and plugins performance by caching database queries and script results.', 'supervisor-wp' ); ?></p>
+				<p><?php esc_html_e( 'However, some badly coded plugins and themes can store too much information on these transients, or can even create an excessively high number of transients, resulting in performance degradation.', 'supervisor-wp' ); ?></p>
 
 				<?php $this->output_stats(); ?>
 				<?php $this->output_ctas(); ?>
@@ -45,14 +45,14 @@ final class TransientsView extends AbstractView {
 		<div class="supv-stats">
 			<ul>
 				<li>
-					<p class="supv-stats-title">Total</p>
+					<p class="supv-stats-title"><?php esc_html_e( 'Total', 'supervisor-wp' ); ?></p>
 					<p class="supv-stats-data"><span><?php echo ! empty( $stats['count'] ) ? esc_html( $stats['count'] ) : '0'; ?></span></p>
 				</li>
 				<li>
-					<p class="supv-stats-title">Size</p>
+					<p class="supv-stats-title"><?php esc_html_e( 'Size', 'supervisor-wp' ); ?></p>
 					<p class="supv-stats-data">
 						<span><?php echo ! empty( $stats['size'] ) && is_numeric( $stats['size'] ) ? esc_html( round( $stats['size'], 2 ) ) : '0.00'; ?></span>
-						<span class="supv-stats-footer">Mb</span>
+						<span class="supv-stats-footer"><?php esc_html_e( 'MB', 'supervisor-wp' ); ?></span>
 					</p>
 				</li>
 			</ul>
@@ -70,7 +70,7 @@ final class TransientsView extends AbstractView {
 		?>
 		<div class="supv-ctas">
 			<button type="button" class="button supv-button" id="supv-btn-transients-clear">
-				<?php _e( 'Clear All Transients', 'supervisor' ); ?>
+				<?php esc_html_e( 'Clear All Transients', 'supervisor-wp' ); ?>
 			</button>
 		</div>
 		<?php

@@ -26,13 +26,13 @@ final class HTTPSView extends AbstractView {
 		<div class="notice supv-notice supv-notice-https notice-error is-dismissible <?php echo supv_is_supervisor_screen() ? 'supv-notice-margin' : ''; ?>">
 			<p>
 				<strong>Supervisor:</strong>
-				<?php esc_html_e( 'Your site is not currently using HTTPS. This is insecure and can negatively impact your search engine rankings. Please contact your developer(s) and/or hosting company to enable HTTPS for you as soon as possible!', 'supervisor' ); ?>
+				<?php esc_html_e( 'Your site is not currently using HTTPS. This is insecure and can negatively impact your search engine rankings. Please contact your developer(s) and/or hosting company to enable HTTPS for you as soon as possible!', 'supervisor-wp' ); ?>
 
 				<strong>
 					<?php
 					echo sprintf(
-					/* translators: %s is "Let's Encrypt". */
-						esc_html__( '%s offers free SSL certificates!', 'supervisor' ),
+						/* translators: %s is "Let's Encrypt". */
+						esc_html__( '%s offers free SSL certificates!', 'supervisor-wp' ),
 						'<a href="https://letsencrypt.org/">Let\'s Encrypt</a>'
 					);
 					?>

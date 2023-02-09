@@ -44,7 +44,7 @@
 	.supv-stats {
 		margin: 0;
 		min-height: 50px;
-		padding: 2px 0;
+		padding: 10px 0 2px 0;
 		width: 100%;
 
 		ul {
@@ -85,13 +85,13 @@
 			color: $light-gray;
 			font-size: 12px;
 			line-height: 0.8 !important;
-			margin-left: -3px !important;
+			margin-left: -2px !important;
 		}
 	}
 
 	.supv-ctas {
 		float: right;
-		margin-top: -47px;
+		margin-top: -49px;
 
 		.supv-button {
 			background: $red !important;
@@ -99,6 +99,12 @@
 			color: $white !important;
 			font-weight: 700 !important;
 			padding: 5px 20px !important;
+			transition: all 0.1s ease-in-out;
+
+			&:hover {
+				background: $cta-red !important;
+				border: 1px solid $cta-red !important;
+			}
 
 			&:last-child {
 				margin-left: 5px;
@@ -106,7 +112,7 @@
 
 			&-secondary {
 				background: $gray !important;
-				border: 1px solid $red !important;
+				border: 1px solid $gray !important;
 			}
 		}
 	}

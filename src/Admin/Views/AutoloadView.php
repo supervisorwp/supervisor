@@ -19,12 +19,12 @@ final class AutoloadView extends AbstractView {
 		?>
 		<div class="supv-card">
 			<div class="header">
-				<div class="text">Autoload Options</div>
+				<div class="text"><?php esc_html_e( 'Autoload Options', 'supervisor-wp' ); ?></div>
 			</div>
 
 			<div class="content">
-				<p>WordPress autoload options are very similar to transients. The main difference is: transients are used to store temporary data, while options are used to store permanent data.</p>
-				<p>All the autoload options, as well as transients, are loaded automatically when WordPress loads itself. Thus, the number and size of these options can directly affect your site performance.</p>
+				<p><?php esc_html_e( 'WordPress autoload options are very similar to transients. The main difference is: transients are used to store temporary data, while options are used to store permanent data.', 'supervisor-wp' ); ?></p>
+				<p><?php esc_html_e( 'All the autoload options, as well as transients, are loaded automatically when WordPress loads itself. Thus, the number and size of these options can directly affect your site performance.', 'supervisor-wp' ); ?></p>
 
 				<?php $this->output_stats(); ?>
 				<?php $this->output_ctas(); ?>
@@ -45,14 +45,14 @@ final class AutoloadView extends AbstractView {
 		<div class="supv-stats">
 			<ul>
 				<li>
-					<p class="supv-stats-title">Total</p>
+					<p class="supv-stats-title"><?php esc_html_e( 'Total', 'supervisor-wp' ); ?></p>
 					<p class="supv-stats-data"><span><?php echo ! empty( $stats['count'] ) ? esc_html( $stats['count'] ) : '0'; ?></span></p>
 				</li>
 				<li>
-					<p class="supv-stats-title">Size</p>
+					<p class="supv-stats-title"><?php esc_html_e( 'Size', 'supervisor-wp' ); ?></p>
 					<p class="supv-stats-data">
 						<span><?php echo ! empty( $stats['size'] ) && is_numeric( $stats['size'] ) ? esc_html( round( $stats['size'], 2 ) ) : '0.00'; ?></span>
-						<span class="supv-stats-footer">Mb</span>
+						<span class="supv-stats-footer"><?php esc_html_e( 'MB', 'supervisor-wp' ); ?></span>
 					</p>
 				</li>
 			</ul>
@@ -70,11 +70,11 @@ final class AutoloadView extends AbstractView {
 		?>
 		<div class="supv-ctas">
 			<button type="button" class="button supv-button" id="supv-btn-autoload-top">
-				<?php _e( 'Top Autoload Options', 'supervisor' ); ?>
+				<?php esc_html_e( 'Top Autoload Options', 'supervisor-wp' ); ?>
 			</button>
 
 			<button type="button" class="button supv-button supv-button-secondary" id="supv-btn-autoload-history">
-				<?php _e( 'History', 'supervisor' ); ?>
+				<?php esc_html_e( 'History', 'supervisor-wp' ); ?>
 			</button>
 		</div>
 		<?php

@@ -18,24 +18,6 @@ class Autoload {
 	const DISABLE_AUTOLOAD_OPTION = 'supv_disable_autoload_history';
 
 	/**
-	 * Constructor.
-	 *
-	 * @since 1.0.0
-	 */
-	public function __construct() {
-
-		$this->init();
-	}
-
-	/**
-	 * Initialize the WordPress hooks.
-	 *
-	 * @since 1.0.0
-	 */
-	public function init() {
-	}
-
-	/**
 	 * Returns the 10 biggest WordPress autoload options.
 	 *
 	 * @since 1.0.0
@@ -141,13 +123,15 @@ class Autoload {
 	 */
 	public function is_core_option( $option_name ) {
 
-		$wp_opts_file = SUPV_PLUGIN_DIR . '/resources/assets/wp_options.json';
+		$wp_opts_file = SUPV_PLUGIN_DIR . '/assets/wp_options.json';
 
 		if ( file_exists( $wp_opts_file ) ) {
 			$wp_opts = json_decode( file_get_contents( $wp_opts_file ) );
+
+			return in_array( $option_name, $wp_opts, true );
 		}
 
-		return ( in_array( $option_name, $wp_opts, true ) );
+		return false;
 	}
 
 	/**

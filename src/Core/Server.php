@@ -9,15 +9,6 @@ namespace SUPV\Core;
  */
 class Server {
 	/**
-	 * Transient to store the minimum requirements.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var string
-	 */
-	const MIN_REQUIREMENTS_TRANSIENT = 'supv_min_requirements';
-
-	/**
 	 * Transient to store the server data.
 	 *
 	 * @since 1.0.0

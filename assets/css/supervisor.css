@@ -1164,7 +1164,7 @@
 .supv-container .supv-stats {
   margin: 0;
   min-height: 50px;
-  padding: 2px 0;
+  padding: 10px 0 2px 0;
   width: 100%;
 }
 .supv-container .supv-stats ul {
@@ -1199,11 +1199,11 @@
   color: #888;
   font-size: 12px;
   line-height: 0.8 !important;
-  margin-left: -3px !important;
+  margin-left: -2px !important;
 }
 .supv-container .supv-ctas {
   float: right;
-  margin-top: -47px;
+  margin-top: -49px;
 }
 .supv-container .supv-ctas .supv-button {
   background: #8a1736 !important;
@@ -1211,13 +1211,18 @@
   color: #fff !important;
   font-weight: 700 !important;
   padding: 5px 20px !important;
+  transition: all 0.1s ease-in-out;
+}
+.supv-container .supv-ctas .supv-button:hover {
+  background: #c54a4a !important;
+  border: 1px solid #c54a4a !important;
 }
 .supv-container .supv-ctas .supv-button:last-child {
   margin-left: 5px;
 }
 .supv-container .supv-ctas .supv-button-secondary {
   background: #444 !important;
-  border: 1px solid #8a1736 !important;
+  border: 1px solid #444 !important;
 }
 
 .supv-notice-margin {
