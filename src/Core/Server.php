@@ -58,8 +58,10 @@ class Server {
 				$matches = [];
 
 				if ( preg_match( '/(apache|nginx)/i', $server_software, $matches ) ) {
-					$server['web']['service'] = strtolower( $matches[0] );
-					$server['web']['version'] = preg_match( '/([0-9]+\.){2}([0-9]+)?/', $server_software, $matches ) ? trim( $matches[0] ) : '';
+					$server['web'] = [
+						'service' => strtolower( $matches[0] ),
+						'version' => preg_match( '/([0-9]+\.){2}([0-9]+)?/', $server_software, $matches ) ? trim( $matches[0] ) : false,
+					];
 				} else {
 					$server['web'] = [
 						'service' => 'Web',
