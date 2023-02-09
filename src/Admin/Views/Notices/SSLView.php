@@ -47,7 +47,7 @@ final class SSLView extends AbstractView {
 		?>
 		<div class="notice supv-notice supv-notice-ssl  <?php echo esc_attr( $messages[ $ssl_status ]['class'] ); ?> <?php echo supv_is_supervisor_screen() ? 'supv-notice-margin' : ''; ?>">
 			<p>
-				<strong>Supervisor:</strong>
+				<strong><?php echo esc_html( 'Supervisor:' ); ?></strong>
 				<?php echo esc_html( $messages[ $ssl_status ]['message'] ); ?>
 			</p>
 		</div>

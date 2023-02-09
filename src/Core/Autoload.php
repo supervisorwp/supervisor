@@ -4,7 +4,7 @@ namespace SUPV\Core;
 /**
  * The Autoload class.
  *
- * @package supervisor
+ * @package supervisor-wp
  * @since 1.0.0
  */
 class Autoload {

@@ -6,7 +6,7 @@ use SUPV\Admin\Views\AbstractView;
 /**
  * The HTTPSView class.
  *
- * @package supervisor
+ * @package supervisor-wp
  * @since 1.0.0
  */
 final class HTTPSView extends AbstractView {

@@ -9,10 +9,10 @@
  * License:     GPL-3.0+
  * License URI: https://www.gnu.org/licenses/gpl-3.0.txt
  *
- * Text Domain: supv
+ * Text Domain: supervisor-wp
  * Domain Path: /languages
  *
- * @package supervisor
+ * @package supervisor-wp
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

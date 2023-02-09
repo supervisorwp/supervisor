@@ -4,8 +4,7 @@ namespace SUPV\Admin;
 /**
  * The AJAX class.
  *
- * @package supervisor
- *
+ * @package supervisor-wp
  * @since 1.0.0
  */
 final class AJAX {

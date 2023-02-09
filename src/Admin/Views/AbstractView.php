@@ -4,7 +4,7 @@ namespace SUPV\Admin\Views;
 /**
  * The AbstractView class.
  *
- * @package supervisor
+ * @package supervisor-wp
  * @since 1.0.0
  */
 abstract class AbstractView {

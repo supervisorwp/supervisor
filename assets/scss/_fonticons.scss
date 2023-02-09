@@ -13,7 +13,7 @@
 
 [class^="supv-icon-"]:before,
 [class*=" supv-icon-"]:before,
-#adminmenu #toplevel_page_supervisor div.wp-menu-image:before {
+#adminmenu #toplevel_page_supervisor-wp div.wp-menu-image:before {
 	font-family: "supervisor" !important;
 	font-style: normal !important;
 	font-weight: normal !important;
@@ -29,10 +29,10 @@
 	content: "\61";
 }
 
-#adminmenu #toplevel_page_supervisor div.wp-menu-image:before {
+#adminmenu #toplevel_page_supervisor-wp div.wp-menu-image:before {
 	content: "\61";
 }
 
-#adminmenu #toplevel_page_supervisor div.wp-menu-image img {
+#adminmenu #toplevel_page_supervisor-wp div.wp-menu-image img {
 	display: none;
 }

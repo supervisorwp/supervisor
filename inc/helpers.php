@@ -29,5 +29,5 @@ function supv_get_asset_url( $name, $type = 'images' ) {
  */
 function supv_is_supervisor_screen() {
 
-	return is_admin() && ! empty( $_GET['page'] ) && 'supervisor' === sanitize_key( wp_unslash( $_GET['page'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	return is_admin() && ! empty( $_GET['page'] ) && 'supervisor-wp' === sanitize_key( wp_unslash( $_GET['page'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 }

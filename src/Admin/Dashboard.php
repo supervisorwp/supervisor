@@ -8,7 +8,7 @@ use SUPV\Admin\Views\Notices\SSLView;
 /**
  * The Dashboard class.
  *
- * @package supervisor
+ * @package supervisor-wp
  * @since 1.0.0
  */
 final class Dashboard {
@@ -88,7 +88,7 @@ final class Dashboard {
 	 */
 	public function admin_menu() {
 
-		$this->hookname = add_menu_page( 'Supervisor', 'Supervisor', 'manage_options', 'supervisor', [ $this, 'admin_page' ], 'none', 200 );
+		$this->hookname = add_menu_page( 'Supervisor', 'Supervisor', 'manage_options', 'supervisor-wp', [ $this, 'admin_page' ], 'none', 200 );
 	}
 
 	/**
