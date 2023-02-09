@@ -2,11 +2,6 @@
 	margin-left: -20px !important;
 }
 
-.supv-container-fluid, .supv-container {
-	margin-right: auto;
-	margin-left: auto;
-}
-
 .supv-container {
 	padding: 0 20px;
 }
@@ -19,6 +14,18 @@
 }
 
 @media only screen and (min-width: 782px) {
+	.supv-container {
+		margin-left: 0;
+		margin-right: 0;
+	}
+}
+
+@media only screen and (max-width: 782px) {
+	.supv-container-fluid, .supv-container {
+		margin-left: auto !important;
+		margin-right: auto !important;
+	}
+
 	.supv-container {
 		padding: 0 30px;
 	}

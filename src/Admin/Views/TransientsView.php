@@ -69,7 +69,7 @@ final class TransientsView extends AbstractView {
 
 		?>
 		<div class="supv-ctas">
-			<button type="button" class="button supv-button" id="supv-btn-transients-clear">
+			<button type="button" class="supv-button" id="supv-btn-transients-clear">
 				<?php esc_html_e( 'Clear All Transients', 'supervisor-wp' ); ?>
 			</button>
 		</div>

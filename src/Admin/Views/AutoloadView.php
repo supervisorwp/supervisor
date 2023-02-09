@@ -69,11 +69,11 @@ final class AutoloadView extends AbstractView {
 
 		?>
 		<div class="supv-ctas">
-			<button type="button" class="button supv-button" id="supv-btn-autoload-top">
+			<button type="button" class="supv-button" id="supv-btn-autoload-top">
 				<?php esc_html_e( 'Top Autoload Options', 'supervisor-wp' ); ?>
 			</button>
 
-			<button type="button" class="button supv-button supv-button-secondary" id="supv-btn-autoload-history">
+			<button type="button" class="supv-button supv-button-secondary" id="supv-btn-autoload-history">
 				<?php esc_html_e( 'History', 'supervisor-wp' ); ?>
 			</button>
 		</div>

@@ -35,11 +35,6 @@
   margin-left: -20px !important;
 }
 
-.supv-container-fluid, .supv-container {
-  margin-right: auto;
-  margin-left: auto;
-}
-
 .supv-container {
   padding: 0 20px;
 }
@@ -52,6 +47,16 @@
 }
 
 @media only screen and (min-width: 782px) {
+  .supv-container {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+@media only screen and (max-width: 782px) {
+  .supv-container-fluid, .supv-container {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
   .supv-container {
     padding: 0 30px;
   }
@@ -1048,7 +1053,6 @@
   background-color: #fff;
   border: 1px solid #efefef;
   box-shadow: 0px 5px 1px -5px #bbb;
-  margin: 10px 0;
 }
 .supv-card.disabled .content {
   background: #fff;
@@ -1128,19 +1132,14 @@
   padding: 15px 20px;
 }
 
-@media only screen and (min-width: 390px) {
-  .supv-container {
-    padding: 0px 20px;
+@media only screen and (max-width: 782px) {
+  .toplevel_page_supervisor-wp #wpcontent {
+    padding-left: 0 !important;
   }
 }
-@media only screen and (min-width: 782px) {
-  .supv-container {
-    margin-left: 0;
-    margin-right: 0;
-  }
-}
+
 .supv-container .supv-overview {
-  margin-top: 1rem;
+  margin: 20px 0 17px 0;
 }
 .supv-container .supv-overview-box {
   background: #fff;
@@ -1202,27 +1201,42 @@
   margin-left: -2px !important;
 }
 .supv-container .supv-ctas {
-  float: right;
-  margin-top: -49px;
+  display: inline-block;
+}
+@media only screen and (min-width: 782px) {
+  .supv-container .supv-ctas {
+    float: right;
+    margin-top: -49px;
+  }
 }
 .supv-container .supv-ctas .supv-button {
-  background: #8a1736 !important;
-  border: 1px solid #8a1736 !important;
-  color: #fff !important;
-  font-weight: 700 !important;
-  padding: 5px 20px !important;
+  background: #8a1736;
+  border: 1px solid #8a1736;
+  border-radius: 3px;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 700;
+  line-height: 2.15384615;
+  min-height: 30px;
+  padding: 5px 20px;
+  text-decoration: none;
   transition: all 0.1s ease-in-out;
+  white-space: nowrap;
 }
 .supv-container .supv-ctas .supv-button:hover {
-  background: #c54a4a !important;
-  border: 1px solid #c54a4a !important;
+  background: #c54a4a;
+  border: 1px solid #c54a4a;
+  color: #fff;
 }
 .supv-container .supv-ctas .supv-button:last-child {
   margin-left: 5px;
 }
 .supv-container .supv-ctas .supv-button-secondary {
-  background: #444 !important;
-  border: 1px solid #444 !important;
+  background: #444;
+  border: 1px solid #444;
+  color: #fff;
 }
 
 .supv-notice-margin {

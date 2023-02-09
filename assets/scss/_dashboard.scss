@@ -4,18 +4,15 @@
 	padding: 15px 20px;
 }
 
+.toplevel_page_supervisor-wp #wpcontent {
+	@media only screen and (max-width: 782px) {
+		padding-left: 0 !important;
+	}
+}
+
 .supv-container {
-	@media only screen and (min-width: 390px) {
-		padding: 0px 20px;
-	}
-
-	@media only screen and (min-width: 782px) {
-		margin-left: 0;
-		margin-right: 0;
-	}
-
 	.supv-overview {
-		margin-top: 1rem;
+		margin: 20px 0 17px 0;
 
 		&-box {
 			background: $white;
@@ -90,20 +87,33 @@
 	}
 
 	.supv-ctas {
-		float: right;
-		margin-top: -49px;
+		@media only screen and (min-width: 782px) {
+			float: right;
+			margin-top: -49px;
+		}
+
+		display: inline-block;
 
 		.supv-button {
-			background: $red !important;
-			border: 1px solid $red !important;
-			color: $white !important;
-			font-weight: 700 !important;
-			padding: 5px 20px !important;
+			background: $red;
+			border: 1px solid $red;
+			border-radius: 3px;
+			box-sizing: border-box;
+			color: $white;
+			cursor: pointer;
+			display: inline-block;
+			font-weight: 700;
+			line-height: 2.15384615;
+			min-height: 30px;
+			padding: 5px 20px;
+			text-decoration: none;
 			transition: all 0.1s ease-in-out;
+			white-space: nowrap;
 
 			&:hover {
-				background: $cta-red !important;
-				border: 1px solid $cta-red !important;
+				background: $cta-red;
+				border: 1px solid $cta-red;
+				color: $white;
 			}
 
 			&:last-child {
@@ -111,8 +121,9 @@
 			}
 
 			&-secondary {
-				background: $gray !important;
-				border: 1px solid $gray !important;
+				background: $gray;
+				border: 1px solid $gray;
+				color: $white;
 			}
 		}
 	}
