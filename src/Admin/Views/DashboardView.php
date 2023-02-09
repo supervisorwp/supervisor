@@ -61,7 +61,7 @@ final class DashboardView extends AbstractView {
 	 *
 	 * @since 1.0.0
 	 */
-	public function output_overview() {
+	public function output_overview() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 		$server_info = supv()->core()->server()->get_data();
 		?>
@@ -77,7 +77,7 @@ final class DashboardView extends AbstractView {
 			</div>
 
 			<div class="supv-overview-box">
-				<p><?php echo ! empty( $server_info['database']['service'] ) ? esc_html( $server_info['database']['service'] ) : 'Database'; ?></p>
+				<p><?php echo ! empty( $server_info['database']['service'] ) ? esc_html( $server_info['database']['service'] ) : esc_html__( 'Database', 'supervisor-wp' ); ?></p>
 				<p><?php echo ! empty( $server_info['database']['version'] ) ? esc_html( $server_info['database']['version'] ) : '-'; ?></p>
 			</div>
 

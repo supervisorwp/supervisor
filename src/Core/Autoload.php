@@ -174,7 +174,7 @@ class Autoload {
 	 *
 	 * @return int|false Number of affected rows or false on error.
 	 */
-	private function update_option( $option_name, $autoload = 'no', $logging = true ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
+	private function update_option( $option_name, $autoload = 'no', $logging = true ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded,Generic.Metrics.NestingLevel.MaxExceeded
 
 		global $wpdb;
 
