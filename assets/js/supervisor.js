@@ -10,7 +10,7 @@ jQuery( document ).ready( function( $ ) {
 			supv_do_ajax( 'supv_hide_admin_notice', {'software': software}, false );
 		} )
 		.on( 'click', '#supv-btn-transients-clear', function() {
-			supv_do_ajax( 'supv_transients_cleanup', null, 'wphc-transients-stats' );
+			supv_do_ajax( 'supv_transients_cleanup', null, 'supv-transients-stats' );
 		} );
 });
 
@@ -46,15 +46,13 @@ function supv_do_ajax(action, params, target) {
 		}
 	}
 
-	console.log(data);
-
 	jQuery.ajax({
 		method: 'POST',
 		url: ajaxurl,
 		data: data,
 		beforeSend: function() {
 			if (target) {
-				target.html('<p class="supv_loading">Loading...</p>');
+				target.html('<p class="supv_loading"><img src="/wp-includes/images/spinner.gif"> ' + supv.loading + '</p>');
 			}
 		}
 	})

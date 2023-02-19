@@ -26,8 +26,9 @@ final class TransientsView extends AbstractView {
 				<p><?php esc_html_e( 'WordPress transients are used to temporarily cache specific data. For example, developers often use them to improve their themes and plugins performance by caching database queries and script results.', 'supervisor-wp' ); ?></p>
 				<p><?php esc_html_e( 'However, some badly coded plugins and themes can store too much information on these transients, or can even create an excessively high number of transients, resulting in performance degradation.', 'supervisor-wp' ); ?></p>
 
-				<?php $this->output_stats(); ?>
-				<?php $this->output_ctas(); ?>
+				<div id="supv-transients-stats">
+					<?php $this->output_stats(); ?>
+				</div>
 			</div>
 		</div>
 		<?php
@@ -38,7 +39,7 @@ final class TransientsView extends AbstractView {
 	 *
 	 * @since 1.0.0
 	 */
-	public function output_stats() {
+	public function output_stats( $success = false ) {
 
 		$stats = supv()->core()->transients()->get_stats();
 		?>
@@ -57,22 +58,19 @@ final class TransientsView extends AbstractView {
 				</li>
 			</ul>
 		</div>
-		<?php
-	}
 
-	/**
-	 * Outputs the CTAs.
-	 *
-	 * @since 1.0.0
-	 */
-	public function output_ctas() {
-
-		?>
 		<div class="supv-ctas">
 			<button type="button" class="supv-button" id="supv-btn-transients-clear">
 				<?php esc_html_e( 'Clear All Transients', 'supervisor-wp' ); ?>
 			</button>
 		</div>
+
+		<?php if ( $success ) : ?>
+			<div class="supv-text-success">
+				<?php esc_html_e( 'Yay! The transients were cleaned up successfully.', 'supervisor-wp' ); ?>
+			</div>
+		<?php endif; ?>
+
 		<?php
 	}
 }

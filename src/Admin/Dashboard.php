@@ -73,6 +73,15 @@ final class Dashboard {
 		// Loads JS only if current screen is the Supervisor dashboard.
 		if ( supv_is_supervisor_screen() ) {
 			wp_register_script( 'supv-js', supv_get_asset_url( 'supervisor' . $suffix . '.js', 'js' ), false, SUPV_VERSION );
+
+			wp_localize_script(
+				'supv-js',
+				'supv',
+				[
+					'loading' => esc_html__( 'Loading...' ),
+				]
+			);
+
 			wp_enqueue_script( 'supv-js' );
 		}
 

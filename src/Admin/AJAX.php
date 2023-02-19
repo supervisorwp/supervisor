@@ -1,6 +1,8 @@
 <?php
 namespace SUPV\Admin;
 
+use SUPV\Admin\Views\TransientsView;
+
 /**
  * The AJAX class.
  *
@@ -86,7 +88,7 @@ final class AJAX {
 				$notices_transient = [];
 			}
 
-			$notices_transient[ sanitize_key( $_POST['software'] ) ] = 1;
+			$notices_transient[ sanitize_key( wp_unslash( $_POST['software'] ) ) ] = 1;
 
 			set_transient( Dashboard::HIDE_NOTICES_TRANSIENT, $notices_transient, DAY_IN_SECONDS );
 		}
@@ -97,13 +99,15 @@ final class AJAX {
 	/**
 	 * Cleans up the transients.
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public function transients_cleanup() {
 
 		check_ajax_referer( 'supv_transients_cleanup' );
 
 		supv()->core()->transients()->cleanup( isset( $_POST['expired'] ) );
+
+		( new TransientsView() )->output_stats( true );
 
 		wp_die();
 	}
