@@ -28,16 +28,24 @@ module.exports = function( grunt ) {
 			main: {
 				files: [{
 					expand: true,
-					src: ['assets/css/*.css', '!assets/css/*.min.css'],
+					src: [ 'assets/css/*.css', '!assets/css/*.min.css' ],
 					ext: '.min.css'
 				}]
 			}
 		},
+
+		watch: {
+			src: {
+				files: [ 'assets/scss/*.scss', 'assets/js/*.js', '!assets/js/*.min.js' ],
+				tasks: [ 'default' ]
+			}
+		}
 	} );
 
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-contrib-sass' );
 	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
+	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 
 	grunt.registerTask( 'default', [ 'uglify:main', 'sass:main', 'cssmin:main' ] );
 }
