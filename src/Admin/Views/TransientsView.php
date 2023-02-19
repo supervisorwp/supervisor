@@ -38,6 +38,8 @@ final class TransientsView extends AbstractView {
 	 * Outputs the stats.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param bool $success True if should display the success message.
 	 */
 	public function output_stats( $success = false ) {
 
