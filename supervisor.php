@@ -12,7 +12,7 @@
  * Text Domain: supervisor
  * Domain Path: /languages
  *
- * @package supervisor-wp
+ * @package supervisor
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
