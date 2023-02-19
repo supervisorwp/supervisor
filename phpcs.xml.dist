@@ -9,7 +9,7 @@
 
 	<exclude-pattern>/(vendor|languages|tests|node_modules)/*</exclude-pattern>
 	<exclude-pattern>/index\.php</exclude-pattern>
-	<exclude-pattern>/supervisor-wp\.php</exclude-pattern>
+	<exclude-pattern>/supervisor\.php</exclude-pattern>
 
 	<rule ref="WordPress.PHP.YodaConditions"/>
 
@@ -22,7 +22,7 @@
 
 	<rule ref="WPForms.PHP.ValidateDomain">
 		<properties>
-			<property name="supervisor-wp" value="src/"/>
+			<property name="supervisor" value="src/"/>
 		</properties>
 	</rule>
 

@@ -4,7 +4,7 @@ namespace SUPV\Core;
 /**
  * The Transients class.
  *
- * @package supervisor-wp
+ * @package supervisor
  * @since 1.0.0
  */
 class Transients {

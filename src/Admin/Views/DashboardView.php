@@ -4,7 +4,7 @@ namespace SUPV\Admin\Views;
 /**
  * The DashboardView class.
  *
- * @package supervisor-wp
+ * @package supervisor
  * @since 1.0.0
  */
 final class DashboardView extends AbstractView {
@@ -67,22 +67,22 @@ final class DashboardView extends AbstractView {
 		?>
 		<div class="supv-overview">
 			<div class="supv-overview-box">
-				<p><?php esc_html_e( 'WordPress', 'supervisor-wp' ); ?></p>
+				<p><?php esc_html_e( 'WordPress', 'supervisor' ); ?></p>
 				<p><?php echo ! empty( $server_info['wp'] ) ? esc_html( $server_info['wp'] ) : '-'; ?></p>
 			</div>
 
 			<div class="supv-overview-box">
-				<p><?php esc_html_e( 'PHP', 'supervisor-wp' ); ?></p>
+				<p><?php esc_html_e( 'PHP', 'supervisor' ); ?></p>
 				<p><?php echo ! empty( $server_info['php'] ) ? esc_html( $server_info['php'] ) : '-'; ?></p>
 			</div>
 
 			<div class="supv-overview-box">
-				<p><?php echo ! empty( $server_info['database']['service'] ) ? esc_html( $server_info['database']['service'] ) : esc_html__( 'Database', 'supervisor-wp' ); ?></p>
+				<p><?php echo ! empty( $server_info['database']['service'] ) ? esc_html( $server_info['database']['service'] ) : esc_html__( 'Database', 'supervisor' ); ?></p>
 				<p><?php echo ! empty( $server_info['database']['version'] ) ? esc_html( $server_info['database']['version'] ) : '-'; ?></p>
 			</div>
 
 			<div class="supv-overview-box">
-				<p><?php esc_html_e( 'Web Server', 'supervisor-wp' ); ?></p>
+				<p><?php esc_html_e( 'Web Server', 'supervisor' ); ?></p>
 				<p>
 					<?php
 					echo ! empty( $server_info['web']['service'] ) ? esc_html( $server_info['web']['service'] ) . '/' : '';
@@ -93,7 +93,7 @@ final class DashboardView extends AbstractView {
 
 			<?php if ( ! empty( supv()->core()->server()->get_ip() ) ) : ?>
 				<div class="supv-overview-box">
-					<p><?php esc_html_e( 'Server IP', 'supervisor-wp' ); ?></p>
+					<p><?php esc_html_e( 'Server IP', 'supervisor' ); ?></p>
 					<p>
 						<?php echo esc_html( supv()->core()->server()->get_ip() ); ?>
 					</p>

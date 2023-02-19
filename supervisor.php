@@ -9,7 +9,7 @@
  * License:     GPL-3.0+
  * License URI: https://www.gnu.org/licenses/gpl-3.0.txt
  *
- * Text Domain: supervisor-wp
+ * Text Domain: supervisor
  * Domain Path: /languages
  *
  * @package supervisor-wp

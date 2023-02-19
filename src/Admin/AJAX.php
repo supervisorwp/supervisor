@@ -6,7 +6,7 @@ use SUPV\Admin\Views\TransientsView;
 /**
  * The AJAX class.
  *
- * @package supervisor-wp
+ * @package supervisor
  * @since 1.0.0
  */
 final class AJAX {

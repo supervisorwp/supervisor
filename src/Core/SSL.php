@@ -4,7 +4,7 @@ namespace SUPV\Core;
 /**
  * The SSL class.
  *
- * @package supervisor-wp
+ * @package supervisor
  * @since 1.0.0
  */
 class SSL {

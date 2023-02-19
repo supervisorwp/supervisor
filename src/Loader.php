@@ -4,7 +4,7 @@ namespace SUPV;
 /**
  * The Loader class.
  *
- * @package supervisor-wp
+ * @package supervisor
  * @since 1.0.0
  */
 final class Loader {
