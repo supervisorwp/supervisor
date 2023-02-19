@@ -36,7 +36,7 @@
 }
 
 .supv-container {
-  padding: 0 20px;
+  padding: 0 30px;
 }
 
 .supv-container-fluid.hero, .supv-container.hero {
@@ -1059,11 +1059,6 @@
   font-size: 16px;
   line-height: 24px;
 }
-@media only screen and (max-width: 782px) {
-  .supv-card {
-    margin: 20px 0;
-  }
-}
 .supv-card svg.supv-circle-question-mark {
   width: 17px;
   height: 17px;
@@ -1131,85 +1126,77 @@
   box-shadow: 0px 5px 1px -5px #bbb;
   padding: 15px 20px;
 }
-
-@media only screen and (max-width: 782px) {
-  .toplevel_page_supervisor-wp #wpcontent {
-    padding-left: 0 !important;
-  }
+.supv-header-logo img {
+  height: 50px;
+  width: 214px;
 }
 
-.supv-container .supv-overview {
-  margin: 20px 0 17px 0;
+.supv-overview {
+  margin-bottom: 17px;
 }
-.supv-container .supv-overview-box {
+.supv-overview-box {
   background: #fff;
   box-shadow: 0px 5px 1px -5px #bbb;
   display: inline-block;
   padding: 10px 15px;
   margin-right: 12px;
+  margin-top: 20px;
 }
-.supv-container .supv-overview-box p {
+.supv-overview-box p {
   float: left;
   margin: 0;
 }
-.supv-container .supv-overview-box p:first-child {
+.supv-overview-box p:first-child {
   color: #8a1736;
   font-weight: bold;
   padding-right: 8px;
 }
-.supv-container .supv-overview-box p:last-child {
+.supv-overview-box p:last-child {
   color: #444;
 }
-.supv-container .supv-stats {
+
+.supv-stats {
   margin: 0;
   min-height: 50px;
   padding: 10px 0 2px 0;
   width: 100%;
 }
-.supv-container .supv-stats ul {
+.supv-stats ul {
   list-style: none;
   margin: 0 auto;
   padding: 0;
 }
-.supv-container .supv-stats ul li {
+.supv-stats ul li {
   float: left;
   padding-top: 5px;
   width: 100px;
 }
-.supv-container .supv-stats ul li:last-child {
+.supv-stats ul li:last-child {
   border-right: 0;
 }
-.supv-container .supv-stats ul li p, .supv-container .supv-stats ul li span {
+.supv-stats ul li p, .supv-stats ul li span {
   line-height: 1.4;
   margin: 0;
   padding: 0;
 }
-.supv-container .supv-stats-title {
+.supv-stats-title {
   color: #8a1736;
   font-size: 12px;
   font-weight: 500;
   line-height: 0.8 !important;
 }
-.supv-container .supv-stats-data {
+.supv-stats-data {
   color: #8a1736;
   font-size: 24px;
 }
-.supv-container .supv-stats-footer {
+.supv-stats-footer {
   color: #888;
   font-size: 12px;
   line-height: 0.8 !important;
   margin-left: -2px !important;
 }
-.supv-container .supv-ctas {
-  display: inline-block;
-}
-@media only screen and (min-width: 782px) {
-  .supv-container .supv-ctas {
-    float: right;
-    margin-top: -49px;
-  }
-}
-.supv-container .supv-ctas .supv-button {
+
+.supv-ctas .supv-button {
   background: #8a1736;
   border: 1px solid #8a1736;
   border-radius: 3px;
@@ -1219,21 +1206,22 @@
   display: inline-block;
   font-weight: 700;
   line-height: 2.15384615;
+  margin-right: 5px;
   min-height: 30px;
   padding: 5px 20px;
   text-decoration: none;
   transition: all 0.1s ease-in-out;
   white-space: nowrap;
 }
-.supv-container .supv-ctas .supv-button:hover {
+.supv-ctas .supv-button:hover {
   background: #c54a4a;
   border: 1px solid #c54a4a;
   color: #fff;
 }
-.supv-container .supv-ctas .supv-button:last-child {
-  margin-left: 5px;
+.supv-ctas .supv-button:last-child {
+  margin-right: 0 !important;
 }
-.supv-container .supv-ctas .supv-button-secondary {
+.supv-ctas .supv-button-secondary {
   background: #444;
   border: 1px solid #444;
   color: #fff;
@@ -1241,4 +1229,43 @@
 
 .supv-notice-margin {
   margin: 20px 0 !important;
+}
+
+@media only screen and (min-width: 1300px) {
+  .supv-ctas {
+    float: right;
+    margin-top: -49px;
+  }
+}
+@media only screen and (max-width: 1300px) {
+  .supv-stats {
+    padding: 0 !important;
+  }
+  .supv-ctas {
+    float: none !important;
+    margin-bottom: 10px;
+    margin-top: 10px !important;
+  }
+  .supv-ctas .supv-button:last-child {
+    margin-left: 0 !important;
+    margin-right: 5px !important;
+  }
+}
+@media only screen and (max-width: 1042px) {
+  .supv-overview {
+    margin: 0 -0.5rem !important;
+  }
+}
+@media only screen and (max-width: 782px) {
+  .toplevel_page_supervisor-wp #wpcontent {
+    padding-left: 0 !important;
+  }
+}
+@media only screen and (max-width: 1042px) {
+  .supv-card {
+    margin: 10px 0;
+  }
+  .supv-card:first-child {
+    margin: 20px 0 10px 0 !important;
+  }
 }

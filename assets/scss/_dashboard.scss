@@ -2,133 +2,175 @@
 	background-color: $header-bg;
 	box-shadow: 0px 5px 1px -5px $shadow;
 	padding: 15px 20px;
+
+	&-logo {
+		img {
+			height: 50px;
+			width: 214px;
+		}
+	}
 }
 
-.toplevel_page_supervisor-wp #wpcontent {
-	@media only screen and (max-width: 782px) {
-		padding-left: 0 !important;
-	}
-}
+.supv-overview {
+	margin-bottom: 17px;
 
-.supv-container {
-	.supv-overview {
-		margin: 20px 0 17px 0;
-
-		&-box {
-			background: $white;
-			box-shadow: 0px 5px 1px -5px $shadow;
-			display: inline-block;
-			padding: 10px 15px;
-			margin-right: 12px;
-
-			p {
-				float: left;
-				margin: 0;
-
-				&:first-child {
-					color: $red;
-					font-weight: bold;
-					padding-right: 8px;
-				}
-
-				&:last-child {
-					color: $gray;
-				}
-			}
-		}
-	}
-
-	.supv-stats {
-		margin: 0;
-		min-height: 50px;
-		padding: 10px 0 2px 0;
-		width: 100%;
-
-		ul {
-			list-style: none;
-			margin: 0 auto;
-			padding: 0;
-
-			li {
-				float: left;
-				padding-top: 5px;
-				width: 100px;
-
-				&:last-child {
-					border-right: 0;
-				}
-
-				p, span {
-					line-height: 1.4;
-					margin: 0;
-					padding: 0;
-				}
-			}
-		}
-
-		&-title {
-			color: $red;
-			font-size: 12px;
-			font-weight: 500;
-			line-height: 0.8 !important;
-		}
-
-		&-data {
-			color: $red;
-			font-size: 24px;
-		}
-
-		&-footer {
-			color: $light-gray;
-			font-size: 12px;
-			line-height: 0.8 !important;
-			margin-left: -2px !important;
-		}
-	}
-
-	.supv-ctas {
-		@media only screen and (min-width: 782px) {
-			float: right;
-			margin-top: -49px;
-		}
-
+	&-box {
+		background: $white;
+		box-shadow: 0px 5px 1px -5px $shadow;
 		display: inline-block;
+		padding: 10px 15px;
+		margin-right: 12px;
+		margin-top: 20px;
 
-		.supv-button {
-			background: $red;
-			border: 1px solid $red;
-			border-radius: 3px;
-			box-sizing: border-box;
-			color: $white;
-			cursor: pointer;
-			display: inline-block;
-			font-weight: 700;
-			line-height: 2.15384615;
-			min-height: 30px;
-			padding: 5px 20px;
-			text-decoration: none;
-			transition: all 0.1s ease-in-out;
-			white-space: nowrap;
+		p {
+			float: left;
+			margin: 0;
 
-			&:hover {
-				background: $cta-red;
-				border: 1px solid $cta-red;
-				color: $white;
+			&:first-child {
+				color: $red;
+				font-weight: bold;
+				padding-right: 8px;
 			}
 
 			&:last-child {
-				margin-left: 5px;
+				color: $gray;
+			}
+		}
+	}
+}
+
+.supv-stats {
+	margin: 0;
+	min-height: 50px;
+	padding: 10px 0 2px 0;
+	width: 100%;
+
+	ul {
+		list-style: none;
+		margin: 0 auto;
+		padding: 0;
+
+		li {
+			float: left;
+			padding-top: 5px;
+			width: 100px;
+
+			&:last-child {
+				border-right: 0;
 			}
 
-			&-secondary {
-				background: $gray;
-				border: 1px solid $gray;
-				color: $white;
+			p, span {
+				line-height: 1.4;
+				margin: 0;
+				padding: 0;
 			}
+		}
+	}
+
+	&-title {
+		color: $red;
+		font-size: 12px;
+		font-weight: 500;
+		line-height: 0.8 !important;
+	}
+
+	&-data {
+		color: $red;
+		font-size: 24px;
+	}
+
+	&-footer {
+		color: $light-gray;
+		font-size: 12px;
+		line-height: 0.8 !important;
+		margin-left: -2px !important;
+	}
+}
+
+.supv-ctas {
+	.supv-button {
+		background: $red;
+		border: 1px solid $red;
+		border-radius: 3px;
+		box-sizing: border-box;
+		color: $white;
+		cursor: pointer;
+		display: inline-block;
+		font-weight: 700;
+		line-height: 2.15384615;
+		margin-right: 5px;
+		min-height: 30px;
+		padding: 5px 20px;
+		text-decoration: none;
+		transition: all 0.1s ease-in-out;
+		white-space: nowrap;
+
+		&:hover {
+			background: $cta-red;
+			border: 1px solid $cta-red;
+			color: $white;
+		}
+
+		&:last-child {
+			margin-right: 0 !important;
+		}
+
+		&-secondary {
+			background: $gray;
+			border: 1px solid $gray;
+			color: $white;
 		}
 	}
 }
 
 .supv-notice-margin {
 	margin: 20px 0 !important;
+}
+
+@media only screen and (min-width: 1300px) {
+	.supv-ctas {
+		float: right;
+		margin-top: -49px;
+	}
+}
+
+@media only screen and (max-width: 1300px) {
+	.supv-stats {
+		padding: 0 !important;
+	}
+
+	.supv-ctas {
+		float: none !important;
+		margin-bottom: 10px;
+		margin-top: 10px !important;
+
+		.supv-button {
+			&:last-child {
+				margin-left: 0 !important;
+				margin-right: 5px !important;
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 1042px) {
+	.supv-overview {
+		margin: 0 -0.5rem !important;
+	}
+}
+
+@media only screen and (max-width: 782px) {
+	.toplevel_page_supervisor-wp #wpcontent {
+		padding-left: 0 !important;
+	}
+}
+
+@media only screen and (max-width: 1042px) {
+	.supv-card {
+		margin: 10px 0;
+
+		&:first-child {
+			margin: 20px 0 10px 0 !important;
+		}
+	}
 }

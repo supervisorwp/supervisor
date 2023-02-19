@@ -50,7 +50,7 @@ final class DashboardView extends AbstractView {
 		?>
 		<div class="supv-header">
 			<div class="supv-header-logo">
-				<img src="<?php echo esc_url( supv_get_asset_url( 'supervisor.png' ) ); ?>" title="Supervisor" />
+				<img src="<?php echo esc_url( supv_get_asset_url( 'supervisor-logo.png' ) ); ?>" title="Supervisor" />
 			</div>
 		</div>
 		<?php
@@ -113,7 +113,7 @@ final class DashboardView extends AbstractView {
 		?>
 		<div class="supv-boxes supv-row">
 			<?php foreach ( $this->views as $view ) : ?>
-				<div class="supv-box supv-col col-md-6">
+				<div class="supv-box supv-col col-lg-6">
 					<?php ( new $view() )->output(); ?>
 				</div>
 			<?php endforeach; ?>
