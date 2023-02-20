@@ -15,7 +15,11 @@ jQuery( document ).ready( function( $ ) {
 		.on( 'click', '#supv-btn-autoload-options', function () {
 			$( '#supv-autoload-result' ).hide();
 
-			supv_do_ajax( 'supv_autoload_options_list', null, 'supv-autoload-options' );
+			if ( $( '#supv-autoload-options' ).html().trim() === '' ) {
+				supv_do_ajax( 'supv_autoload_options_list', null, 'supv-autoload-options' );
+			} else {
+				$( '#supv-autoload-options' ).html( '' );
+			}
 		} )
 		.on( 'click', '#supv-btn-autoload-history', function () {
 			$( '#supv-autoload-result' ).hide();

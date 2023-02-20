@@ -1233,13 +1233,12 @@
   margin-left: -2px !important;
 }
 
-.supv-text {
-  clear: both;
-}
 .supv-text-success {
+  clear: both;
   color: #3c881a;
 }
 .supv-text-error {
+  clear: both;
   color: #ff0e0e;
 }
 

@@ -85,6 +85,7 @@ final class AutoloadView extends AbstractView {
 
 			<?php endif; ?>
 		</div>
+
 		<?php
 	}
 
