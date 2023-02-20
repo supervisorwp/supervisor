@@ -1241,7 +1241,7 @@
 @media only screen and (min-width: 1300px) {
   .supv-ctas {
     float: right;
-    margin-top: -49px;
+    margin-top: -47px;
   }
 }
 @media only screen and (max-width: 1300px) {
@@ -1266,7 +1266,7 @@
   }
   .supv-ctas {
     float: right !important;
-    margin-top: -49px !important;
+    margin-top: -47px !important;
   }
   .supv-ctas .supv-button {
     margin-right: 5px !important;
