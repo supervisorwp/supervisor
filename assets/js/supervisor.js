@@ -11,6 +11,40 @@ jQuery( document ).ready( function( $ ) {
 		} )
 		.on( 'click', '#supv-btn-transients-clear', function() {
 			supv_do_ajax( 'supv_transients_cleanup', null, 'supv-transients-stats' );
+		} )
+		.on( 'click', '#supv-btn-autoload-options', function () {
+			$( '#supv-autoload-result' ).hide();
+
+			supv_do_ajax( 'supv_autoload_options_list', null, 'supv-autoload-options' );
+		} )
+		.on( 'click', '#supv-btn-autoload-history', function () {
+			$( '#supv-autoload-result' ).hide();
+
+			supv_do_ajax( 'supv_autoload_options_history', null, 'supv-autoload-options' );
+		} )
+		.on( 'click', '#supv-btn-autoload-close', function() {
+			$( '#supv-autoload-result' ).hide();
+
+			$( '#supv-autoload-options' ).html( '' );
+		} );
+
+	/**
+	 * Add the onsubmit actions.
+	 */
+	$( document )
+		.on( 'submit', '#supv-autoload-form', function() {
+			let data   = $( '#supv-autoload-form' ).serializeArray();
+			let params = {};
+
+			$( data ).each( function( i, field ) {
+				params[ field.name ] = field.value;
+			} );
+
+			$( '#supv-autoload-result' ).show();
+
+			supv_do_ajax( 'supv_autoload_update_option', params, 'supv-autoload-stats' );
+
+			return false;
 		} );
 });
 

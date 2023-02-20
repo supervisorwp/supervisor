@@ -1,6 +1,7 @@
 <?php
 namespace SUPV\Admin;
 
+use SUPV\Admin\Views\AutoloadView;
 use SUPV\Admin\Views\TransientsView;
 
 /**
@@ -29,6 +30,9 @@ final class AJAX {
 		$this->ajax_actions = [
 			'hide_admin_notice',
 			'transients_cleanup',
+			'autoload_options_list',
+			'autoload_options_history',
+			'autoload_update_option',
 		];
 
 		$this->hooks();
@@ -108,6 +112,70 @@ final class AJAX {
 		supv()->core()->transients()->cleanup( isset( $_POST['expired'] ) );
 
 		( new TransientsView() )->output_stats( true );
+
+		wp_die();
+	}
+
+	/**
+	 * Loads the autoload options list.
+	 *
+	 * @since 1.0.0
+	 */
+	public function autoload_options_list() {
+
+		check_ajax_referer( 'supv_autoload_options_list' );
+
+		( new AutoloadView() )->output_options();
+
+		wp_die();
+	}
+
+	/**
+	 * Loads the autoload options history.
+	 *
+	 * @since 1.0.0
+	 */
+	public function autoload_options_history() {
+
+		check_ajax_referer( 'supv_autoload_options_history' );
+
+		( new AutoloadView() )->output_history();
+
+		wp_die();
+	}
+
+	/**
+	 * Updates the autoload value for the given options.
+	 *
+	 * @since 1.0.0
+	 */
+	public function autoload_update_option() {
+
+		check_ajax_referer( 'supv_autoload_update_option' );
+
+		$options    = [];
+		$is_history = false;
+
+		foreach ( array_keys( $_POST ) as $key ) {
+			if ( ! preg_match( '/^supv-opt-/', sanitize_key( $key ) ) ) {
+				continue;
+			}
+
+			$option_name = preg_replace( '/^supv-opt-/', '', urldecode( sanitize_key( $key ) ) );
+
+			if ( empty( $option_name ) ) {
+				continue;
+			}
+
+			if ( supv()->core()->autoload()->is_deactivated( $option_name ) ) {
+				$options[ $option_name ] = supv()->core()->autoload()->reactivate( $option_name );
+				$is_history              = true;
+			} else {
+				$options[ $option_name ] = supv()->core()->autoload()->deactivate( $option_name );
+			}
+		}
+
+		( new AutoloadView() )->output_stats( $options, $is_history );
 
 		wp_die();
 	}

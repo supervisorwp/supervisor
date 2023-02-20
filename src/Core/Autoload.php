@@ -24,7 +24,7 @@ class Autoload {
 	 *
 	 * @return array The name and size of the biggest autoload options.
 	 */
-	public function get_options() {
+	public function get() {
 
 		global $wpdb;
 
@@ -103,7 +103,7 @@ class Autoload {
 	 *
 	 * @return boolean True if autoload is disabled.
 	 */
-	public function is_disabled( $option_name ) {
+	public function is_deactivated( $option_name ) {
 
 		global $wpdb;
 
@@ -144,9 +144,9 @@ class Autoload {
 	 *
 	 * @return int|false Number of affected rows or false on error.
 	 */
-	public function deactivate_option( $option_name, $logging = true ) {
+	public function deactivate( $option_name, $logging = true ) {
 
-		return $this->update_option( $option_name, 'no', $logging );
+		return $this->update( $option_name, 'no', $logging );
 	}
 
 	/**
@@ -158,9 +158,9 @@ class Autoload {
 	 *
 	 * @return int|false Number of affected rows or false on error.
 	 */
-	public function reactivate_option( $option_name ) {
+	public function reactivate( $option_name ) {
 
-		return $this->update_option( $option_name, 'yes' );
+		return $this->update( $option_name, 'yes' );
 	}
 
 	/**
@@ -174,7 +174,7 @@ class Autoload {
 	 *
 	 * @return int|false Number of affected rows or false on error.
 	 */
-	private function update_option( $option_name, $autoload = 'no', $logging = true ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded,Generic.Metrics.NestingLevel.MaxExceeded
+	private function update( $option_name, $autoload = 'no', $logging = true ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded,Generic.Metrics.NestingLevel.MaxExceeded
 
 		global $wpdb;
 
@@ -191,11 +191,11 @@ class Autoload {
 			return false;
 		}
 
-		if ( $should_autoload && $this->is_disabled( $option_name ) ) {
+		if ( $should_autoload && $this->is_deactivated( $option_name ) ) {
 			return false;
 		}
 
-		if ( ! $should_autoload && ! $this->is_disabled( $option_name ) ) {
+		if ( ! $should_autoload && ! $this->is_deactivated( $option_name ) ) {
 			return false;
 		}
 

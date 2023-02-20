@@ -1,0 +1,38 @@
+.supv-button {
+	background: $red;
+	border: 1px solid $red;
+	border-radius: 3px;
+	box-sizing: border-box;
+	color: $white;
+	cursor: pointer;
+	display: inline-block;
+	font-weight: 700;
+	line-height: 2.15384615;
+	margin-right: 5px;
+	min-height: 30px;
+	padding: 5px 20px;
+	text-decoration: none;
+	transition: all 0.1s ease-in-out;
+	white-space: nowrap;
+
+	&-small {
+		font-weight: 500 !important;
+		padding: 0 10px !important;
+	}
+
+	&:hover {
+		background: $cta-red;
+		border: 1px solid $cta-red;
+		color: $white;
+	}
+
+	&:last-child {
+		margin-right: 0 !important;
+	}
+
+	&-secondary {
+		background: $gray;
+		border: 1px solid $gray;
+		color: $white;
+	}
+}

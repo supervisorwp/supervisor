@@ -87,49 +87,105 @@
 	}
 }
 
-.supv-ctas {
-	.supv-button {
-		background: $red;
-		border: 1px solid $red;
-		border-radius: 3px;
-		box-sizing: border-box;
-		color: $white;
-		cursor: pointer;
-		display: inline-block;
-		font-weight: 700;
-		line-height: 2.15384615;
-		margin-right: 5px;
-		min-height: 30px;
-		padding: 5px 20px;
-		text-decoration: none;
-		transition: all 0.1s ease-in-out;
-		white-space: nowrap;
-
-		&:hover {
-			background: $cta-red;
-			border: 1px solid $cta-red;
-			color: $white;
-		}
-
-		&:last-child {
-			margin-right: 0 !important;
-		}
-
-		&-secondary {
-			background: $gray;
-			border: 1px solid $gray;
-			color: $white;
-		}
-	}
-}
-
-.supv-text-success {
+.supv-text {
 	clear: both;
-	color: #3c881a;
+
+	&-success {
+		color: $success;
+	}
+
+	&-error {
+		color: $error;
+	}
 }
 
 .supv-notice-margin {
 	margin: 20px 0 !important;
+}
+.supv-autoload {
+	&-list {
+		border: 1px solid $red;
+		display: table;
+		margin: 1.5em 0 1.2em 0;
+		padding: 0;
+		width: 100%;
+
+		ul {
+			display: table-row;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+
+			&:nth-child(odd) {
+				background: $light-red;
+			}
+
+			&:nth-child(even) {
+				background: $white;
+			}
+
+			li {
+				display: table-cell;
+				margin: 0;
+				padding: 2px 8px;
+				vertical-align: middle;
+
+				&.supv-col {
+					&-check {
+						border-right: 1px solid $red;
+						padding-top: 10px !important;
+						width: 8% !important;
+					}
+
+					&-name {
+						border-right: 1px solid $red;
+						width: 72% !important;
+					}
+
+					&-history {
+						border-right: 1px solid $red;
+						width: 60% !important;
+					}
+
+					&-size {
+						width: 20% !important;
+					}
+
+					&-time {
+						width: 32% !important;
+					}
+				}
+			}
+
+			&:first-child li {
+				background: $red;
+				color: $white;
+				font-weight: bold;
+				padding: 6px 8px !important;
+			}
+		}
+	}
+
+	&-ctas {
+		margin-bottom: 0.5em;
+
+		&-internal {
+			margin-top: 1em;
+		}
+	}
+
+	&-result {
+		margin-top: 1em;
+
+		&-list {
+			margin-left: 1em;
+
+			ul {
+				list-style: disc;
+			}
+		}
+	}
 }
 
 @media only screen and (min-width: 1300px) {
