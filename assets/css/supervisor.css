@@ -65,7 +65,7 @@
 }
 @media only screen and (min-width: 1042px) {
   .supv-container {
-    max-width: 100rem;
+    max-width: 80rem;
   }
   .supv-container.full-width {
     max-width: 100%;
@@ -1135,6 +1135,7 @@
 
 .supv-overview {
   margin-bottom: 17px;
+  margin-top: 20px;
 }
 .supv-overview-box {
   background: #fff;
@@ -1142,7 +1143,6 @@
   display: inline-block;
   padding: 10px 15px;
   margin-right: 12px;
-  margin-top: 20px;
 }
 .supv-overview-box p {
   float: left;
@@ -1260,7 +1260,26 @@
 }
 @media only screen and (max-width: 1042px) {
   .supv-overview {
-    margin: 0 -0.5rem !important;
+    margin-left: -0.5rem !important;
+    margin-right: -0.5rem !important;
+    margin-bottom: 0;
+  }
+  .supv-ctas {
+    float: right !important;
+    margin-top: -49px !important;
+  }
+  .supv-ctas .supv-button {
+    margin-right: 5px !important;
+  }
+  .supv-ctas .supv-button:last-child {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .supv-card {
+    margin: 10px 0;
+  }
+  .supv-card:first-child {
+    margin: 20px 0 10px 0 !important;
   }
 }
 @media only screen and (max-width: 782px) {
@@ -1268,12 +1287,18 @@
     padding-left: 0 !important;
   }
 }
-@media only screen and (max-width: 1042px) {
-  .supv-card {
-    margin: 10px 0;
+@media only screen and (max-width: 600px) {
+  .supv-ctas {
+    float: none !important;
+    margin-bottom: 10px;
+    margin-top: 10px !important;
   }
-  .supv-card:first-child {
-    margin: 20px 0 10px 0 !important;
+  .supv-ctas .supv-button {
+    margin-right: 5px !important;
+  }
+  .supv-ctas .supv-button:last-child {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 }
 
