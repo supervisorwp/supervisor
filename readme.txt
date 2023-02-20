@@ -34,7 +34,7 @@ For Premium Support, you can contact us through our [website](https://supervisor
 
 = Where can I report any bugs? =
 
-Please report any bugs to our [issues](https://github.com/supervisor-wp/supervisor/issues) page.
+Please report any bugs to our [issues](https://github.com/supervisorwp/supervisor/issues) page.
 
 If you are not sure if something is a bug or not, you can always ask for guidance in our [Community Forum](https://wordpress.org/support/plugin/supervisor).
 
@@ -44,7 +44,7 @@ You can translate it to your language through the [WordPress translations platfo
 
 = How can I contribute to the project? =
 
-If you are a developer and want to contribute writing new features, enhancements, bug fixes, or tests, please send your Pull Requests to our [GitHub repository](https://github.com/supervisor-wp/supervisor).
+If you are a developer and want to contribute writing new features, enhancements, bug fixes, or tests, please send your Pull Requests to our [GitHub repository](https://github.com/supervisorwp/supervisor).
 
 == Changelog ==
 
