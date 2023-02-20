@@ -220,7 +220,7 @@ final class AutoloadView extends AbstractView {
 	 * @param array $updated_options A list with the updated options.
 	 * @param bool  $is_history      True if it was triggered from the history view.
 	 */
-	public function output_result( $updated_options = [], $is_history = false ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
+	private function output_result( $updated_options = [], $is_history = false ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 		if ( ! supv()->admin()->ajax()->is_doing_ajax() || empty( $updated_options ) || ! is_array( $updated_options ) ) {
 			return;

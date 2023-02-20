@@ -33,7 +33,10 @@ final class Loader {
 	 */
 	public function __construct() {
 
-		$this->hooks();
+		// Load the plugin classes only if you are on Dashboard.
+		if ( is_admin() ) {
+			$this->hooks();
+		}
 	}
 
 	/**

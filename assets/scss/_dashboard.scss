@@ -100,8 +100,9 @@
 }
 
 .supv-notice-margin {
-	margin: 20px 0 !important;
+	margin: 20px !important;
 }
+
 .supv-autoload {
 	&-list {
 		border: 1px solid $red;
@@ -241,6 +242,12 @@
 		&:first-child {
 			margin: 20px 0 10px 0 !important;
 		}
+	}
+}
+
+@media only screen and (min-width: 782px) {
+	.supv-notice-margin {
+		margin: 20px 20px 20px 0 !important;
 	}
 }
 

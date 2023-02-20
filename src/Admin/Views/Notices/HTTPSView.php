@@ -19,7 +19,7 @@ final class HTTPSView extends AbstractView {
 	public function output() {
 
 		if ( supv()->core()->ssl()->is_available() ) {
-			return;
+			//return;
 		}
 
 		?>

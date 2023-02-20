@@ -85,7 +85,7 @@ final class AJAX {
 
 		check_ajax_referer( 'supv_hide_admin_notice' );
 
-		if ( isset( $_POST['software'] ) && preg_match( '/(?:ssl|https)/', sanitize_key( wp_unslash( $_POST['software'] ) ) ) ) {
+		if ( ! empty( $_POST['software'] ) && preg_match( '/(?:ssl|https)/', sanitize_key( wp_unslash( $_POST['software'] ) ) ) ) {
 			$notices_transient = get_transient( Dashboard::HIDE_NOTICES_TRANSIENT );
 
 			if ( $notices_transient === false ) {

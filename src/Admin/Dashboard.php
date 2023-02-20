@@ -56,8 +56,11 @@ final class Dashboard {
 	 */
 	public function hooks() {
 
-		add_action( 'admin_init', [ $this, 'load_resources' ] );
-		add_action( 'admin_menu', [ $this, 'admin_menu' ], 5 );
+		if ( current_user_can( 'manage_options' ) ) {
+			add_action( 'admin_init', [ $this, 'load_resources' ] );
+			add_action( 'admin_menu', [ $this, 'admin_menu' ], 5 );
+		}
+
 		add_action( 'admin_notices', [ $this, 'admin_notices' ] );
 	}
 
@@ -71,19 +74,17 @@ final class Dashboard {
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		// Loads JS only if current screen is the Supervisor dashboard.
-		if ( supv_is_supervisor_screen() ) {
-			wp_register_script( 'supv-js', supv_get_asset_url( 'supervisor' . $suffix . '.js', 'js' ), false, SUPV_VERSION );
+		wp_register_script( 'supv-js', supv_get_asset_url( 'supervisor' . $suffix . '.js', 'js' ), false, SUPV_VERSION );
 
-			wp_localize_script(
-				'supv-js',
-				'supv',
-				[
-					'loading' => esc_html__( 'Loading...', 'supervisor' ),
-				]
-			);
+		wp_localize_script(
+			'supv-js',
+			'supv',
+			[
+				'loading' => esc_html__( 'Loading...', 'supervisor' ),
+			]
+		);
 
-			wp_enqueue_script( 'supv-js' );
-		}
+		wp_enqueue_script( 'supv-js' );
 
 		// Loads the CSS.
 		wp_register_style( 'supv-css', supv_get_asset_url( 'supervisor' . $suffix . '.css', 'css' ), false, SUPV_VERSION );
@@ -128,14 +129,14 @@ final class Dashboard {
 		}
 
 		$notices = [
-			HTTPSView::class,
-			SSLView::class,
+			HTTPSView::class => 'https',
+			SSLView::class   => 'ssl',
 		];
 
 		$notices_transient = get_transient( self::HIDE_NOTICES_TRANSIENT );
 
-		foreach ( $notices as $notice ) {
-			if ( ! isset( $notices_transient[ $notice ] ) ) {
+		foreach ( $notices as $notice => $name ) {
+			if ( ! isset( $notices_transient[ $name ] ) ) {
 				( new $notice() )->output();
 			}
 		}

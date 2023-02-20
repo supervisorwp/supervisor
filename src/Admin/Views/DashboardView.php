@@ -45,7 +45,7 @@ final class DashboardView extends AbstractView {
 	 *
 	 * @since 1.0.0
 	 */
-	public function output_header() {
+	private function output_header() {
 
 		?>
 		<div class="supv-header">
@@ -61,7 +61,7 @@ final class DashboardView extends AbstractView {
 	 *
 	 * @since 1.0.0
 	 */
-	public function output_overview() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
+	private function output_overview() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 		$server_info = supv()->core()->server()->get_data();
 		?>
@@ -108,7 +108,7 @@ final class DashboardView extends AbstractView {
 	 *
 	 * @since 1.0.0
 	 */
-	public function output_cards() {
+	private function output_cards() {
 
 		?>
 		<div class="supv-boxes supv-row">

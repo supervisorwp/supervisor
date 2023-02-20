@@ -33,10 +33,6 @@ final class Loader {
 	 */
 	public function __construct() {
 
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return;
-		}
-
 		$this->setup();
 	}
 
@@ -69,7 +65,7 @@ final class Loader {
 	 *
 	 * @since 1.0.0
 	 */
-	public function setup() {
+	private function setup() {
 
 		$this->ajax      = new AJAX();
 		$this->dashboard = new Dashboard();
