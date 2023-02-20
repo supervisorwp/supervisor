@@ -61,7 +61,7 @@ class SSL {
 
 		$ssl_data = get_transient( self::SSL_DATA_TRANSIENT );
 
-		if ( false === $ssl_data ) {
+		if ( $ssl_data === false ) {
 			$context = stream_context_create(
 				[
 					'ssl' => [
@@ -121,7 +121,7 @@ class SSL {
 
 		$is_available = get_transient( self::SSL_AVAILABLE_TRANSIENT );
 
-		if ( false === $is_available ) {
+		if ( $is_available === false ) {
 			$siteurl = wp_parse_url( get_option( 'siteurl' ) );
 
 			if ( empty( $siteurl['host'] ) ) {
@@ -130,7 +130,7 @@ class SSL {
 
 			$socket = @fsockopen( 'ssl://' . $siteurl['host'], 443, $errno, $errstr, 20 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged,WordPress.WP.AlternativeFunctions.file_system_read_fsockopen
 
-			$is_available = ( false !== $socket );
+			$is_available = ( $socket !== false );
 
 			set_transient( self::SSL_AVAILABLE_TRANSIENT, $is_available, DAY_IN_SECONDS );
 		}
@@ -149,7 +149,7 @@ class SSL {
 
 		$ssl_data = get_transient( self::SSL_DATA_TRANSIENT );
 
-		if ( false !== $ssl_data && ! empty( $ssl_data['validity']['to'] ) ) {
+		if ( $ssl_data !== false && ! empty( $ssl_data['validity']['to'] ) ) {
 			$current    = time();
 			$expiration = strtotime( $ssl_data['validity']['to'] );
 

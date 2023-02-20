@@ -11,10 +11,7 @@
 	<exclude-pattern>/index\.php</exclude-pattern>
 	<exclude-pattern>/supervisor\.php</exclude-pattern>
 
-	<rule ref="WordPress.PHP.YodaConditions"/>
-
 	<rule ref="WPForms">
-		<exclude name="WPForms.PHP.ConditionsYodaDisable.YodaRemove"/>
 		<exclude name="WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks"/>
 		<exclude name="WordPress.DB.DirectDatabaseQuery.NoCaching"/>
 		<exclude name="WPForms.PHP.ValidateHooks.InvalidHookName"/>

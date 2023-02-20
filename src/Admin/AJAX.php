@@ -84,7 +84,7 @@ final class AJAX {
 		if ( isset( $_POST['software'] ) && preg_match( '/(?:ssl|https)/', sanitize_key( wp_unslash( $_POST['software'] ) ) ) ) {
 			$notices_transient = get_transient( Dashboard::HIDE_NOTICES_TRANSIENT );
 
-			if ( false === $notices_transient ) {
+			if ( $notices_transient === false ) {
 				$notices_transient = [];
 			}
 

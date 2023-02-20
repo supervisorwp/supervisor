@@ -109,7 +109,7 @@ class Autoload {
 
 		$autoload = $wpdb->get_var( $wpdb->prepare( "SELECT autoload FROM $wpdb->options WHERE option_name = %s;", $option_name ) );
 
-		return ( 'no' === $autoload );
+		return ( $autoload === 'no' );
 	}
 
 	/**
@@ -182,12 +182,12 @@ class Autoload {
 			return false;
 		}
 
-		$should_autoload = ( 'yes' === $autoload );
+		$should_autoload = ( $autoload === 'yes' );
 
 		// update option's autoload value to $autoload.
 		$result = $wpdb->query( $wpdb->prepare( "UPDATE $wpdb->options SET autoload = %s WHERE option_name LIKE %s;", $autoload, $option_name ) );
 
-		if ( empty( $result ) || 0 === $result ) {
+		if ( empty( $result ) ) {
 			return false;
 		}
 

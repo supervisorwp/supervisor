@@ -20,7 +20,7 @@ final class SSLView extends AbstractView {
 
 		$days_to_expire = supv()->core()->ssl()->is_expiring();
 
-		if ( false === $days_to_expire || ! is_int( $days_to_expire ) ) {
+		if ( $days_to_expire === false || ! is_int( $days_to_expire ) ) {
 			return;
 		}
 
