@@ -3,7 +3,7 @@
 }
 
 .supv-container {
-	padding: 0 30px;
+	padding: 0 20px;
 }
 
 .supv-container-fluid.hero, .supv-container.hero {
@@ -20,20 +20,22 @@
 	}
 }
 
-@media only screen and (max-width: 782px) {
-	.supv-container-fluid, .supv-container {
-		margin-left: auto !important;
-		margin-right: auto !important;
-	}
-
+@media only screen and (max-width: 1042px) {
 	.supv-container {
 		padding: 0 30px;
 	}
 }
 
+@media only screen and (max-width: 782px) {
+	.supv-container-fluid, .supv-container {
+		margin-left: auto !important;
+		margin-right: auto !important;
+	}
+}
+
 @media only screen and (min-width: 1042px) {
 	.supv-container {
-		max-width: 80rem;
+		max-width: 100rem;
 
 		&.full-width {
 			max-width: 100%;

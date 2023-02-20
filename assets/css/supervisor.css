@@ -36,7 +36,7 @@
 }
 
 .supv-container {
-  padding: 0 30px;
+  padding: 0 20px;
 }
 
 .supv-container-fluid.hero, .supv-container.hero {
@@ -52,18 +52,20 @@
     margin-right: 0;
   }
 }
+@media only screen and (max-width: 1042px) {
+  .supv-container {
+    padding: 0 30px;
+  }
+}
 @media only screen and (max-width: 782px) {
   .supv-container-fluid, .supv-container {
     margin-left: auto !important;
     margin-right: auto !important;
   }
-  .supv-container {
-    padding: 0 30px;
-  }
 }
 @media only screen and (min-width: 1042px) {
   .supv-container {
-    max-width: 80rem;
+    max-width: 100rem;
   }
   .supv-container.full-width {
     max-width: 100%;
@@ -1262,7 +1264,7 @@
   }
 }
 @media only screen and (max-width: 782px) {
-  .toplevel_page_supervisor-wp #wpcontent {
+  .toplevel_page_supervisor #wpcontent {
     padding-left: 0 !important;
   }
 }

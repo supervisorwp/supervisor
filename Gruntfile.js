@@ -36,7 +36,7 @@ module.exports = function( grunt ) {
 
 		watch: {
 			src: {
-				files: [ 'assets/scss/*.scss', 'assets/js/*.js', '!assets/js/*.min.js' ],
+				files: [ 'assets/scss/**/*.scss', 'assets/js/*.js', '!assets/js/*.min.js' ],
 				tasks: [ 'default' ]
 			}
 		}

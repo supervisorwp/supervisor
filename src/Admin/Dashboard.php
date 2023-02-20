@@ -78,7 +78,7 @@ final class Dashboard {
 				'supv-js',
 				'supv',
 				[
-					'loading' => esc_html__( 'Loading...' ),
+					'loading' => esc_html__( 'Loading...', 'supervisor' ),
 				]
 			);
 
