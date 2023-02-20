@@ -5,7 +5,7 @@
  * Description: A plugin to help improve the performance of your WordPress site.
  * Version:     1.0.0
  * Author:      Supervisor Team
- * Author URI:  https://supervisor-wp.com/contributors
+ * Author URI:  https://supervisorwp.com/contributors
  * License:     GPL-3.0+
  * License URI: https://www.gnu.org/licenses/gpl-3.0.txt
  *
