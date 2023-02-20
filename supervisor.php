@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Supervisor
- * Plugin URI:  https://supervisor-wp.com
+ * Plugin URI:  https://supervisorwp.com
  * Description: A plugin to help improve the performance of your WordPress site.
  * Version:     1.0.0
  * Author:      Supervisor Team
