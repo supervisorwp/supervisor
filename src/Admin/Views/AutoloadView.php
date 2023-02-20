@@ -251,7 +251,7 @@ final class AutoloadView extends AbstractView {
 				<p class="supv-text-success">
 					<?php
 					/* translators: %1$s is the option name, %2$s is the status ('deactivated' or 'reactivated'). */
-					echo sprintf( esc_html__( 'Yay, the <strong>%1$s</strong> option was %2$s successfully.', 'supervisor' ), sanitize_key( key( $success ) ), esc_html( $message_singular ) );
+					echo sprintf( esc_html__( 'Yay, the %1$s option was %2$s successfully.', 'supervisor' ), '<strong>' . sanitize_key( key( $success ) ) . '</strong>', esc_html( $message_singular ) );
 					?>
 				<p>
 			</div>
