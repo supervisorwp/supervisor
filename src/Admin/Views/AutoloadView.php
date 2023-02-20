@@ -44,7 +44,8 @@ final class AutoloadView extends AbstractView {
 	 */
 	public function output_stats( $updated_options = [], $is_history = null ) {
 
-		$stats = supv()->core()->autoload()->get_stats();
+		$stats   = supv()->core()->autoload()->get_stats();
+		$history = supv()->core()->autoload()->get_history();
 		?>
 		<div class="supv-stats">
 			<ul>
@@ -67,7 +68,7 @@ final class AutoloadView extends AbstractView {
 				<?php esc_html_e( 'Top Autoload Options', 'supervisor' ); ?>
 			</button>
 
-			<?php if ( count( supv()->core()->autoload()->get_history() ) > 0 ) : ?>
+			<?php if ( is_array( $history ) && count( $history ) > 0 ) : ?>
 				<button type="button" class="supv-button supv-button-secondary" id="supv-btn-autoload-history">
 					<?php esc_html_e( 'History', 'supervisor' ); ?>
 				</button>
