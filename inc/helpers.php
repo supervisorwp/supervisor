@@ -21,7 +21,7 @@ function supv_get_asset_url( $name, $type = 'images' ) {
 }
 
 /**
- * Is Supervisor dashboard screen.
+ * Determines whether the current screen is the Supervisor dashboard screen.
  *
  * @since 1.0.0
  *
@@ -30,4 +30,16 @@ function supv_get_asset_url( $name, $type = 'images' ) {
 function supv_is_supervisor_screen() {
 
 	return is_admin() && ! empty( $_GET['page'] ) && 'supervisor' === sanitize_key( wp_unslash( $_GET['page'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+}
+
+/**
+ * Determines whether the current request is a WP-CLI request.
+ *
+ * @since 1.0.0
+ *
+ * @return bool
+ */
+function supv_is_doing_wpcli() {
+
+	return defined( 'WP_CLI' ) && WP_CLI;
 }
