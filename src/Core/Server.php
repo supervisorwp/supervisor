@@ -9,6 +9,15 @@ namespace SUPV\Core;
  */
 class Server {
 	/**
+	 * Transient to store the minimum requirements.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @var string
+	 */
+	const MIN_REQUIREMENTS_TRANSIENT = 'supv_server_min_requirements';
+
+	/**
 	 * Transient to store the server data.
 	 *
 	 * @since 1.0.0
@@ -112,5 +121,105 @@ class Server {
 		 * @param array $server The server IP.
 		 */
 		return apply_filters( 'supv_server_ip', $ip );
+	}
+
+	/**
+	 * Retrieves the server requirements from our API.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return array|false The server requirements, or false on error.
+	 */
+	private function get_requirements() {
+
+		$requirements = get_transient( self::MIN_REQUIREMENTS_TRANSIENT );
+
+		if ( $requirements === false ) {
+			$options = [
+				'timeout'    => 20,
+				'user-agent' => 'Supervisor/' . SUPV_VERSION . '; ' . site_url(),
+			];
+
+			$response = wp_remote_get( 'https://api.wp-healthcheck.com/v1/requirements', $options );
+
+			if ( ! is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) === 200 && is_array( $response ) ) {
+				$requirements = json_decode( wp_remote_retrieve_body( $response ), true );
+
+				set_transient( self::MIN_REQUIREMENTS_TRANSIENT, $requirements, WEEK_IN_SECONDS );
+			}
+		}
+
+		/**
+		 * Filters the server requirements.
+		 *
+		 * @since 1.1.0
+		 *
+		 * @param array|false $requirements The server requirements.
+		 */
+		return apply_filters( 'supv_server_requirements', $requirements );
+	}
+
+	/**
+	 * Determine if server software is up-to-date or not.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param string $software The software name.
+	 *
+	 * @return string|false The current status ('updated', 'outdated', or 'obsolete') of the software or false on error.
+	 */
+	public function is_updated( $software ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
+
+		if ( ! preg_match( '/^(php|mysql|mariadb|wp|nginx|apache)$/', $software ) ) {
+			return false;
+		}
+
+		$requirements = $this->get_requirements();
+
+		if ( ! $requirements ) {
+			return false;
+		}
+
+		$server_data = $this->get_data();
+
+		if ( $software === 'wp' ) {
+			$current_local = preg_replace( '/(\d{1,}\.\d{1,})(\.\d{1,})?/', '$1', $server_data['wp'] );
+
+			foreach ( $requirements['wordpress'] as $version ) {
+				if ( preg_match( '/^' . $current_local . '(\.\d{1,})?/', $version ) ) {
+					$current_live = $version;
+
+					break;
+				}
+			}
+
+			if ( ! isset( $current_live ) ) {
+				$current_live = $requirements['wordpress'][0];
+			}
+
+			$requirements[ $software ]['recommended'] = $current_live;
+
+			$minimum_version = preg_replace( '/(\d{1,}\.\d{1,})(\.\d{1,})?/', '$1', end( $requirements['wordpress'] ) );
+
+			$requirements[ $software ]['minimum'] = $minimum_version;
+		}
+
+		if ( preg_match( '/^(mysql|mariadb)$/', $software ) ) {
+			$server_data[ $software ] = $server_data['database']['version'];
+		}
+
+		if ( preg_match( '/^(nginx|apache)$/', $software ) ) {
+			$server_data[ $software ] = $server_data['web']['version'];
+
+			$requirements[ $software ]['minimum'] = end( $requirements[ $software ]['versions'] );
+		}
+
+		if ( version_compare( $server_data[ $software ], $requirements[ $software ]['recommended'], '>=' ) ) {
+			return 'updated';
+		} elseif ( version_compare( $server_data[ $software ], $requirements[ $software ]['minimum'], '>=' ) ) {
+			return 'outdated';
+		} else {
+			return 'obsolete';
+		}
 	}
 }

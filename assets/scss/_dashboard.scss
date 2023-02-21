@@ -11,7 +11,7 @@
 	}
 }
 
-.supv-overview {
+.supv-sysinfo {
 	margin-bottom: 17px;
 	margin-top: 20px;
 
@@ -23,17 +23,39 @@
 		margin-right: 12px;
 
 		p {
+			color: $gray;
 			float: left;
 			margin: 0;
 
 			&:first-child {
-				color: $red;
+				color: $red !important;
 				font-weight: bold;
 				padding-right: 8px;
 			}
+		}
 
-			&:last-child {
-				color: $gray;
+		&-status {
+			width: 20px;
+		}
+
+		.supv-icon {
+			font-size: 16px;
+			margin-left: 6px;
+			position: absolute;
+
+			&-updated {
+				@extend .supv-icon;
+				color: $success !important;
+			}
+
+			&-outdated {
+				@extend .supv-icon;
+				color: $warning !important;
+			}
+
+			&-obsolete {
+				@extend .supv-icon;
+				color: $error !important;
 			}
 		}
 	}
@@ -96,6 +118,11 @@
 	&-error {
 		clear: both;
 		color: $error;
+	}
+
+	&-warning {
+		clear: both;
+		color: $warning;
 	}
 }
 
@@ -216,7 +243,7 @@
 }
 
 @media only screen and (max-width: 1042px) {
-	.supv-overview {
+	.supv-sysinfo {
 		margin-left: -0.5rem !important;
 		margin-right: -0.5rem !important;
 		margin-bottom: 0;

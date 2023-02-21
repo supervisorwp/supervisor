@@ -33,7 +33,7 @@ final class DashboardView extends AbstractView {
 			<?php $this->output_header(); ?>
 
 			<div class="supv-container">
-				<?php $this->output_overview(); ?>
+				<?php ( new SystemInfoView() )->output(); ?>
 				<?php $this->output_cards(); ?>
 			</div>
 		</div>
@@ -52,53 +52,6 @@ final class DashboardView extends AbstractView {
 			<div class="supv-header-logo">
 				<img src="<?php echo esc_url( supv_get_asset_url( 'supervisor-logo.png' ) ); ?>" title="Supervisor" />
 			</div>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Outputs the software overview.
-	 *
-	 * @since 1.0.0
-	 */
-	private function output_overview() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
-
-		$server_info = supv()->core()->server()->get_data();
-		?>
-		<div class="supv-overview">
-			<div class="supv-overview-box">
-				<p><?php esc_html_e( 'WordPress', 'supervisor' ); ?></p>
-				<p><?php echo ! empty( $server_info['wp'] ) ? esc_html( $server_info['wp'] ) : '-'; ?></p>
-			</div>
-
-			<div class="supv-overview-box">
-				<p><?php esc_html_e( 'PHP', 'supervisor' ); ?></p>
-				<p><?php echo ! empty( $server_info['php'] ) ? esc_html( $server_info['php'] ) : '-'; ?></p>
-			</div>
-
-			<div class="supv-overview-box">
-				<p><?php echo ! empty( $server_info['database']['service'] ) ? esc_html( $server_info['database']['service'] ) : esc_html__( 'Database', 'supervisor' ); ?></p>
-				<p><?php echo ! empty( $server_info['database']['version'] ) ? esc_html( $server_info['database']['version'] ) : '-'; ?></p>
-			</div>
-
-			<div class="supv-overview-box">
-				<p><?php esc_html_e( 'Web Server', 'supervisor' ); ?></p>
-				<p>
-					<?php
-					echo ! empty( $server_info['web']['service'] ) ? esc_html( $server_info['web']['service'] ) . '/' : '';
-					echo ! empty( $server_info['web']['version'] ) ? esc_html( $server_info['web']['version'] ) : '-';
-					?>
-				</p>
-			</div>
-
-			<?php if ( ! empty( supv()->core()->server()->get_ip() ) ) : ?>
-				<div class="supv-overview-box">
-					<p><?php esc_html_e( 'Server IP', 'supervisor' ); ?></p>
-					<p>
-						<?php echo esc_html( supv()->core()->server()->get_ip() ); ?>
-					</p>
-				</div>
-			<?php endif; ?>
 		</div>
 		<?php
 	}
