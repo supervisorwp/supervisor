@@ -21,7 +21,7 @@ final class Install {
 	 * @var array
 	 */
 	private static $plugin_options = [
-		Autoload::DISABLE_AUTOLOAD_OPTION,
+		Autoload::DEACTIVATION_HISTORY_OPTION,
 	];
 
 	/**
@@ -32,9 +32,10 @@ final class Install {
 	 * @var array
 	 */
 	private static $plugin_transients = [
-		Server::SERVER_DATA_TRANSIENT,
-		SSL::SSL_AVAILABLE_TRANSIENT,
-		SSL::SSL_DATA_TRANSIENT,
+		Server::DATA_TRANSIENT,
+		Server::MIN_REQUIREMENTS_TRANSIENT,
+		SSL::AVAILABLE_TRANSIENT,
+		SSL::DATA_TRANSIENT,
 	];
 
 	/**

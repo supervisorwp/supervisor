@@ -24,7 +24,7 @@ class Server {
 	 *
 	 * @var string
 	 */
-	const SERVER_DATA_TRANSIENT = 'supv_server_data';
+	const DATA_TRANSIENT = 'supv_server_data';
 
 	/**
 	 * Retrieves the server data.
@@ -37,7 +37,7 @@ class Server {
 
 		global $wpdb;
 
-		$server = get_transient( self::SERVER_DATA_TRANSIENT );
+		$server = get_transient( self::DATA_TRANSIENT );
 
 		if ( $server === false ) {
 			include ABSPATH . WPINC . '/version.php';
@@ -83,7 +83,7 @@ class Server {
 				}
 			}
 
-			set_transient( self::SERVER_DATA_TRANSIENT, $server, DAY_IN_SECONDS );
+			set_transient( self::DATA_TRANSIENT, $server, DAY_IN_SECONDS );
 		}
 
 		/**
