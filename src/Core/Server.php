@@ -212,7 +212,7 @@ class Server {
 			// Determines the latest minor version available.
 			$minor_latest = $this->get_latest_minor_version( $sysinfo[ $software ], $requirements['php']['versions'] );
 
-			if ( $minor_latest ) {
+			if ( ! empty( $minor_latest ) ) {
 				$requirements[ $software ]['recommended'] = $minor_latest;
 			}
 		}
