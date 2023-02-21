@@ -23,6 +23,10 @@
   content: "a";
 }
 
+.supv-icon-wordpress:before {
+  content: "e";
+}
+
 #adminmenu #toplevel_page_supervisor div.wp-menu-image:before {
   content: "a";
 }
