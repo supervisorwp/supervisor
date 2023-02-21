@@ -1,6 +1,8 @@
 <?php
 namespace SUPV;
 
+use SUPV\Utils\Install;
+
 /**
  * The Loader class.
  *
@@ -33,10 +35,7 @@ final class Loader {
 	 */
 	public function __construct() {
 
-		// Load the plugin classes only if you are on Dashboard.
-		if ( is_admin() ) {
-			$this->hooks();
-		}
+		$this->hooks();
 	}
 
 	/**
@@ -56,10 +55,19 @@ final class Loader {
 	 */
 	public function setup() {
 
+		// Loads the helper functions.
 		require_once SUPV_PLUGIN_DIR . '/inc/helpers.php';
 
-		$this->core  = new Core\Loader();
-		$this->admin = new Admin\Loader();
+		// Load the plugin classes only if you are using Dashboard or WP-CLI.
+		if ( is_admin() || supv_is_doing_wpcli() ) {
+
+			// Loads the plugin classes.
+			$this->core  = new Core\Loader();
+			$this->admin = new Admin\Loader();
+
+			// Triggers the plugin hooks.
+			new Install();
+		}
 	}
 
 	/**

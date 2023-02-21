@@ -55,7 +55,7 @@ class SSL {
 	 */
 	public function get_data() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
-		if ( ! is_ssl() && ( ! defined( 'WP_CLI' ) || ! WP_CLI ) ) {
+		if ( ! is_ssl() ) {
 			return false;
 		}
 
