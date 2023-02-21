@@ -140,7 +140,7 @@ class Server {
 				'user-agent' => 'Supervisor/' . SUPV_VERSION . '; ' . site_url(),
 			];
 
-			$response = wp_remote_get( 'https://api.wp-healthcheck.com/v1/requirements', $options );
+			$response = wp_remote_get( 'https://api.supervisorwp.com/v1/requirements', $options );
 
 			if ( ! is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) === 200 && is_array( $response ) ) {
 				$requirements = json_decode( wp_remote_retrieve_body( $response ), true );
