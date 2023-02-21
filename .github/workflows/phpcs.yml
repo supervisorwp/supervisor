@@ -12,6 +12,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: ${{ github.head_ref }}
 
       - name: Setup PHP 7.4 and disable opcache
         uses: shivammathur/setup-php@v2
@@ -23,4 +24,7 @@ jobs:
         run: composer install
 
       - name: Check coding standards
-        run: composer run phpcs $(git diff --name-only master..${{ github.head_ref }} -- '*.php')
+        run: |
+          git checkout master # checkout the master branch so it is available to run the diff
+          git checkout -
+          composer run phpcs $(git diff --name-only master..${{ github.head_ref }} -- '*.php')
