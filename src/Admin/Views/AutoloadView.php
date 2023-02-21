@@ -111,12 +111,15 @@ final class AutoloadView extends AbstractView {
 				</ul>
 
 				<?php foreach ( $opts as $name => $size ) : ?>
-					<?php $title = ''; ?>
-					<?php $id = 'supv-opt-' . rawurlencode( $name ); ?>
+					<?php
+					$title          = '';
+					$id             = 'supv-opt-' . rawurlencode( $name );
+					$is_core_option = supv()->core()->autoload()->is_core_option( $name );
+					?>
 
 					<ul>
 						<li class="supv-col-check">
-							<?php if ( ! supv()->core()->autoload()->is_core_option( $name ) ) : ?>
+							<?php if ( ! $is_core_option ) : ?>
 								<input name="<?php echo esc_attr( $id ); ?>" id="<?php echo esc_attr( $id ); ?>" type="checkbox" />
 							<?php else : ?>
 								<?php $title = esc_html__( 'You can\'t deactivate a WordPress core option.', 'supervisor' ); ?>
@@ -127,6 +130,10 @@ final class AutoloadView extends AbstractView {
 						<li class="supv-col-name">
 							<label for="<?php echo esc_attr( $id ); ?>" title="<?php echo esc_attr( $title ); ?>">
 								<?php echo esc_html( $name ); ?>
+
+								<?php if ( $is_core_option ) : ?>
+									<span class="supv-icon-wordpress"></span>
+								<?php endif; ?>
 							</label>
 						</li>
 
