@@ -91,11 +91,11 @@ final class SystemInfoView extends AbstractView {
 				break;
 
 			case 'outdated':
-				$title = esc_html__( 'Your software is outdated, but it is still compatible with WordPress', 'supervisor' );
+				$title = esc_html__( 'Your software is outdated', 'supervisor' );
 				break;
 
 			case 'obsolete':
-				$title = esc_html__( 'Your software is not supported by WordPress anymore', 'supervisor' );
+				$title = esc_html__( 'Your software is not supported anymore', 'supervisor' );
 				break;
 		}
 
