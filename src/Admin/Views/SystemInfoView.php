@@ -83,6 +83,22 @@ final class SystemInfoView extends AbstractView {
 			return;
 		}
 
-		echo '<span class="supv-icon-' . esc_attr( $status ) . '"></span>';
+		$title = '';
+
+		switch ( $status ) {
+			case 'updated':
+				$title = esc_html__( 'Your software is up-to-date', 'supervisor' );
+				break;
+
+			case 'outdated':
+				$title = esc_html__( 'Your software is outdated, but it still compatible with WordPress', 'supervisor' );
+				break;
+
+			case 'obsolete':
+				$title = esc_html__( 'Your software is not supported by WordPress anymore', 'supervisor' );
+				break;
+		}
+
+		echo '<span class="supv-icon-' . esc_attr( $status ) . '" title="' . esc_html( $title ) . '"></span>';
 	}
 }
