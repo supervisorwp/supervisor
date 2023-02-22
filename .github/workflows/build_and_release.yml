@@ -51,7 +51,7 @@ jobs:
           cp -R * /tmp/supervisor
           cd /tmp/supervisor
           rm -rf assets/scss .git* .editorconfig *.md phpcs.xml.dist composer.* package*.json Gruntfile.js
-          zip -r supervisor-${{ github.event.inputs.tag }}.zip .
+          zip -r supervisor-${{ github.event.inputs.tag }}.zip ../supervisor
           ls -lah
           cd -
 
