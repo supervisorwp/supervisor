@@ -29,6 +29,18 @@
 	content: "\61";
 }
 
+.supv-icon-updated:before {
+	content: "\63";
+}
+
+.supv-icon-outdated:before {
+	content: "\64";
+}
+
+.supv-icon-obsolete:before {
+	content: "\62";
+}
+
 .supv-icon-wordpress:before {
 	content: "\65";
 }

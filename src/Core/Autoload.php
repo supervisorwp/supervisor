@@ -9,13 +9,13 @@ namespace SUPV\Core;
  */
 class Autoload {
 	/**
-	 * Option to store the history of disabled autoload options.
+	 * Option to store the history of deactivated autoload options.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @var string
 	 */
-	const DISABLE_AUTOLOAD_OPTION = 'supv_disable_autoload_history';
+	const DEACTIVATION_HISTORY_OPTION = 'supv_autoload_deactivation_history';
 
 	/**
 	 * Returns the 10 biggest WordPress autoload options.
@@ -70,7 +70,7 @@ class Autoload {
 	 */
 	public function get_history() {
 
-		$history = get_option( self::DISABLE_AUTOLOAD_OPTION );
+		$history = get_option( self::DEACTIVATION_HISTORY_OPTION );
 
 		if ( $history ) {
 			$updated    = false;
@@ -85,7 +85,7 @@ class Autoload {
 			}
 
 			if ( $updated ) {
-				update_option( self::DISABLE_AUTOLOAD_OPTION, $history );
+				update_option( self::DEACTIVATION_HISTORY_OPTION, $history );
 			}
 
 			$history = array_reverse( $history, true );
@@ -207,7 +207,7 @@ class Autoload {
 
 		if ( $should_autoload ) {
 			// removes option name and timestamp from history.
-			$history = get_option( self::DISABLE_AUTOLOAD_OPTION );
+			$history = get_option( self::DEACTIVATION_HISTORY_OPTION );
 
 			if ( $history && is_array( $history ) ) {
 				foreach ( $history as $name => $timestamp ) {
@@ -222,11 +222,11 @@ class Autoload {
 			}
 		} else {
 			// adds option name and timestamp to history.
-			if ( ! get_option( self::DISABLE_AUTOLOAD_OPTION ) ) {
-				add_option( self::DISABLE_AUTOLOAD_OPTION, '', '', 'no' );
+			if ( ! get_option( self::DEACTIVATION_HISTORY_OPTION ) ) {
+				add_option( self::DEACTIVATION_HISTORY_OPTION, '', '', 'no' );
 			}
 
-			$history = get_option( self::DISABLE_AUTOLOAD_OPTION );
+			$history = get_option( self::DEACTIVATION_HISTORY_OPTION );
 
 			if ( ! is_array( $history ) ) {
 				$history = [];
@@ -236,7 +236,7 @@ class Autoload {
 		}
 
 		if ( ! $should_autoload || $updated ) {
-			update_option( self::DISABLE_AUTOLOAD_OPTION, $history );
+			update_option( self::DEACTIVATION_HISTORY_OPTION, $history );
 		}
 
 		return $result;

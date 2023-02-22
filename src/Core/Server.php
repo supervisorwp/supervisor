@@ -9,13 +9,22 @@ namespace SUPV\Core;
  */
 class Server {
 	/**
+	 * Transient to store the minimum requirements.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @var string
+	 */
+	const MIN_REQUIREMENTS_TRANSIENT = 'supv_server_min_requirements';
+
+	/**
 	 * Transient to store the server data.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @var string
 	 */
-	const SERVER_DATA_TRANSIENT = 'supv_server_data';
+	const DATA_TRANSIENT = 'supv_server_data';
 
 	/**
 	 * Retrieves the server data.
@@ -28,14 +37,18 @@ class Server {
 
 		global $wpdb;
 
-		$server = get_transient( self::SERVER_DATA_TRANSIENT );
+		$server = get_transient( self::DATA_TRANSIENT );
 
 		if ( $server === false ) {
 			include ABSPATH . WPINC . '/version.php';
 
-			$php = preg_match( '/^(\d+\.){2}\d+/', phpversion(), $phpversion );
+			// Retrieves the PHP version.
+			preg_match( '/^(\d+\.){2}\d+/', phpversion(), $phpversion );
 
-			$db_service = ( preg_match( '/MariaDB/', $wpdb->dbh->server_info ) ) ? 'MariaDB' : 'MySQL';
+			// Determines if the database is MySQL or MariaDB.
+			$db_service = preg_match( '/MariaDB/', $wpdb->dbh->server_info ) ? 'MariaDB' : 'MySQL';
+
+			// Determines the database software version.
 			$db_version = $wpdb->db_version();
 
 			if ( $db_service === 'MariaDB' ) {
@@ -70,7 +83,7 @@ class Server {
 				}
 			}
 
-			set_transient( self::SERVER_DATA_TRANSIENT, $server, DAY_IN_SECONDS );
+			set_transient( self::DATA_TRANSIENT, $server, DAY_IN_SECONDS );
 		}
 
 		/**
@@ -112,5 +125,156 @@ class Server {
 		 * @param array $server The server IP.
 		 */
 		return apply_filters( 'supv_server_ip', $ip );
+	}
+
+	/**
+	 * Retrieves the server requirements from our API.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return array|false The server requirements, or false on error.
+	 */
+	private function get_requirements() {
+
+		$requirements = get_transient( self::MIN_REQUIREMENTS_TRANSIENT );
+
+		if ( $requirements === false ) {
+			$options = [
+				'timeout'    => 20,
+				'user-agent' => 'Supervisor/' . SUPV_VERSION . '; ' . site_url(),
+			];
+
+			$response = wp_remote_get( 'https://api.supervisorwp.com/v1/requirements', $options );
+
+			if ( ! is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) === 200 && is_array( $response ) ) {
+				$requirements = json_decode( wp_remote_retrieve_body( $response ), true );
+
+				set_transient( self::MIN_REQUIREMENTS_TRANSIENT, $requirements, WEEK_IN_SECONDS );
+			}
+		}
+
+		/**
+		 * Filters the server requirements.
+		 *
+		 * @since 1.1.0
+		 *
+		 * @param array|false $requirements The server requirements.
+		 */
+		return apply_filters( 'supv_server_requirements', $requirements );
+	}
+
+	/**
+	 * Determines if the server software is up-to-date or not.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param string $software The software name.
+	 *
+	 * @return string|false The current status ('updated', 'need_update', 'outdated', or 'obsolete') of the software or false on error.
+	 */
+	public function is_updated( $software ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
+
+		// Stop the execution if software is not found.
+		if ( ! preg_match( '/^(php|mysql|mariadb|wp|nginx|apache)$/', $software ) ) {
+			return false;
+		}
+
+		// Get the minimum requirements from our API.
+		$requirements = $this->get_requirements();
+
+		if ( ! $requirements ) {
+			return false;
+		}
+
+		// Get the system information.
+		$sysinfo = $this->get_data();
+
+		// WordPress.
+		if ( $software === 'wp' ) {
+			// Determines the latest minor version available.
+			$minor_latest = $this->get_latest_minor_version( $sysinfo['wp'], $requirements['wordpress'] );
+
+			$requirements[ $software ]['recommended'] = ! empty( $minor_latest ) ? $minor_latest : $requirements['wordpress'][0];
+
+			// Determines the minimum WP version available.
+			$minimum_version = preg_replace( '/(\d{1,}\.\d{1,})(\.\d{1,})?/', '$1', end( $requirements['wordpress'] ) );
+
+			$requirements[ $software ]['minimum'] = $minimum_version;
+		}
+
+		// Database.
+		if ( preg_match( '/^(mysql|mariadb)$/', $software ) ) {
+			$sysinfo[ $software ] = $sysinfo['database']['version'];
+		}
+
+		// PHP.
+		if ( $software === 'php' ) {
+			// Determines the latest minor version available.
+			$minor_latest = $this->get_latest_minor_version( $sysinfo[ $software ], $requirements['php']['versions'] );
+
+			if ( ! empty( $minor_latest ) ) {
+				$requirements[ $software ]['recommended'] = $minor_latest;
+			}
+		}
+
+		// Web server.
+		if ( preg_match( '/^(nginx|apache)$/', $software ) ) {
+			$sysinfo[ $software ] = $sysinfo['web']['version'];
+
+			$requirements[ $software ]['minimum'] = end( $requirements[ $software ]['versions'] );
+		}
+
+		// Compare the versions and return the status.
+		if ( version_compare( $sysinfo[ $software ], $requirements[ $software ]['recommended'], '>=' ) ) {
+			return 'updated';
+		} elseif ( version_compare( $sysinfo[ $software ], $requirements[ $software ]['minimum'], '>=' ) ) {
+			return 'outdated';
+		} else {
+			return 'obsolete';
+		}
+	}
+
+	/**
+	 * Gets the latest minor version available.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param string $version           The version currently installed.
+	 * @param array  $upstream_versions The versions available on upstream.
+	 *
+	 * @return string|false The upstream latest version, or false on error.
+	 */
+	private function get_latest_minor_version( $version, $upstream_versions ) {
+
+		if ( ! empty( $version ) && is_array( $upstream_versions ) ) {
+			$major = preg_replace( '/(\d{1,}\.\d{1,})(\.\d{1,})?/', '$1', $version );
+
+			foreach ( $upstream_versions as $upstream_version ) {
+				if ( preg_match( '/^' . $major . '(\.\d{1,})?/', $upstream_version ) ) {
+					return $upstream_version;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Determines if the minor version is updated to the latest version.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param string $version           The version currently installed.
+	 * @param array  $upstream_versions The versions available on upstream.
+	 *
+	 * @return bool True if it is up-to-date.
+	 */
+	private function is_minor_version_updated( $version, $upstream_versions ) {
+
+		if ( empty( $version ) || ! is_array( $upstream_versions ) ) {
+			return false;
+		}
+
+		return (bool) version_compare( $version, $this->get_latest_minor_version( $version, $upstream_versions ), '>=' );
 	}
 }

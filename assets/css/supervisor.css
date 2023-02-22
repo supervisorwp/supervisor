@@ -23,6 +23,18 @@
   content: "a";
 }
 
+.supv-icon-updated:before {
+  content: "c";
+}
+
+.supv-icon-outdated:before {
+  content: "d";
+}
+
+.supv-icon-obsolete:before {
+  content: "b";
+}
+
 .supv-icon-wordpress:before {
   content: "e";
 }
@@ -1172,28 +1184,43 @@
   width: 214px;
 }
 
-.supv-overview {
+.supv-sysinfo {
   margin-bottom: 17px;
   margin-top: 20px;
 }
-.supv-overview-box {
+.supv-sysinfo-box {
   background: #fff;
   box-shadow: 0px 5px 1px -5px #bbb;
   display: inline-block;
   padding: 10px 15px;
   margin-right: 12px;
 }
-.supv-overview-box p {
+.supv-sysinfo-box p {
+  color: #444;
   float: left;
   margin: 0;
 }
-.supv-overview-box p:first-child {
-  color: #8a1736;
+.supv-sysinfo-box p:first-child {
+  color: #8a1736 !important;
   font-weight: bold;
   padding-right: 8px;
 }
-.supv-overview-box p:last-child {
-  color: #444;
+.supv-sysinfo-box-status {
+  width: 20px;
+}
+.supv-sysinfo-box .supv-icon, .supv-sysinfo-box .supv-icon-obsolete, .supv-sysinfo-box .supv-icon-outdated, .supv-sysinfo-box .supv-icon-updated {
+  font-size: 16px;
+  margin-left: 6px;
+  position: absolute;
+}
+.supv-sysinfo-box .supv-icon-updated {
+  color: #3c881a !important;
+}
+.supv-sysinfo-box .supv-icon-outdated {
+  color: #f5c82d !important;
+}
+.supv-sysinfo-box .supv-icon-obsolete {
+  color: #ff0e0e !important;
 }
 
 .supv-stats {
@@ -1244,6 +1271,10 @@
 .supv-text-error {
   clear: both;
   color: #ff0e0e;
+}
+.supv-text-warning {
+  clear: both;
+  color: #f5c82d;
 }
 
 .supv-notice-margin {
@@ -1338,7 +1369,7 @@
   }
 }
 @media only screen and (max-width: 1042px) {
-  .supv-overview {
+  .supv-sysinfo {
     margin-left: -0.5rem !important;
     margin-right: -0.5rem !important;
     margin-bottom: 0;

@@ -15,7 +15,7 @@ class SSL {
 	 *
 	 * @var string
 	 */
-	const SSL_DATA_TRANSIENT = 'supv_ssl_data';
+	const DATA_TRANSIENT = 'supv_ssl_data';
 
 	/**
 	 * Transient to store if SSL is available or not.
@@ -24,7 +24,7 @@ class SSL {
 	 *
 	 * @var string
 	 */
-	const SSL_AVAILABLE_TRANSIENT = 'supv_ssl_available';
+	const AVAILABLE_TRANSIENT = 'supv_ssl_available';
 
 	/**
 	 * Constructor.
@@ -59,7 +59,7 @@ class SSL {
 			return false;
 		}
 
-		$ssl_data = get_transient( self::SSL_DATA_TRANSIENT );
+		$ssl_data = get_transient( self::DATA_TRANSIENT );
 
 		if ( $ssl_data === false ) {
 			$context = stream_context_create(
@@ -80,7 +80,7 @@ class SSL {
 			$socket = @stream_socket_client( 'ssl://' . $siteurl['host'] . ':443', $errno, $errstr, 20, STREAM_CLIENT_CONNECT, $context ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 
 			if ( ! $socket ) {
-				set_transient( self::SSL_DATA_TRANSIENT, [], DAY_IN_SECONDS );
+				set_transient( self::DATA_TRANSIENT, [], DAY_IN_SECONDS );
 
 				return false;
 			}
@@ -99,7 +99,7 @@ class SSL {
 					],
 				];
 
-				set_transient( self::SSL_DATA_TRANSIENT, $ssl_data, DAY_IN_SECONDS );
+				set_transient( self::DATA_TRANSIENT, $ssl_data, DAY_IN_SECONDS );
 			}
 		}
 
@@ -119,7 +119,7 @@ class SSL {
 			return true;
 		}
 
-		$is_available = get_transient( self::SSL_AVAILABLE_TRANSIENT );
+		$is_available = get_transient( self::AVAILABLE_TRANSIENT );
 
 		if ( $is_available === false ) {
 			$siteurl = wp_parse_url( get_option( 'siteurl' ) );
@@ -132,7 +132,7 @@ class SSL {
 
 			$is_available = ( $socket !== false );
 
-			set_transient( self::SSL_AVAILABLE_TRANSIENT, $is_available, DAY_IN_SECONDS );
+			set_transient( self::AVAILABLE_TRANSIENT, $is_available, DAY_IN_SECONDS );
 		}
 
 		return $is_available;
@@ -147,7 +147,7 @@ class SSL {
 	 */
 	public function is_expiring() {
 
-		$ssl_data = get_transient( self::SSL_DATA_TRANSIENT );
+		$ssl_data = get_transient( self::DATA_TRANSIENT );
 
 		if ( $ssl_data !== false && ! empty( $ssl_data['validity']['to'] ) ) {
 			$current    = time();
