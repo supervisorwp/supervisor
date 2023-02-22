@@ -48,5 +48,10 @@ If you are a developer and want to contribute by writing new features, enhanceme
 
 == Changelog ==
 
+= [1.1.0] - 2023-02-22 =
+* Implemented a check to confirm if the server softwares are updated.
+* Added a border to the top of the header on Supervisor screen.
+* Hides notices on Supervisor screen.
+
 = [1.0.0] - 2023-02-22 =
 * Initial release.
