@@ -1176,6 +1176,7 @@
 
 .supv-header {
   background-color: #fff;
+  border-top: 5px solid #8a1736;
   box-shadow: 0px 5px 1px -5px #bbb;
   padding: 15px 20px;
 }
