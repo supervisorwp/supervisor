@@ -31,6 +31,7 @@ jobs:
       - name: Update constants
         run: |
           if [[ -f "supervisor.php" ]]; then sed -i '/Version: */d' supervisor.php; sed -i "/Description:*/a \ * Version:     ${{ github.event.inputs.tag }}" supervisor.php; sed -i "s/'SUPV_VERSION', '.*'/'SUPV_VERSION', '${{ github.event.inputs.tag }}'/g" supervisor.php; fi
+          if [[ -f "readme.txt" ]]; then sed -i '/Stable tag: */d' readme.txt; sed -i "/Requires PHP:*/a Stable tag: ${{ github.event.inputs.tag }}" readme.txt; fi
 
       - name: Commit changes
         run: |
