@@ -62,6 +62,8 @@ final class Dashboard {
 		}
 
 		add_action( 'admin_notices', [ $this, 'admin_notices' ] );
+
+		add_action( 'admin_head', [ $this, 'hide_admin_notices' ] );
 	}
 
 	/**
@@ -124,7 +126,7 @@ final class Dashboard {
 
 		$screen = get_current_screen();
 
-		if ( ! preg_match( '/^(' . $this->hookname . '|dashboard)$/', $screen->id ) ) {
+		if ( $screen->id !== 'dashboard' ) {
 			return;
 		}
 
@@ -140,5 +142,20 @@ final class Dashboard {
 				( new $notice() )->output();
 			}
 		}
+	}
+
+	/**
+	 * Hides all the admin notices on the Supervisor screen.
+	 *
+	 * @since {VERSION}
+	 */
+	public function hide_admin_notices() {
+
+		if ( ! supv_is_supervisor_screen() ) {
+			return;
+		}
+
+		remove_all_actions( 'admin_notices' );
+		remove_all_actions( 'network_admin_notices' );
 	}
 }
