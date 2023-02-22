@@ -52,6 +52,7 @@ jobs:
           mkdir /tmp/supervisor
           cp -R * /tmp/supervisor
           cd /tmp/supervisor
+          composer install -o --no-dev --no-scripts
           rm -rf assets/scss .git* .editorconfig *.md phpcs.xml.dist composer.* package*.json Gruntfile.js
           cd /tmp
           zip -r supervisor-${{ github.event.inputs.tag }}.zip supervisor/
