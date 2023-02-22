@@ -48,18 +48,19 @@ jobs:
 
       - name: Build zip
         run: |
+          currdir=$(pwd)
           mkdir /tmp/supervisor
           cp -R * /tmp/supervisor
           cd /tmp/supervisor
           rm -rf assets/scss .git* .editorconfig *.md phpcs.xml.dist composer.* package*.json Gruntfile.js
-          zip -r supervisor-${{ github.event.inputs.tag }}.zip ../supervisor
-          ls -lah
-          cd -
+          cd /tmp
+          zip -r supervisor-${{ github.event.inputs.tag }}.zip supervisor/
+          cd $currdir
 
       - name: Create the GitHub release
         uses: softprops/action-gh-release@v1
         with:
           body_path: /tmp/changelog_output
-          files: /tmp/supervisor/supervisor-${{ github.event.inputs.tag }}.zip
+          files: /tmp/supervisor-${{ github.event.inputs.tag }}.zip
           prerelease: false
           tag_name: "${{ github.event.inputs.tag }}"
