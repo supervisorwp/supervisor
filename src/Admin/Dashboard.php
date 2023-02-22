@@ -147,7 +147,7 @@ final class Dashboard {
 	/**
 	 * Hides all the admin notices on the Supervisor screen.
 	 *
-	 * @since {VERSION}
+	 * @since 1.1.0
 	 */
 	public function hide_admin_notices() {
 
