@@ -22,6 +22,7 @@ final class Install {
 	 */
 	private static $plugin_options = [
 		Autoload::DEACTIVATION_HISTORY_OPTION,
+		Upgrade::PLUGIN_VERSION_OPTION,
 	];
 
 	/**
@@ -45,6 +46,7 @@ final class Install {
 	 */
 	public function __construct() {
 
+		// Registers the hooks.
 		register_activation_hook( SUPV_PLUGIN_FILE, [ '\SUPV\Utils\Install', 'plugin_activation' ] );
 		register_deactivation_hook( SUPV_PLUGIN_FILE, [ '\SUPV\Utils\Install', 'plugin_deactivation' ] );
 		register_uninstall_hook( SUPV_PLUGIN_FILE, [ '\SUPV\Utils\Install', 'plugin_uninstall' ] );
@@ -89,7 +91,7 @@ final class Install {
 	 *
 	 * @param bool $only_transients True if should remove only the transients.
 	 */
-	private static function cleanup_plugin_options( $only_transients = false ) {
+	public static function cleanup_plugin_options( $only_transients = false ) {
 
 		if ( ! $only_transients ) {
 			// Removes the options.
