@@ -22,6 +22,7 @@ final class Install {
 	 */
 	private static $plugin_options = [
 		Autoload::DEACTIVATION_HISTORY_OPTION,
+		Upgrade::PLUGIN_VERSION_OPTION,
 	];
 
 	/**
