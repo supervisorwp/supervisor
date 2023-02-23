@@ -33,6 +33,7 @@ final class AJAX {
 			'autoload_options_list',
 			'autoload_options_history',
 			'autoload_update_option',
+			'wordpress_auto_update_policy',
 		];
 
 		$this->hooks();
@@ -176,6 +177,26 @@ final class AJAX {
 		}
 
 		( new AutoloadView() )->output_stats( $options, $is_history );
+
+		wp_die();
+	}
+
+	/**
+	 * Updates the WordPress auto update policy.
+	 *
+	 * @since {VERSION}
+	 */
+	public function wordpress_auto_update_policy() {
+
+		check_ajax_referer( 'supv_wordpress_auto_update_policy' );
+
+		$policy = ! empty( $_POST['wp_auto_update_policy'] ) ? sanitize_key( wp_unslash( $_POST['wp_auto_update_policy'] ) ) : false;
+
+		if ( ! empty( $policy ) && preg_match( '/^(?:minor|major|disabled|dev)$/', $policy ) ) {
+			supv()->core()->wordpress()->change_auto_update_policy( $policy );
+		}
+
+		esc_html_e( 'The WordPress Automatic Background Updates policy has been updated.', 'supervisor' );
 
 		wp_die();
 	}

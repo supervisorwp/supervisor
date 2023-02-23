@@ -35,24 +35,38 @@ class WordPress {
 	 */
 	public function hooks() {
 
-		add_action( 'wp_loaded', [ $this, 'filter_core_updates' ] );
+		add_action( 'wp_loaded', [ $this, 'set_wp_auto_update_policy' ] );
 	}
 
 	/**
-	 * Filters the WordPress core updates option.
+	 * Sets the WordPress auto update policy.
 	 *
 	 * @since {VERSION}
 	 */
-	public function filter_core_updates() { // phpcs:ignore WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
+	public function set_wp_auto_update_policy() { // phpcs:ignore WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
 
-		$core_auto_update_policy = $this->get_core_auto_update_policy();
+		$policy = $this->get_auto_update_policy();
 
-		if ( $core_auto_update_policy && preg_match( '/^(minor|major|dev|disabled)$/', $core_auto_update_policy ) ) {
-			if ( $core_auto_update_policy === 'disabled' ) {
+		if ( ! empty( $policy ) && preg_match( '/^(minor|major|dev|disabled)$/', $policy ) ) {
+			if ( $policy === 'disabled' ) {
 				add_filter( 'automatic_updater_disabled', '__return_true' );
 			} else {
-				add_filter( 'allow_' . $core_auto_update_policy . '_auto_core_updates', '__return_true' );
+				add_filter( 'allow_' . $policy . '_auto_core_updates', '__return_true' );
 			}
+		}
+	}
+
+	/**
+	 * Changes the auto update policy value which could be 'disabled', 'minor', 'major' or 'dev'.
+	 *
+	 * @param string $option_value The auto update policy.
+	 *
+	 * @since {VERSION}
+	 */
+	public function change_auto_update_policy( $option_value ) {
+
+		if ( $this->get_auto_update_policy() ) {
+			update_option( self::CORE_AUTO_UPDATE_OPTION, $option_value );
 		}
 	}
 
@@ -63,9 +77,9 @@ class WordPress {
 	 *
 	 * @return string|bool It can assume 'disabled', 'minor', 'major', 'dev' or false.
 	 */
-	public function get_core_auto_update_policy() {
+	public function get_auto_update_policy() {
 
-		if ( $this->is_wp_auto_update_enabled() ) {
+		if ( $this->is_auto_update_constant_enabled() ) {
 			return false;
 		}
 
@@ -79,26 +93,8 @@ class WordPress {
 	 *
 	 * @return boolean True if WordPress auto update constants are available.
 	 */
-	public function is_wp_auto_update_enabled() {
+	private function is_auto_update_constant_enabled() {
 
-		return ( defined( 'AUTOMATIC_UPDATER_DISABLED' ) || defined( 'WP_AUTO_UPDATE_CORE' ) );
-	}
-
-	/**
-	 * Sets the wp-healthcheck auto update option value which could be 'disabled', 'minor', 'major' or 'dev'.
-	 *
-	 * @param string $option_value Auto update value.
-	 *
-	 * @since {VERSION}
-	 */
-	public function set_core_auto_update_option( $option_value ) {
-
-		$core_auto_update_option = get_option( self::CORE_AUTO_UPDATE_OPTION );
-
-		if ( $this->is_wp_auto_update_enabled() && $core_auto_update_option ) {
-			delete_option( self::CORE_AUTO_UPDATE_OPTION );
-		}
-
-		update_option( self::CORE_AUTO_UPDATE_OPTION, $option_value );
+		return defined( 'AUTOMATIC_UPDATER_DISABLED' ) || defined( 'WP_AUTO_UPDATE_CORE' );
 	}
 }

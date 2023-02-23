@@ -40,6 +40,8 @@ final class WordPressView extends AbstractView {
 						<?php esc_html_e( 'Apply Update Policy', 'supervisor' ); ?>
 					</button>
 				</div>
+
+				<p id="supv-wordpress-auto-update-policy-message" class="supv-text-success"></p>
 			</div>
 		</div>
 		<?php

@@ -134,5 +134,6 @@ final class Loader {
 		$this->ssl        = new SSL();
 		$this->autoload   = new Autoload();
 		$this->transients = new Transients();
+		$this->wordpress  = new WordPress();
 	}
 }
