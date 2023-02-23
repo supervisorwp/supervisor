@@ -19,6 +19,7 @@ final class DashboardView extends AbstractView {
 	private $views = [
 		TransientsView::class,
 		AutoloadView::class,
+		WordPressView::class,
 	];
 
 	/**
