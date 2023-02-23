@@ -2,6 +2,7 @@
 namespace SUPV;
 
 use SUPV\Utils\Install;
+use SUPV\Utils\Upgrade;
 
 /**
  * The Loader class.
@@ -58,6 +59,9 @@ final class Loader {
 		// Loads the helper functions.
 		require_once SUPV_PLUGIN_DIR . '/inc/helpers.php';
 
+		// Loads the Upgrade class.
+		new Upgrade();
+
 		// Load the plugin classes only if you are using Dashboard or WP-CLI.
 		if ( is_admin() || supv_is_doing_wpcli() ) {
 
@@ -65,7 +69,7 @@ final class Loader {
 			$this->core  = new Core\Loader();
 			$this->admin = new Admin\Loader();
 
-			// Triggers the plugin hooks.
+			// Loads the plugin hooks.
 			new Install();
 		}
 	}
