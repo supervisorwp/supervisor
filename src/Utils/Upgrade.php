@@ -36,7 +36,7 @@ final class Upgrade {
 	 */
 	public function hooks() {
 
-		add_action( 'upgrader_process_complete', 'upgrade_completed', 10, 2 );
+		add_action( 'upgrader_process_complete', [ $this, 'upgrade_completed' ], 10, 2 );
 	}
 
 	/**
