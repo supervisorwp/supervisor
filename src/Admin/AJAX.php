@@ -3,6 +3,7 @@ namespace SUPV\Admin;
 
 use SUPV\Admin\Views\AutoloadView;
 use SUPV\Admin\Views\TransientsView;
+use SUPV\Admin\Views\WordPressView;
 
 /**
  * The AJAX class.
@@ -193,10 +194,10 @@ final class AJAX {
 		$policy = ! empty( $_POST['wp_auto_update_policy'] ) ? sanitize_key( wp_unslash( $_POST['wp_auto_update_policy'] ) ) : false;
 
 		if ( ! empty( $policy ) && preg_match( '/^(?:minor|major|disabled|dev)$/', $policy ) ) {
-			supv()->core()->wordpress()->change_auto_update_policy( $policy );
+			supv()->core()->wordpress()->set_auto_update_policy( $policy );
 		}
 
-		esc_html_e( 'The WordPress Automatic Background Updates policy has been updated.', 'supervisor' );
+		( new WordPressView() )->output_select( true );
 
 		wp_die();
 	}

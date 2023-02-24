@@ -1,6 +1,7 @@
 <?php
 namespace SUPV;
 
+use SUPV\Core\WordPress;
 use SUPV\Utils\Install;
 use SUPV\Utils\Upgrade;
 

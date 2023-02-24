@@ -30,9 +30,14 @@ jQuery( document ).ready( function( $ ) {
 			$( '#supv-autoload-result' ).hide();
 
 			$( '#supv-autoload-options' ).html( '' );
-		} )
-		.on( 'click', '#supv-btn-wordpress-auto-update-policy', function() {
-			supv_do_ajax( 'supv_wordpress_auto_update_policy', { 'wp_auto_update_policy': $( '#supv-wordpress-update-policy' ).find( ':selected' ).val() }, '#supv-wordpress-auto-update-policy-message' );
+		} );
+
+	/**
+	 * Add the onchange actions.
+	 */
+	$( document )
+		.on( 'change', '#supv-wordpress-update-policy', function () {
+			supv_do_ajax( 'supv_wordpress_auto_update_policy', { 'wp_auto_update_policy': $( '#supv-wordpress-update-policy' ).find( ':selected' ).val() }, '#supv-wordpress-update-policy-box' );
 		} );
 
 	/**

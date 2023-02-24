@@ -1071,6 +1071,7 @@
   background-color: #fff;
   border: 1px solid #efefef;
   box-shadow: 0px 5px 1px -5px #bbb;
+  margin-top: 10px;
 }
 .supv-card.disabled .content {
   background: #fff;
@@ -1139,6 +1140,22 @@
   padding-bottom: 0;
 }
 
+.supv-container select {
+  border: 1px solid #8a1736 !important;
+  color: #8a1736 !important;
+  padding: 5px 10px !important;
+}
+.supv-container select:hover {
+  border: 1px solid #8a1736 !important;
+  color: #8a1736 !important;
+}
+.supv-container select:focus {
+  box-shadow: 0 0 0 1px #fef2f5 !important;
+}
+.supv-container .supv-w-100 {
+  min-width: 100% !important;
+}
+
 .supv-button {
   background: #8a1736;
   border: 1px solid #8a1736;
@@ -1186,7 +1203,7 @@
 }
 
 .supv-sysinfo {
-  margin-bottom: 17px;
+  margin-bottom: 5px;
   margin-top: 20px;
 }
 .supv-sysinfo-box {
@@ -1278,10 +1295,6 @@
   color: #f5c82d;
 }
 
-.supv-notice-margin {
-  margin: 20px !important;
-}
-
 .supv-autoload-list {
   border: 1px solid #8a1736;
   display: table;
@@ -1349,6 +1362,10 @@
   list-style: disc;
 }
 
+.supv-wordpress-auto-update-policy-message {
+  margin-bottom: 2px !important;
+}
+
 @media only screen and (min-width: 1300px) {
   .supv-ctas {
     float: right;
@@ -1386,16 +1403,8 @@
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
-  .supv-card {
-    margin: 10px 0;
-  }
   .supv-card:first-child {
     margin: 20px 0 10px 0 !important;
-  }
-}
-@media only screen and (min-width: 782px) {
-  .supv-notice-margin {
-    margin: 20px 20px 20px 0 !important;
   }
 }
 @media only screen and (max-width: 782px) {

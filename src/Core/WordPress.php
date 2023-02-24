@@ -35,15 +35,15 @@ class WordPress {
 	 */
 	public function hooks() {
 
-		add_action( 'wp_loaded', [ $this, 'set_wp_auto_update_policy' ] );
+		add_action( 'init', [ $this, 'apply_wp_auto_update_policy' ] );
 	}
 
 	/**
-	 * Sets the WordPress auto update policy.
+	 * Applies the WordPress auto update policy.
 	 *
 	 * @since {VERSION}
 	 */
-	public function set_wp_auto_update_policy() { // phpcs:ignore WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
+	public function apply_wp_auto_update_policy() { // phpcs:ignore WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
 
 		$policy = $this->get_auto_update_policy();
 
@@ -52,21 +52,26 @@ class WordPress {
 				add_filter( 'automatic_updater_disabled', '__return_true' );
 			} else {
 				add_filter( 'allow_' . $policy . '_auto_core_updates', '__return_true' );
+
+				// If the policy is minor, force to disable major updates.
+				if ( $policy === 'minor' ) {
+					add_filter( 'allow_major_auto_core_updates', '__return_false' );
+				}
 			}
 		}
 	}
 
 	/**
-	 * Changes the auto update policy value which could be 'disabled', 'minor', 'major' or 'dev'.
+	 * Sets the auto update policy value which could be 'disabled', 'minor', 'major' or 'dev'.
 	 *
-	 * @param string $option_value The auto update policy.
+	 * @param string $policy The auto update policy.
 	 *
 	 * @since {VERSION}
 	 */
-	public function change_auto_update_policy( $option_value ) {
+	public function set_auto_update_policy( $policy ) {
 
 		if ( $this->get_auto_update_policy() ) {
-			update_option( self::CORE_AUTO_UPDATE_OPTION, $option_value );
+			update_option( self::CORE_AUTO_UPDATE_OPTION, $policy );
 		}
 	}
 
