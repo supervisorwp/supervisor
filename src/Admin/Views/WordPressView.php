@@ -35,6 +35,13 @@ final class WordPressView extends AbstractView {
 		<?php
 	}
 
+	/**
+	 * Outputs the user select.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param bool $success True if the success message should be displayed.
+	 */
 	public function output_select( $success = false ) {
 
 		$selected_policy = supv()->core()->wordpress()->get_auto_update_policy();
