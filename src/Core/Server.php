@@ -93,7 +93,7 @@ class Server {
 		 *
 		 * @param array $server The server data.
 		 */
-		return apply_filters( 'supv_server_data', $server );
+		return apply_filters( 'supv_core_server_data', $server );
 	}
 
 	/**
@@ -124,7 +124,7 @@ class Server {
 		 *
 		 * @param array $server The server IP.
 		 */
-		return apply_filters( 'supv_server_ip', $ip );
+		return apply_filters( 'supv_core_server_ip', $ip );
 	}
 
 	/**
@@ -160,7 +160,7 @@ class Server {
 		 *
 		 * @param array|false $requirements The server requirements.
 		 */
-		return apply_filters( 'supv_server_requirements', $requirements );
+		return apply_filters( 'supv_core_server_requirements', $requirements );
 	}
 
 	/**
@@ -226,12 +226,22 @@ class Server {
 
 		// Compare the versions and return the status.
 		if ( version_compare( $sysinfo[ $software ], $requirements[ $software ]['recommended'], '>=' ) ) {
-			return 'updated';
+			$status = 'updated';
 		} elseif ( version_compare( $sysinfo[ $software ], $requirements[ $software ]['minimum'], '>=' ) ) {
-			return 'outdated';
+			$status = 'outdated';
 		} else {
-			return 'obsolete';
+			$status = 'obsolete';
 		}
+
+		/**
+		 * Filters the status of the software update.
+		 *
+		 * @since {VERSION}
+		 *
+		 * @param string $status   The software update status ('updated', 'outdated', or 'obsolete').
+		 * @param string $software The software name ('php', 'mysql', 'mariadb', 'wp', 'nginx', or 'apache').
+		 */
+		return apply_filters( 'supv_core_server_is_software_updated', $status, $software );
 	}
 
 	/**

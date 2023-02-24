@@ -103,7 +103,14 @@ class SSL {
 			}
 		}
 
-		return $ssl_data;
+		/**
+		 * Filters the SSL data.
+		 *
+		 * @since {VERSION}
+		 *
+		 * @param array $ssl_data An array with the SSL data.
+		 */
+		return apply_filters( 'supv_core_ssl_data', $ssl_data );
 	}
 
 	/**
@@ -135,7 +142,14 @@ class SSL {
 			set_transient( self::AVAILABLE_TRANSIENT, $is_available, DAY_IN_SECONDS );
 		}
 
-		return $is_available;
+		/**
+		 * Filters if the SSL is available or not.
+		 *
+		 * @since {VERSION}
+		 *
+		 * @param bool $is_available True if the SSL is available.
+		 */
+		return apply_filters( 'supv_core_ssl_is_available', $is_available );
 	}
 
 	/**
@@ -143,9 +157,18 @@ class SSL {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return int|false Number of days until certificate expiration or false on error.
+	 * @return int|false Number of days until certificate expiration, or false on error.
 	 */
 	public function is_expiring() {
+
+		/**
+		 * Filters the number of days before the SSL expiration date that the admin notice should be displayed.
+		 *
+		 * @since {VERSION}
+		 *
+		 * @param int $days The number of days.
+		 */
+		$days = apply_filters( 'supv_core_ssl_is_expiring_days_before_notice', 15 );
 
 		$ssl_data = get_transient( self::DATA_TRANSIENT );
 
@@ -154,10 +177,17 @@ class SSL {
 			$expiration = strtotime( $ssl_data['validity']['to'] );
 
 			$diff = intval( floor( $expiration - $current ) / DAY_IN_SECONDS );
-
-			return ( ( $diff <= 15 ) ? $diff : false );
 		}
 
-		return false;
+		$is_expiring = ( ! empty( $diff ) && is_int( $diff ) && $diff <= $days ) ? $diff : false;
+
+		/**
+		 * Filters if the SSL is about to expire or not.
+		 *
+		 * @since {VERSION}
+		 *
+		 * @param int|false $is_expiring Number of days until certificate expiration, or false on error.
+		 */
+		return apply_filters( 'supv_core_ssl_is_expiring', $is_expiring );
 	}
 }
