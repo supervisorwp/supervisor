@@ -18,7 +18,7 @@ class Autoload {
 	const DEACTIVATION_HISTORY_OPTION = 'supv_autoload_deactivation_history';
 
 	/**
-	 * Returns the 10 biggest WordPress autoload options.
+	 * Returns the biggest WordPress autoload options.
 	 *
 	 * @since 1.0.0
 	 *
@@ -26,17 +26,42 @@ class Autoload {
 	 */
 	public function get() {
 
+		/**
+		 * Filters the total of autoload options that should be returned.
+		 *
+		 * @since {VERSION}
+		 *
+		 * @param int $limit The total of autoload options that should be returned.
+		 */
+		$limit = apply_filters( 'supv_core_autoload_get_limit', 10 );
+
+		if ( $limit < 1 ) {
+			$limit = 10;
+		}
+
 		global $wpdb;
 
 		$options = [];
 
-		$result = $wpdb->get_results( "SELECT option_name, ROUND(LENGTH(option_value) / POWER(1024,2), 3) AS size FROM $wpdb->options WHERE autoload = 'yes' AND option_name NOT REGEXP '^_(site_)?transient' ORDER BY size DESC LIMIT 0,10;" );
+		$result = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT option_name, ROUND(LENGTH(option_value) / POWER(1024,2), 3) AS size FROM $wpdb->options WHERE autoload = 'yes' AND option_name NOT REGEXP '^_(site_)?transient' ORDER BY size DESC LIMIT 0,%d;",
+				$limit
+			)
+		);
 
 		foreach ( $result as $option ) {
 			$options[ $option->option_name ] = (float) $option->size;
 		}
 
-		return $options;
+		/**
+		 * Filters the list of biggest autoload options.
+		 *
+		 * @since {VERSION}
+		 *
+		 * @param array $options The list of biggest autoload options.
+		 */
+		return apply_filters( 'supv_core_autoload_get', $options );
 	}
 
 	/**
@@ -55,10 +80,19 @@ class Autoload {
 		$count = (int) $result->count;
 		$size  = (float) $result->size;
 
-		return [
+		$stats = [
 			'count' => $count,
 			'size'  => $size,
 		];
+
+		/**
+		 * Filters the autoload options stats.
+		 *
+		 * @since {VERSION}
+		 *
+		 * @param array $stats Array with the total count and size of the stats.
+		 */
+		return apply_filters( 'supv_core_autoload_stats', $stats );
 	}
 
 	/**
@@ -73,8 +107,16 @@ class Autoload {
 		$history = get_option( self::DEACTIVATION_HISTORY_OPTION );
 
 		if ( $history ) {
-			$updated    = false;
-			$expiration = strtotime( '-2 weeks' );
+			$updated = false;
+
+			/**
+			 * Filters for how long a deactivated autoload option will remain in the history.
+			 *
+			 * @since {VERSION}
+			 *
+			 * @param int $timestamp The expiration timestamp. Any options with deactivation timestamp older than expiration timestamp will be removed from history. False if should not expire.
+			 */
+			$expiration = apply_filters( 'supv_core_autoload_history_expiration_timestamp', strtotime( '-4 weeks' ) );
 
 			foreach ( $history as $name => $timestamp ) {
 				if ( ! get_option( $name ) || ( get_option( $name ) && $timestamp < $expiration ) ) {
@@ -91,7 +133,14 @@ class Autoload {
 			$history = array_reverse( $history, true );
 		}
 
-		return $history;
+		/**
+		 * Filters the history of deactivated autoload options.
+		 *
+		 * @since {VERSION}
+		 *
+		 * @param array $history List of deactivated options.
+		 */
+		return apply_filters( 'supv_core_autoload_history', $history );
 	}
 
 	/**
@@ -123,15 +172,25 @@ class Autoload {
 	 */
 	public function is_core_option( $option_name ) {
 
+		$is_core_option = false;
+
 		$wp_opts_file = SUPV_PLUGIN_DIR . '/assets/wp_options.json';
 
 		if ( file_exists( $wp_opts_file ) ) {
 			$wp_opts = json_decode( file_get_contents( $wp_opts_file ) );
 
-			return in_array( $option_name, $wp_opts, true );
+			$is_core_option = in_array( $option_name, $wp_opts, true );
 		}
 
-		return false;
+		/**
+		 * Filters if a given option is a WordPress core option or not.
+		 *
+		 * @since {VERSION}
+		 *
+		 * @param bool   $is_core_option True if it is a WP core option.
+		 * @param string $option_name    The option name.
+		 */
+		return apply_filters( 'supv_core_autoload_is_core_option', $is_core_option, $option_name );
 	}
 
 	/**
