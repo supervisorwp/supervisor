@@ -1143,6 +1143,21 @@
   line-height: 1.6;
   margin: 0.5em 0;
 }
+.supv-card .content p.box-info {
+  background: #e5e8f1;
+  border-left: 2px solid #3558cb;
+  border-radius: 2px;
+  color: #3558cb;
+  font-size: 12px;
+  margin-top: 12px;
+  padding: 6px 12px;
+}
+.supv-card .content p.box-info span {
+  font-size: 13px;
+  padding-right: 3px;
+  top: 2px;
+  position: relative;
+}
 .supv-card div.supv-settings-row:last-child {
   margin-bottom: 0;
   border-bottom: none;
@@ -1307,6 +1322,10 @@
 .supv-text-warning {
   clear: both;
   color: #f5c82d;
+}
+.supv-text-info {
+  clear: both;
+  color: #3558cb;
 }
 
 .supv-autoload-list {

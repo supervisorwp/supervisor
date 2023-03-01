@@ -78,6 +78,23 @@
 		p {
 			line-height: $card-content-line-height;
 			margin: 0.5em 0;
+
+			&.box-info {
+				background: $box-info;
+				border-left: 2px solid $info;
+				border-radius: 2px;
+				color: $info;
+				font-size: 12px;
+				margin-top: 12px;
+				padding: 6px 12px;
+
+				span {
+					font-size: 13px;
+					padding-right: 3px;
+					top: 2px;
+					position: relative;
+				}
+			}
 		}
 	}
 

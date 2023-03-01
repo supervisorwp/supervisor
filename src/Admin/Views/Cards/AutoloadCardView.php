@@ -27,7 +27,11 @@ final class AutoloadCardView extends AbstractView {
 			<div class="content">
 				<p><?php esc_html_e( 'WordPress autoload options are very similar to transients. The main difference is: transients are used to store temporary data, while options are used to store permanent data.', 'supervisor' ); ?></p>
 				<p><?php esc_html_e( 'All the autoload options, as well as transients, are loaded automatically when WordPress loads itself. Thus, the number and size of these options can directly affect your site performance.', 'supervisor' ); ?></p>
-				<p><?php esc_html_e( 'When you deactivate an autoload option, you are not removing it. You are just telling WordPress to not load that option automatically on every request it does. In other words, the option will be loaded only when it is needed.', 'supervisor' ); ?></p>
+
+				<p class="box-info">
+					<span class="supv-icon-info"></span>
+					<?php esc_html_e( 'When you deactivate an autoload option, you are not removing it. You are just telling WordPress to not load that option automatically on every request it does. In other words, the option will be loaded only when it is needed.', 'supervisor' ); ?>
+				</p>
 
 				<div id="supv-autoload-stats">
 					<?php $this->output_stats(); ?>

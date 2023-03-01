@@ -18,6 +18,12 @@ final class WordPressCardView extends AbstractView {
 	 */
 	public function output() {
 
+		$requirements = supv()->core()->server()->get_requirements();
+
+		$wp_versions = ! empty( $requirements['wordpress'] ) ? $requirements['wordpress'] : [];
+
+		$wp_beta_version = ! empty( $wp_versions[2] ) ? strtok( $wp_versions[0], '-' ) : '6.2';
+		$wp_curr_version = ! empty( $wp_versions[1] ) ? $wp_versions[1] : '6.1.1';
 		?>
 		<div class="supv-card">
 			<div class="header">
@@ -25,12 +31,28 @@ final class WordPressCardView extends AbstractView {
 			</div>
 
 			<div class="content">
-				<p><?php esc_html_e( 'The default WordPress behavior is to always update automatically to the latest minor release available. For example, WordPress 6.1 will automatically be updated to 6.1.1 upon release.', 'supervisor' ); ?></p>
+				<p>
+					<?php
+					echo sprintf(
+						/* translators: %1$s is the latest WordPress version, %2$s is the next major WordPress release. */
+						esc_html__( 'From WordPress 5.6 onwards, automatic updates are enabled by default for both minor and major releases. For example, WordPress %1$s will automatically be updated to %2$s upon release.', 'supervisor' ),
+						$wp_curr_version,
+						$wp_beta_version
+					);
+					?>
+				</p>
 				<p><?php esc_html_e( 'Minor updates are released more often than major ones. These releases usually includes security updates, fixes, and enhancements.', 'supervisor' ); ?></p>
-				<p><?php esc_html_e( 'Major updates are released 3-4 times a year, and they always include new features, major enhancements, and bug fixes to WordPress.', 'supervisor' ); ?></p>
+				<p><?php esc_html_e( 'Major updates are released 2-4 times a year, and they always include new features, major enhancements, and bug fixes to WordPress.', 'supervisor' ); ?></p>
 
 				<div id="supv-wordpress-update-policy-box">
-					<?php $this->output_select(); ?>
+					<?php if ( ! supv()->core()->wordpress()->is_auto_update_constant_enabled() ) : ?>
+						<?php $this->output_select(); ?>
+					<?php else: ?>
+						<p class="box-info">
+							<span class="supv-icon-info"></span>
+							<?php esc_html_e( 'Automatic updates are being managed by the WordPress update constants.', 'supervisor' ); ?>
+						</p>
+					<?php endif; ?>
 				</div>
 			</div>
 		</div>
@@ -54,6 +76,7 @@ final class WordPressCardView extends AbstractView {
 			'disabled' => esc_html__( 'Disable automatic updates (not recommended)', 'supervisor' ),
 		];
 		?>
+
 		<p><label for="supv-wordpress-update-policy"><strong><?php esc_html_e( 'Select the WordPress Update Policy:', 'supervisor' ); ?></strong></label></p>
 
 		<p>

@@ -88,7 +88,7 @@ class WordPress {
 			return false;
 		}
 
-		return get_option( self::CORE_AUTO_UPDATE_OPTION, 'minor' );
+		return get_option( self::CORE_AUTO_UPDATE_OPTION, 'major' );
 	}
 
 	/**
@@ -98,7 +98,7 @@ class WordPress {
 	 *
 	 * @return boolean True if WordPress auto update constants are available.
 	 */
-	private function is_auto_update_constant_enabled() {
+	public function is_auto_update_constant_enabled() {
 
 		return defined( 'AUTOMATIC_UPDATER_DISABLED' ) || defined( 'WP_AUTO_UPDATE_CORE' );
 	}
