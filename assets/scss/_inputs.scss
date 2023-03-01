@@ -1,0 +1,26 @@
+.supv-container {
+	select {
+		border: 1px solid $red !important;
+		color: $red !important;
+		padding: 5px 10px !important;
+
+		&:hover {
+			border: 1px solid $red !important;
+			color: $red !important;
+		}
+
+		&:focus {
+			box-shadow: 0 0 0 1px $light-red !important;
+		}
+	}
+
+	.supv-w-100 {
+		min-width: 100% !important;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	select {
+		font-size: 14px !important;
+	}
+}

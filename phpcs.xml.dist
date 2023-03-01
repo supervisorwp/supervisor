@@ -12,7 +12,6 @@
 	<exclude-pattern>/supervisor\.php</exclude-pattern>
 
 	<rule ref="WPForms">
-		<exclude name="WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks"/>
 		<exclude name="WordPress.DB.DirectDatabaseQuery.NoCaching"/>
 	</rule>
 

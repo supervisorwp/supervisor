@@ -19,6 +19,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Plugin constants.
+ *
+ * @since 1.0.0
+ */
 define( 'SUPV', true );
 define( 'SUPV_VERSION', '1.1.0' );
 
@@ -28,6 +33,11 @@ define( 'SUPV_PLUGIN_FILE', __FILE__ );
 
 define( 'SUPV_INC_DIR', SUPV_PLUGIN_DIR . '/includes' );
 
+/**
+ * Loads the autoloader.
+ *
+ * @since 1.0.0
+ */
 if ( file_exists( SUPV_PLUGIN_DIR . '/vendor/autoload.php' ) ) {
 	require_once SUPV_PLUGIN_DIR . '/vendor/autoload.php';
 }
@@ -40,6 +50,7 @@ if ( file_exists( SUPV_PLUGIN_DIR . '/vendor/autoload.php' ) ) {
  * @return \SUPV\Loader
  */
 function supv() {
+
 	static $supv;
 
 	if ( ! $supv ) {

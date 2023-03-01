@@ -1,8 +1,9 @@
 <?php
 namespace SUPV\Admin;
 
-use SUPV\Admin\Views\AutoloadView;
-use SUPV\Admin\Views\TransientsView;
+use SUPV\Admin\Views\Cards\AutoloadCardView;
+use SUPV\Admin\Views\Cards\TransientsCardView;
+use SUPV\Admin\Views\Cards\WordPressCardView;
 
 /**
  * The AJAX class.
@@ -33,6 +34,7 @@ final class AJAX {
 			'autoload_options_list',
 			'autoload_options_history',
 			'autoload_update_option',
+			'wordpress_auto_update_policy',
 		];
 
 		$this->hooks();
@@ -111,7 +113,7 @@ final class AJAX {
 
 		supv()->core()->transients()->cleanup( isset( $_POST['expired'] ) );
 
-		( new TransientsView() )->output_stats( true );
+		( new TransientsCardView() )->output_stats( true );
 
 		wp_die();
 	}
@@ -125,7 +127,7 @@ final class AJAX {
 
 		check_ajax_referer( 'supv_autoload_options_list' );
 
-		( new AutoloadView() )->output_options();
+		( new AutoloadCardView() )->output_options();
 
 		wp_die();
 	}
@@ -139,7 +141,7 @@ final class AJAX {
 
 		check_ajax_referer( 'supv_autoload_options_history' );
 
-		( new AutoloadView() )->output_history();
+		( new AutoloadCardView() )->output_history();
 
 		wp_die();
 	}
@@ -175,7 +177,27 @@ final class AJAX {
 			}
 		}
 
-		( new AutoloadView() )->output_stats( $options, $is_history );
+		( new AutoloadCardView() )->output_stats( $options, $is_history );
+
+		wp_die();
+	}
+
+	/**
+	 * Updates the WordPress auto update policy.
+	 *
+	 * @since {VERSION}
+	 */
+	public function wordpress_auto_update_policy() {
+
+		check_ajax_referer( 'supv_wordpress_auto_update_policy' );
+
+		$policy = ! empty( $_POST['wp_auto_update_policy'] ) ? sanitize_key( wp_unslash( $_POST['wp_auto_update_policy'] ) ) : false;
+
+		if ( ! empty( $policy ) && preg_match( '/^(?:minor|major|disabled|dev)$/', $policy ) ) {
+			supv()->core()->wordpress()->set_auto_update_policy( $policy );
+		}
+
+		( new WordPressCardView() )->output_select( true );
 
 		wp_die();
 	}

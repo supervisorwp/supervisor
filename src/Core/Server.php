@@ -134,7 +134,7 @@ class Server {
 	 *
 	 * @return array|false The server requirements, or false on error.
 	 */
-	private function get_requirements() {
+	public function get_requirements() {
 
 		$requirements = get_transient( self::MIN_REQUIREMENTS_TRANSIENT );
 

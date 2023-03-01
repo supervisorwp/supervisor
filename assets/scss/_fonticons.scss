@@ -25,19 +25,27 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+#adminmenu #toplevel_page_supervisor div.wp-menu-image:before {
+	content: "\61";
+}
+
+#adminmenu #toplevel_page_supervisor div.wp-menu-image img {
+	display: none;
+}
+
 .supv-icon-supervisor:before {
 	content: "\61";
 }
 
-.supv-icon-updated:before {
+.supv-icon-success:before {
 	content: "\63";
 }
 
-.supv-icon-outdated:before {
+.supv-icon-warning:before {
 	content: "\64";
 }
 
-.supv-icon-obsolete:before {
+.supv-icon-error:before {
 	content: "\62";
 }
 
@@ -45,10 +53,10 @@
 	content: "\65";
 }
 
-#adminmenu #toplevel_page_supervisor div.wp-menu-image:before {
-	content: "\61";
+.supv-icon-help:before {
+	content: "\66";
 }
 
-#adminmenu #toplevel_page_supervisor div.wp-menu-image img {
-	display: none;
+.supv-icon-info:before {
+	content: "\68";
 }

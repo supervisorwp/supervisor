@@ -1,13 +1,15 @@
 <?php
-namespace SUPV\Admin\Views;
+namespace SUPV\Admin\Views\Cards;
+
+use SUPV\Admin\Views\AbstractView;
 
 /**
- * The TransientsView class.
+ * The TransientsCardView class.
  *
  * @package supervisor
  * @since 1.0.0
  */
-final class TransientsView extends AbstractView {
+final class TransientsCardView extends AbstractView {
 
 	/**
 	 * Outputs the view.
@@ -25,6 +27,11 @@ final class TransientsView extends AbstractView {
 			<div class="content">
 				<p><?php esc_html_e( 'WordPress transients are used to temporarily cache specific data. For example, developers often use them to improve their themes and plugins performance by caching database queries and script results.', 'supervisor' ); ?></p>
 				<p><?php esc_html_e( 'However, some badly coded plugins and themes can store too much information on these transients, or can even create an excessively high number of transients, resulting in performance degradation.', 'supervisor' ); ?></p>
+
+				<p class="box-info">
+					<span class="supv-icon-info"></span>
+					<?php esc_html_e( 'Cleaning up the transients won\'t affect your site functionality. In fact, plugins, themes, and WordPress itself will recreate them according to their needs.', 'supervisor' ); ?>
+				</p>
 
 				<div id="supv-transients-stats">
 					<?php $this->output_stats(); ?>
