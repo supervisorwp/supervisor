@@ -162,7 +162,7 @@ class SSL {
 	public function is_expiring() {
 
 		/**
-		 * Filters the number of days before the SSL expiration date that the admin notice should be displayed.
+		 * Filters the number of days prior to the SSL expiration date that the admin notice should be displayed.
 		 *
 		 * @since {VERSION}
 		 *

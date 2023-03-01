@@ -90,7 +90,7 @@ class Autoload {
 		 *
 		 * @since {VERSION}
 		 *
-		 * @param array $stats Array with the total count and size of the stats.
+		 * @param array $stats Array with the total count and size of the autoload options.
 		 */
 		return apply_filters( 'supv_core_autoload_stats', $stats );
 	}

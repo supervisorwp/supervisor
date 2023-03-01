@@ -46,10 +46,19 @@ class Transients {
 		$count = (int) $result->count;
 		$size  = (float) $result->size;
 
-		return [
+		$stats = [
 			'count' => $count,
 			'size'  => $size,
 		];
+
+		/**
+		 * Filters the transients stats.
+		 *
+		 * @since {VERSION}
+		 *
+		 * @param array $stats Array with the total count and size of the transients.
+		 */
+		return apply_filters( 'supv_core_transients_stats', $stats );
 	}
 
 	/**

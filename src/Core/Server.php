@@ -122,7 +122,7 @@ class Server {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @param array $server The server IP.
+		 * @param string|false $server The server IP.
 		 */
 		return apply_filters( 'supv_core_server_ip', $ip );
 	}

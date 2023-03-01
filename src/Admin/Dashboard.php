@@ -101,7 +101,16 @@ final class Dashboard {
 	 */
 	public function admin_menu() {
 
-		$this->hookname = add_menu_page( 'Dashboard', 'Supervisor', 'manage_options', 'supervisor', [ $this, 'dashboard_page' ], 'none', 200 );
+		/**
+		 * Filters the Supervisor menu position.
+		 *
+		 * @since {VERSION}
+		 *
+		 * @param float|int $position The position in the menu order.
+		 */
+		$menu_position = apply_filters( 'supv_admin_dashboard_menu_position', 200 );
+
+		$this->hookname = add_menu_page( 'Dashboard', 'Supervisor', 'manage_options', 'supervisor', [ $this, 'dashboard_page' ], 'none', $menu_position );
 	}
 
 	/**
