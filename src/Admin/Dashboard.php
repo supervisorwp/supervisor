@@ -104,7 +104,7 @@ final class Dashboard {
 		/**
 		 * Filters the Supervisor menu position.
 		 *
-		 * @since {VERSION}
+		 * @since 1.2.0
 		 *
 		 * @param float|int $position The position in the menu order.
 		 */

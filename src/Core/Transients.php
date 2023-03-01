@@ -54,7 +54,7 @@ class Transients {
 		/**
 		 * Filters the transients stats.
 		 *
-		 * @since {VERSION}
+		 * @since 1.2.0
 		 *
 		 * @param array $stats Array with the total count and size of the transients.
 		 */

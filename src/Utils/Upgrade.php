@@ -5,14 +5,14 @@ namespace SUPV\Utils;
  * The Upgrade class.
  *
  * @package supervisor
- * @since {VERSION}
+ * @since 1.2.0
  */
 final class Upgrade {
 
 	/**
 	 * Option to store the current plugin version.
 	 *
-	 * @since {VERSION}
+	 * @since 1.2.0
 	 *
 	 * @var string
 	 */
@@ -21,7 +21,7 @@ final class Upgrade {
 	/**
 	 * Constructor.
 	 *
-	 * @since {VERSION}
+	 * @since 1.2.0
 	 */
 	public function __construct() {
 
@@ -32,7 +32,7 @@ final class Upgrade {
 	/**
 	 * WordPress actions and filters.
 	 *
-	 * @since {VERSION}
+	 * @since 1.2.0
 	 */
 	public function hooks() {
 
@@ -42,7 +42,7 @@ final class Upgrade {
 	/**
 	 * Cleans up the transients after WordPress updates.
 	 *
-	 * @since {VERSION}
+	 * @since 1.2.0
 	 *
 	 * @param WP_Upgrader $upgrader The WP_Upgrader instance.
 	 * @param array       $options  The update data.
@@ -57,7 +57,7 @@ final class Upgrade {
 	/**
 	 * Cleans up the transients after plugin updates.
 	 *
-	 * @since {VERSION}
+	 * @since 1.2.0
 	 */
 	public function maybe_upgrade_db() {
 

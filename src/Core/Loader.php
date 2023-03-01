@@ -114,7 +114,7 @@ final class Loader {
 	/**
 	 * Get the WordPress object.
 	 *
-	 * @since {VERSION}
+	 * @since 1.2.0
 	 *
 	 * @return WordPress
 	 */

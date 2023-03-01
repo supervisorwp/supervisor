@@ -29,7 +29,7 @@ class Autoload {
 		/**
 		 * Filters the total of autoload options that should be returned.
 		 *
-		 * @since {VERSION}
+		 * @since 1.2.0
 		 *
 		 * @param int $limit The total of autoload options that should be returned.
 		 */
@@ -57,7 +57,7 @@ class Autoload {
 		/**
 		 * Filters the list of biggest autoload options.
 		 *
-		 * @since {VERSION}
+		 * @since 1.2.0
 		 *
 		 * @param array $options The list of biggest autoload options.
 		 */
@@ -88,7 +88,7 @@ class Autoload {
 		/**
 		 * Filters the autoload options stats.
 		 *
-		 * @since {VERSION}
+		 * @since 1.2.0
 		 *
 		 * @param array $stats Array with the total count and size of the autoload options.
 		 */
@@ -112,7 +112,7 @@ class Autoload {
 			/**
 			 * Filters for how long a deactivated autoload option will remain in the history.
 			 *
-			 * @since {VERSION}
+			 * @since 1.2.0
 			 *
 			 * @param int $timestamp The expiration timestamp. Any options with deactivation timestamp older than expiration timestamp will be removed from history. False if should not expire.
 			 */
@@ -136,7 +136,7 @@ class Autoload {
 		/**
 		 * Filters the history of deactivated autoload options.
 		 *
-		 * @since {VERSION}
+		 * @since 1.2.0
 		 *
 		 * @param array $history List of deactivated options.
 		 */
@@ -185,7 +185,7 @@ class Autoload {
 		/**
 		 * Filters if a given option is a WordPress core option or not.
 		 *
-		 * @since {VERSION}
+		 * @since 1.2.0
 		 *
 		 * @param bool   $is_core_option True if it is a WP core option.
 		 * @param string $option_name    The option name.

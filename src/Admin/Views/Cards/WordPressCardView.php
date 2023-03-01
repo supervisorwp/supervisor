@@ -7,14 +7,14 @@ use SUPV\Admin\Views\AbstractView;
  * The WordPressCardView class.
  *
  * @package supervisor
- * @since {VERSION}
+ * @since 1.2.0
  */
 final class WordPressCardView extends AbstractView {
 
 	/**
 	 * Outputs the view.
 	 *
-	 * @since {VERSION}
+	 * @since 1.2.0
 	 */
 	public function output() {
 
@@ -62,7 +62,7 @@ final class WordPressCardView extends AbstractView {
 	/**
 	 * Outputs the user select.
 	 *
-	 * @since {VERSION}
+	 * @since 1.2.0
 	 *
 	 * @param bool $success True if the success message should be displayed.
 	 */

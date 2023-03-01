@@ -5,14 +5,14 @@ namespace SUPV\Core;
  * The WordPress class.
  *
  * @package supervisor
- * @since {VERSION}
+ * @since 1.2.0
  */
 class WordPress {
 
 	/**
 	 * Option to store the auto update policy.
 	 *
-	 * @since {VERSION}
+	 * @since 1.2.0
 	 *
 	 * @var string
 	 */
@@ -21,7 +21,7 @@ class WordPress {
 	/**
 	 * Constructor.
 	 *
-	 * @since {VERSION}
+	 * @since 1.2.0
 	 */
 	public function __construct() {
 
@@ -31,7 +31,7 @@ class WordPress {
 	/**
 	 * WordPress actions and filters.
 	 *
-	 * @since {VERSION}
+	 * @since 1.2.0
 	 */
 	public function hooks() {
 
@@ -41,7 +41,7 @@ class WordPress {
 	/**
 	 * Applies the WordPress auto update policy.
 	 *
-	 * @since {VERSION}
+	 * @since 1.2.0
 	 */
 	public function apply_wp_auto_update_policy() { // phpcs:ignore WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
 
@@ -66,7 +66,7 @@ class WordPress {
 	 *
 	 * @param string $policy The auto update policy.
 	 *
-	 * @since {VERSION}
+	 * @since 1.2.0
 	 */
 	public function set_auto_update_policy( $policy ) {
 
@@ -78,7 +78,7 @@ class WordPress {
 	/**
 	 * Returns the selected auto update policy.
 	 *
-	 * @since {VERSION}
+	 * @since 1.2.0
 	 *
 	 * @return string|bool It can assume 'disabled', 'minor', 'major', 'dev' or false.
 	 */
@@ -94,7 +94,7 @@ class WordPress {
 	/**
 	 * Determines if WordPress auto update constants are enabled or not.
 	 *
-	 * @since {VERSION}
+	 * @since 1.2.0
 	 *
 	 * @return boolean True if WordPress auto update constants are available.
 	 */

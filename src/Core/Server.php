@@ -236,7 +236,7 @@ class Server {
 		/**
 		 * Filters the status of the software update.
 		 *
-		 * @since {VERSION}
+		 * @since 1.2.0
 		 *
 		 * @param string $status   The software update status ('updated', 'outdated', or 'obsolete').
 		 * @param string $software The software name ('php', 'mysql', 'mariadb', 'wp', 'nginx', or 'apache').

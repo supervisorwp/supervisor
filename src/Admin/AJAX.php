@@ -185,7 +185,7 @@ final class AJAX {
 	/**
 	 * Updates the WordPress auto update policy.
 	 *
-	 * @since {VERSION}
+	 * @since 1.2.0
 	 */
 	public function wordpress_auto_update_policy() {
 
