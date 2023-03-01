@@ -4,9 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.2.0] - 2023-xx-xx
+## [1.2.0] - 2023-03-01
 ### Added
 - Added feature to manage WordPress auto updates policy. (https://github.com/supervisorwp/supervisor/pull/19)
+- Implemented some filters so developers can customize the plugin data. (https://github.com/supervisorwp/supervisor/pull/21)
 - Cleans up the plugin transients after WP core or plugin updates. (https://github.com/supervisorwp/supervisor/pull/18)
 
 ## [1.1.0] - 2023-02-22
