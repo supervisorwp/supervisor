@@ -84,6 +84,7 @@ final class SystemInfoView extends AbstractView {
 		}
 
 		$title = '';
+		$icon  = '';
 
 		switch ( $status ) {
 			case 'updated':
