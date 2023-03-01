@@ -3,6 +3,7 @@
 	background-color: $card-bg;
 	border: 1px solid $card-border;
 	box-shadow: 0px 5px 1px -5px $shadow;
+	margin-top: 10px;
 
 	&.disabled {
 		.content {
@@ -76,6 +77,24 @@
 
 		p {
 			line-height: $card-content-line-height;
+			margin: 0.5em 0;
+
+			&.box-info {
+				background: $box-info;
+				border-left: 2px solid $info;
+				border-radius: 2px;
+				color: $info;
+				font-size: 12px;
+				margin-top: 12px;
+				padding: 6px 12px;
+
+				span {
+					font-size: 13px;
+					padding-right: 3px;
+					top: 2px;
+					position: relative;
+				}
+			}
 		}
 	}
 

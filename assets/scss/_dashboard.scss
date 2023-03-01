@@ -13,7 +13,7 @@
 }
 
 .supv-sysinfo {
-	margin-bottom: 17px;
+	margin-bottom: 5px;
 	margin-top: 20px;
 
 	&-box {
@@ -44,17 +44,17 @@
 			margin-left: 6px;
 			position: absolute;
 
-			&-updated {
+			&-success {
 				@extend .supv-icon;
 				color: $success !important;
 			}
 
-			&-outdated {
+			&-warning {
 				@extend .supv-icon;
 				color: $warning !important;
 			}
 
-			&-obsolete {
+			&-error {
 				@extend .supv-icon;
 				color: $error !important;
 			}
@@ -63,9 +63,8 @@
 }
 
 .supv-stats {
-	margin: 0;
+	margin: 12px 0 3px 0;
 	min-height: 50px;
-	padding: 10px 0 2px 0;
 	width: 100%;
 
 	ul {
@@ -84,7 +83,6 @@
 
 			p, span {
 				line-height: 1.4;
-				margin: 0;
 				padding: 0;
 			}
 		}
@@ -95,11 +93,13 @@
 		font-size: 12px;
 		font-weight: 500;
 		line-height: 0.8 !important;
+		margin: 0 !important;
 	}
 
 	&-data {
 		color: $red;
 		font-size: 24px;
+		margin: 0 !important;
 	}
 
 	&-footer {
@@ -125,10 +125,11 @@
 		clear: both;
 		color: $warning;
 	}
-}
 
-.supv-notice-margin {
-	margin: 20px !important;
+	&-info {
+		clear: both;
+		color: $info;
+	}
 }
 
 .supv-autoload {
@@ -164,12 +165,12 @@
 					&-check {
 						border-right: 1px solid $red;
 						padding-top: 10px !important;
-						width: 8% !important;
+						width: 5% !important;
 					}
 
 					&-name {
 						border-right: 1px solid $red;
-						width: 72% !important;
+						width: 75% !important;
 					}
 
 					&-history {
@@ -217,36 +218,25 @@
 	}
 }
 
-@media only screen and (min-width: 1300px) {
-	.supv-ctas {
-		float: right;
-		margin-top: -47px;
+.supv-wordpress {
+	&-auto-update-policy-message {
+		margin-bottom: 2px !important;
 	}
+}
+
+.supv-ctas {
+	float: right;
+	margin-top: -47px;
 }
 
 @media only screen and (max-width: 1300px) {
 	.supv-stats {
 		padding: 0 !important;
 	}
-
-	.supv-ctas {
-		float: none !important;
-		margin-bottom: 10px;
-		margin-top: 10px !important;
-
-		.supv-button {
-			&:last-child {
-				margin-left: 0 !important;
-				margin-right: 5px !important;
-			}
-		}
-	}
 }
 
 @media only screen and (max-width: 1042px) {
 	.supv-sysinfo {
-		margin-left: -0.5rem !important;
-		margin-right: -0.5rem !important;
 		margin-bottom: 0;
 	}
 
@@ -265,17 +255,9 @@
 	}
 
 	.supv-card {
-		margin: 10px 0;
-
 		&:first-child {
 			margin: 20px 0 10px 0 !important;
 		}
-	}
-}
-
-@media only screen and (min-width: 782px) {
-	.supv-notice-margin {
-		margin: 20px 20px 20px 0 !important;
 	}
 }
 

@@ -4,6 +4,7 @@ namespace SUPV\Utils;
 use SUPV\Core\Autoload;
 use SUPV\Core\Server;
 use SUPV\Core\SSL;
+use SUPV\Core\WordPress;
 
 /**
  * The Install class.
@@ -23,6 +24,7 @@ final class Install {
 	private static $plugin_options = [
 		Autoload::DEACTIVATION_HISTORY_OPTION,
 		Upgrade::PLUGIN_VERSION_OPTION,
+		WordPress::CORE_AUTO_UPDATE_OPTION,
 	];
 
 	/**

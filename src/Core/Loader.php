@@ -45,6 +45,15 @@ final class Loader {
 	private $transients;
 
 	/**
+	 * The WordPress object.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var WordPress
+	 */
+	private $wordpress;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 1.0.0
@@ -103,6 +112,18 @@ final class Loader {
 	}
 
 	/**
+	 * Get the WordPress object.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @return WordPress
+	 */
+	public function wordpress() {
+
+		return $this->wordpress;
+	}
+
+	/**
 	 * Set all the things up.
 	 *
 	 * @since 1.0.0
@@ -113,5 +134,6 @@ final class Loader {
 		$this->ssl        = new SSL();
 		$this->autoload   = new Autoload();
 		$this->transients = new Transients();
+		$this->wordpress  = new WordPress();
 	}
 }
