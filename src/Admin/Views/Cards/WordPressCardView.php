@@ -36,8 +36,8 @@ final class WordPressCardView extends AbstractView {
 					echo sprintf(
 						/* translators: %1$s is the latest WordPress version, %2$s is the next major WordPress release. */
 						esc_html__( 'From WordPress 5.6 onwards, automatic updates are enabled by default for both minor and major releases. For example, WordPress %1$s will automatically be updated to %2$s upon release.', 'supervisor' ),
-						$wp_curr_version,
-						$wp_beta_version
+						esc_html( $wp_curr_version ),
+						esc_html( $wp_beta_version )
 					);
 					?>
 				</p>
@@ -47,7 +47,7 @@ final class WordPressCardView extends AbstractView {
 				<div id="supv-wordpress-update-policy-box">
 					<?php if ( ! supv()->core()->wordpress()->is_auto_update_constant_enabled() ) : ?>
 						<?php $this->output_select(); ?>
-					<?php else: ?>
+					<?php else : ?>
 						<p class="box-info">
 							<span class="supv-icon-info"></span>
 							<?php esc_html_e( 'Automatic updates are being managed by the WordPress update constants.', 'supervisor' ); ?>
