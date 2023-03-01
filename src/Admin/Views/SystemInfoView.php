@@ -88,17 +88,20 @@ final class SystemInfoView extends AbstractView {
 		switch ( $status ) {
 			case 'updated':
 				$title = esc_html__( 'Your software is up-to-date', 'supervisor' );
+				$icon  = 'success';
 				break;
 
 			case 'outdated':
 				$title = esc_html__( 'Your software is outdated', 'supervisor' );
+				$icon  = 'warning';
 				break;
 
 			case 'obsolete':
 				$title = esc_html__( 'Your software is not supported anymore', 'supervisor' );
+				$icon  = 'error';
 				break;
 		}
 
-		echo '<span class="supv-icon-' . esc_attr( $status ) . '" title="' . esc_html( $title ) . '"></span>';
+		echo '<span class="supv-icon-' . esc_attr( $icon ) . '" title="' . esc_html( $title ) . '"></span>';
 	}
 }

@@ -54,7 +54,7 @@ jQuery( document ).ready( function( $ ) {
 
 			$( '#supv-autoload-result' ).show();
 
-			supv_do_ajax( 'supv_autoload_update_option', params, 'supv-autoload-stats' );
+			supv_do_ajax( 'supv_autoload_update_option', params, '#supv-autoload-stats' );
 
 			return false;
 		} );

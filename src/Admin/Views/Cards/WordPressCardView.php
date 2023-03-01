@@ -1,13 +1,15 @@
 <?php
-namespace SUPV\Admin\Views;
+namespace SUPV\Admin\Views\Cards;
+
+use SUPV\Admin\Views\AbstractView;
 
 /**
- * The WordPressView class.
+ * The WordPressCardView class.
  *
  * @package supervisor
  * @since {VERSION}
  */
-final class WordPressView extends AbstractView {
+final class WordPressCardView extends AbstractView {
 
 	/**
 	 * Outputs the view.
@@ -49,10 +51,10 @@ final class WordPressView extends AbstractView {
 		$policies = [
 			'major'    => esc_html__( 'Install major and minor updates automatically', 'supervisor' ),
 			'minor'    => esc_html__( 'Install minor updates automatically', 'supervisor' ),
-			'disabled' => esc_html__( 'Disable automatic updates on my site (not recommended)', 'supervisor' ),
+			'disabled' => esc_html__( 'Disable automatic updates (not recommended)', 'supervisor' ),
 		];
 		?>
-		<p><label for="supv-wordpress-update-policy"><?php esc_html_e( 'Select the WordPress Update Policy:', 'supervisor' ); ?></label></p>
+		<p><label for="supv-wordpress-update-policy"><strong><?php esc_html_e( 'Select the WordPress Update Policy:', 'supervisor' ); ?></strong></label></p>
 
 		<p>
 			<select id="supv-wordpress-update-policy" name="supv-wordpress-update-policy" class="supv-w-100">

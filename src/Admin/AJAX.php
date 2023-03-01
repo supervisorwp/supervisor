@@ -1,9 +1,9 @@
 <?php
 namespace SUPV\Admin;
 
-use SUPV\Admin\Views\AutoloadView;
-use SUPV\Admin\Views\TransientsView;
-use SUPV\Admin\Views\WordPressView;
+use SUPV\Admin\Views\Cards\AutoloadCardView;
+use SUPV\Admin\Views\Cards\TransientsCardView;
+use SUPV\Admin\Views\Cards\WordPressCardView;
 
 /**
  * The AJAX class.
@@ -113,7 +113,7 @@ final class AJAX {
 
 		supv()->core()->transients()->cleanup( isset( $_POST['expired'] ) );
 
-		( new TransientsView() )->output_stats( true );
+		( new TransientsCardView() )->output_stats( true );
 
 		wp_die();
 	}
@@ -127,7 +127,7 @@ final class AJAX {
 
 		check_ajax_referer( 'supv_autoload_options_list' );
 
-		( new AutoloadView() )->output_options();
+		( new AutoloadCardView() )->output_options();
 
 		wp_die();
 	}
@@ -141,7 +141,7 @@ final class AJAX {
 
 		check_ajax_referer( 'supv_autoload_options_history' );
 
-		( new AutoloadView() )->output_history();
+		( new AutoloadCardView() )->output_history();
 
 		wp_die();
 	}
@@ -177,7 +177,7 @@ final class AJAX {
 			}
 		}
 
-		( new AutoloadView() )->output_stats( $options, $is_history );
+		( new AutoloadCardView() )->output_stats( $options, $is_history );
 
 		wp_die();
 	}
@@ -197,7 +197,7 @@ final class AJAX {
 			supv()->core()->wordpress()->set_auto_update_policy( $policy );
 		}
 
-		( new WordPressView() )->output_select( true );
+		( new WordPressCardView() )->output_select( true );
 
 		wp_die();
 	}

@@ -19,19 +19,27 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+#adminmenu #toplevel_page_supervisor div.wp-menu-image:before {
+  content: "a";
+}
+
+#adminmenu #toplevel_page_supervisor div.wp-menu-image img {
+  display: none;
+}
+
 .supv-icon-supervisor:before {
   content: "a";
 }
 
-.supv-icon-updated:before {
+.supv-icon-success:before {
   content: "c";
 }
 
-.supv-icon-outdated:before {
+.supv-icon-warning:before {
   content: "d";
 }
 
-.supv-icon-obsolete:before {
+.supv-icon-error:before {
   content: "b";
 }
 
@@ -39,12 +47,12 @@
   content: "e";
 }
 
-#adminmenu #toplevel_page_supervisor div.wp-menu-image:before {
-  content: "a";
+.supv-icon-help:before {
+  content: "f";
 }
 
-#adminmenu #toplevel_page_supervisor div.wp-menu-image img {
-  display: none;
+.supv-icon-info:before {
+  content: "h";
 }
 
 .supv-container-fluid {
@@ -70,7 +78,7 @@
 }
 @media only screen and (max-width: 1042px) {
   .supv-container {
-    padding: 0 30px;
+    padding: 0 20px;
   }
 }
 @media only screen and (max-width: 782px) {
@@ -1133,6 +1141,7 @@
 }
 .supv-card .content p {
   line-height: 1.6;
+  margin: 0.5em 0;
 }
 .supv-card div.supv-settings-row:last-child {
   margin-bottom: 0;
@@ -1156,6 +1165,11 @@
   min-width: 100% !important;
 }
 
+@media only screen and (max-width: 600px) {
+  select {
+    font-size: 14px !important;
+  }
+}
 .supv-button {
   background: #8a1736;
   border: 1px solid #8a1736;
@@ -1226,25 +1240,24 @@
 .supv-sysinfo-box-status {
   width: 20px;
 }
-.supv-sysinfo-box .supv-icon, .supv-sysinfo-box .supv-icon-obsolete, .supv-sysinfo-box .supv-icon-outdated, .supv-sysinfo-box .supv-icon-updated {
+.supv-sysinfo-box .supv-icon, .supv-sysinfo-box .supv-icon-error, .supv-sysinfo-box .supv-icon-warning, .supv-sysinfo-box .supv-icon-success {
   font-size: 16px;
   margin-left: 6px;
   position: absolute;
 }
-.supv-sysinfo-box .supv-icon-updated {
+.supv-sysinfo-box .supv-icon-success {
   color: #3c881a !important;
 }
-.supv-sysinfo-box .supv-icon-outdated {
+.supv-sysinfo-box .supv-icon-warning {
   color: #f5c82d !important;
 }
-.supv-sysinfo-box .supv-icon-obsolete {
+.supv-sysinfo-box .supv-icon-error {
   color: #ff0e0e !important;
 }
 
 .supv-stats {
-  margin: 0;
+  margin: 12px 0 3px 0;
   min-height: 50px;
-  padding: 10px 0 2px 0;
   width: 100%;
 }
 .supv-stats ul {
@@ -1262,7 +1275,6 @@
 }
 .supv-stats ul li p, .supv-stats ul li span {
   line-height: 1.4;
-  margin: 0;
   padding: 0;
 }
 .supv-stats-title {
@@ -1270,10 +1282,12 @@
   font-size: 12px;
   font-weight: 500;
   line-height: 0.8 !important;
+  margin: 0 !important;
 }
 .supv-stats-data {
   color: #8a1736;
   font-size: 24px;
+  margin: 0 !important;
 }
 .supv-stats-footer {
   color: #888;
@@ -1324,11 +1338,11 @@
 .supv-autoload-list ul li.supv-col-check {
   border-right: 1px solid #8a1736;
   padding-top: 10px !important;
-  width: 8% !important;
+  width: 5% !important;
 }
 .supv-autoload-list ul li.supv-col-name {
   border-right: 1px solid #8a1736;
-  width: 72% !important;
+  width: 75% !important;
 }
 .supv-autoload-list ul li.supv-col-history {
   border-right: 1px solid #8a1736;
@@ -1366,30 +1380,18 @@
   margin-bottom: 2px !important;
 }
 
-@media only screen and (min-width: 1300px) {
-  .supv-ctas {
-    float: right;
-    margin-top: -47px;
-  }
+.supv-ctas {
+  float: right;
+  margin-top: -47px;
 }
+
 @media only screen and (max-width: 1300px) {
   .supv-stats {
     padding: 0 !important;
   }
-  .supv-ctas {
-    float: none !important;
-    margin-bottom: 10px;
-    margin-top: 10px !important;
-  }
-  .supv-ctas .supv-button:last-child {
-    margin-left: 0 !important;
-    margin-right: 5px !important;
-  }
 }
 @media only screen and (max-width: 1042px) {
   .supv-sysinfo {
-    margin-left: -0.5rem !important;
-    margin-right: -0.5rem !important;
     margin-bottom: 0;
   }
   .supv-ctas {
