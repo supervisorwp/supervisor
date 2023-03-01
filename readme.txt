@@ -4,7 +4,7 @@ Tags: performance, transients, autoload, healthcheck, load time, ssl, https, che
 Requires at least: 4.0
 Tested up to: 6.1.1
 Requires PHP: 5.6
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv3+
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -47,6 +47,12 @@ You can translate it to your language through the [WordPress translations platfo
 If you are a developer and want to contribute by writing new features, enhancements, bug fixes, or tests, please send your Pull Requests to our [GitHub repository](https://github.com/supervisorwp/supervisor).
 
 == Changelog ==
+
+= [1.2.0] - 2023-03-01 =
+* Added: Ability to manage WordPress auto updates policy.
+* Added: Implemented some filters so developers can customize the plugin data.
+* Added: Cleans up the plugin transients after WP core or plugin updates.
+* Changed: Minor improvements to the UI.
 
 = [1.1.0] - 2023-02-22 =
 * Implemented a check to confirm if the server softwares are updated.
