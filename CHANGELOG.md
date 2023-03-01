@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.2.0] - 2023-xx-xx
 ### Added
-- Added card to manage WordPress auto updates policy. (https://github.com/supervisorwp/supervisor/pull/19)
+- Added feature to manage WordPress auto updates policy. (https://github.com/supervisorwp/supervisor/pull/19)
 - Cleans up the plugin transients after WP core or plugin updates. (https://github.com/supervisorwp/supervisor/pull/18)
 
 ## [1.1.0] - 2023-02-22
