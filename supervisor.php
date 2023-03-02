@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Supervisor
  * Plugin URI:  https://supervisorwp.com
- * Description: A plugin to help improve the performance of your WordPress install.
+ * Description: A plugin to help improve the performance and security of your WordPress install.
  * Version:     1.2.0
  * Author:      Supervisor Team
  * Author URI:  https://supervisorwp.com/contributors
@@ -10,7 +10,6 @@
  * License URI: https://www.gnu.org/licenses/gpl-3.0.txt
  *
  * Text Domain: supervisor
- * Domain Path: /languages
  *
  * @package supervisor
  */

@@ -8,11 +8,11 @@ Stable tag: 1.2.0
 License: GPLv3+
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Supervisor is a plugin to help improve the performance of your WordPress install.
+Supervisor is a plugin to help improve the performance and security of your WordPress install.
 
 == Description ==
 
-[Supervisor](https://supervisorwp.com) is a plugin to help improve the performance of your WordPress install.
+[Supervisor](https://supervisorwp.com) is a plugin to help improve the performance and security of your WordPress install.
 
 It detects some useful information regarding your site's health and then displays them conveniently via the WordPress Dashboard.
 

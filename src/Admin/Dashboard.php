@@ -3,7 +3,6 @@ namespace SUPV\Admin;
 
 use SUPV\Admin\Views\Notices\HTTPSView;
 use SUPV\Admin\Views\Notices\SSLView;
-use SUPV\Admin\Views\Pages\AutoloadView;
 use SUPV\Admin\Views\Pages\DashboardView;
 
 /**
@@ -121,16 +120,6 @@ final class Dashboard {
 	public function dashboard_page() {
 
 		( new DashboardView() )->output();
-	}
-
-	/**
-	 * Loads the autoload options page view.
-	 *
-	 * @since 1.0.0
-	 */
-	public function autoload_page() {
-
-		( new AutoloadView() )->output();
 	}
 
 	/**
