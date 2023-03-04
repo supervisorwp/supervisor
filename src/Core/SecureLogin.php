@@ -40,11 +40,11 @@ class SecureLogin {
 		add_filter( 'authenticate', [ $this, 'check_login_attempt' ], 21, 3 );
 		add_filter( 'authenticate', [ $this, 'maybe_replace_invalid_username_error' ], 21, 3 );
 
-		add_filter( 'shake_login_code', [ $this, 'add_error_to_login_shake_codes' ] );
+		add_filter( 'shake_error_codes', [ $this, 'add_error_to_login_shake_codes' ] );
 	}
 
 	/**
-	 * Adds Supervisor's error codes to the list of 'shake_login_code' errors.
+	 * Adds Supervisor's error codes to the list of 'shake_error_codes'.
 	 *
 	 * @since {VERSION}
 	 *
@@ -71,10 +71,6 @@ class SecureLogin {
 	 * @return WP_User|WP_Error WP_User on success, WP_Error on failure.
 	 */
 	public function check_login_attempt( $user, $username, $password ) {
-
-		if ( empty( $username ) || empty( $password ) ) {
-			return $user;
-		}
 
 		$user_ip  = supv_get_user_ip();
 		$username = strtolower( $username );
