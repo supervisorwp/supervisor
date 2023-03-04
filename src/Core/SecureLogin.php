@@ -1,8 +1,6 @@
 <?php
 namespace SUPV\Core;
 
-use WP_Error;
-
 /**
  * The SecureLogin class.
  *
@@ -38,7 +36,27 @@ class SecureLogin {
 	public function hooks() {
 
 		add_action( 'login_init', [ $this, 'cleanup_expired_login_attempts' ] );
-		add_filter( 'authenticate', [ $this, 'check_login_attempt' ], 20, 3 );
+
+		add_filter( 'authenticate', [ $this, 'check_login_attempt' ], 21, 3 );
+		add_filter( 'authenticate', [ $this, 'maybe_replace_invalid_username_error' ], 21, 3 );
+
+		add_filter( 'shake_login_code', [ $this, 'add_error_to_login_shake_codes' ] );
+	}
+
+	/**
+	 * Adds Supervisor's error codes to the list of 'shake_login_code' errors.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param string[] $error_codes The error codes that shake the login form.
+	 *
+	 * @return string[]
+	 */
+	public function add_error_to_login_shake_codes( $error_codes ) {
+
+		$error_codes[] = 'too_many_attempts';
+
+		return $error_codes;
 	}
 
 	/**
@@ -54,7 +72,7 @@ class SecureLogin {
 	 */
 	public function check_login_attempt( $user, $username, $password ) {
 
-		if ( empty( $username ) ) {
+		if ( empty( $username ) || empty( $password ) ) {
 			return $user;
 		}
 
@@ -62,15 +80,10 @@ class SecureLogin {
 		$username = strtolower( $username );
 
 		if ( $this->is_limit_reached( $user_ip, $username ) ) {
-			$error = new WP_Error();
-
-			$message = sprintf(
-				'<strong>%s</strong>: %s',
-				esc_html__( 'Error', 'supervisor' ),
+			$error = supv_prepare_wp_error(
+				'too_many_attempts',
 				esc_html__( 'You have exceeded the maximum number of login attempts. Please try again later.', 'supervisor' )
 			);
-
-			$error->add( 'supv_too_many_attempts', $message );
 		}
 
 		$this->log_login_attempt( $user_ip, $username );
@@ -83,7 +96,7 @@ class SecureLogin {
 	 *
 	 * @since {VERSION}
 	 */
-	public function cleanup_expired_login_attempts() {
+	public function cleanup_expired_login_attempts() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh,Generic.Metrics.NestingLevel.MaxExceeded
 
 		$log = get_option( self::LOGIN_ATTEMPTS_LOG );
 
@@ -96,7 +109,7 @@ class SecureLogin {
 			'usernames',
 		];
 
-		$limit_timestamp = strtotime( '-2 minutes' );
+		$limit_timestamp = strtotime( '-5 minutes' );
 
 		foreach ( $fields as $field ) {
 			foreach ( $log[ $field ] as $key => $data ) {
@@ -115,6 +128,36 @@ class SecureLogin {
 		}
 
 		update_option( self::LOGIN_ATTEMPTS_LOG, $log );
+	}
+
+	/**
+	 * Maybe replaces the invalid_username error message. By default, this error message indicates whether the user
+	 * exists in the database or not.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param WP_User|WP_Error|null $user     WP_User or WP_Error object from a previous callback. Default null.
+	 * @param string                $username Username. If not empty, cancels the cookie authentication.
+	 * @param string                $password Password. If not empty, cancels the cookie authentication.
+	 *
+	 * @return WP_User|WP_Error WP_User on success, WP_Error on failure.
+	 */
+	public function maybe_replace_invalid_username_error( $user, $username, $password ) {
+
+		if ( is_wp_error( $user ) && $user->get_error_code() === 'invalid_username' ) {
+			$message = sprintf(
+				/* translators: %s is the username. */
+				esc_html__( 'The password you entered for the username %s is incorrect.', 'supervisor' ),
+				$username
+			);
+
+			$error = supv_prepare_wp_error(
+				'invalid_username',
+				$message
+			);
+		}
+
+		return ! empty( $error ) ? $error : $user;
 	}
 
 	/**
@@ -142,6 +185,23 @@ class SecureLogin {
 		}
 
 		return $response;
+	}
+
+	/**
+	 * Confirms if a given user and IP address have reached the limit.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param string $user_ip  The user IP address.
+	 * @param string $username The username.
+	 *
+	 * @return bool
+	 */
+	private function is_limit_reached( $user_ip, $username ) {
+
+		$attempts = $this->get_login_attempts( $user_ip, $username );
+
+		return ! empty( $attempts['ip']['count'] ) && (int) $attempts['ip']['count'] > 20;
 	}
 
 	/**
@@ -174,22 +234,5 @@ class SecureLogin {
 		}
 
 		update_option( self::LOGIN_ATTEMPTS_LOG, $log );
-	}
-
-	/**
-	 * Confirms if a given user and IP address have reached the limit.
-	 *
-	 * @since {VERSION}
-	 *
-	 * @param string $user_ip  The user IP address.
-	 * @param string $username The username.
-	 *
-	 * @return bool
-	 */
-	private function is_limit_reached( $user_ip, $username ) {
-
-		$attempts = $this->get_login_attempts( $user_ip, $username );
-
-		return ! empty( $attempts['ip']['count'] ) && (int) $attempts['ip']['count'] > 20;
 	}
 }

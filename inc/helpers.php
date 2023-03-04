@@ -85,3 +85,28 @@ function supv_get_user_ip() {
 
 	return $user_ip ? $user_ip : false;
 }
+
+/**
+ * Prepares a WP Error object.
+ *
+ * @since {VERSION}
+ *
+ * @param string $error_code    The error code.
+ * @param string $error_message The error message.
+ *
+ * @return WP_Error
+ */
+function supv_prepare_wp_error( $error_code, $error_message ) {
+
+	$error = new WP_Error();
+
+	$message = sprintf(
+		'<strong>%s</strong>: %s',
+		esc_html__( 'Error', 'supervisor' ),
+		$error_message
+	);
+
+	$error->add( $error_code, $message );
+
+	return $error;
+}
