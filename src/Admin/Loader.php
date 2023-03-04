@@ -67,7 +67,10 @@ final class Loader {
 	 */
 	private function setup() {
 
-		$this->ajax      = new AJAX();
-		$this->dashboard = new Dashboard();
+		// Loads the plugin classes only if you are using Dashboard or WP-CLI.
+		if ( is_admin() || supv_is_doing_wpcli() ) {
+			$this->ajax      = new AJAX();
+			$this->dashboard = new Dashboard();
+		}
 	}
 }
