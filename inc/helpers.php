@@ -83,9 +83,5 @@ function supv_get_user_ip() {
 		}
 	}
 
-	if ( ! $user_ip ) {
-		return false;
-	}
-
-	return $user_ip;
+	return $user_ip ? $user_ip : false;
 }
