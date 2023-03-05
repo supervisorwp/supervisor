@@ -54,7 +54,7 @@ class SecureLogin {
 	 */
 	public function add_error_to_login_shake_codes( $error_codes ) {
 
-		$error_codes[] = 'too_many_attempts';
+		$error_codes[] = 'supv_too_many_attempts';
 
 		return $error_codes;
 	}
@@ -77,7 +77,7 @@ class SecureLogin {
 
 		if ( $this->is_limit_reached( $user_ip, $username ) ) {
 			$error = supv_prepare_wp_error(
-				'too_many_attempts',
+				'supv_too_many_attempts',
 				esc_html__( 'You have exceeded the maximum number of login attempts. Please try again later.', 'supervisor' )
 			);
 		}
@@ -175,7 +175,7 @@ class SecureLogin {
 				$response['ip'] = $log['ips'][ $user_ip ];
 			}
 
-			if ( ! empty( $username ) && ! empty( $log['usernames'][ $username ] ) ) {
+			if ( ! empty( $log['usernames'][ $username ] ) ) {
 				$response['username'] = $log['usernames'][ $username ];
 			}
 		}

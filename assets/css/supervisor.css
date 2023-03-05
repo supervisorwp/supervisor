@@ -1192,7 +1192,7 @@
   height: 0;
 }
 .supv-switch .supv-switch-slider {
-  border-radius: 34px;
+  border-radius: 5px;
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -1213,7 +1213,7 @@
   background-color: #fff;
   -webkit-transition: 0.4s;
   transition: 0.4s;
-  border-radius: 50%;
+  border-radius: 30%;
 }
 .supv-switch input:checked + .supv-switch-slider {
   background-color: #8a1736;
