@@ -22,7 +22,7 @@ final class WordPressCardView extends AbstractView {
 
 		$wp_versions = ! empty( $requirements['wordpress'] ) ? $requirements['wordpress'] : [];
 
-		$wp_beta_version = ! empty( $wp_versions[2] ) ? strtok( $wp_versions[0], '-' ) : '6.2';
+		$wp_beta_version = ! empty( $wp_versions[0] ) ? strtok( $wp_versions[0], '-' ) : '6.2';
 		$wp_curr_version = ! empty( $wp_versions[1] ) ? $wp_versions[1] : '6.1.1';
 		?>
 		<div class="supv-card">
