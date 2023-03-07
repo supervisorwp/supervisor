@@ -1179,6 +1179,17 @@
 .supv-container .supv-w-100 {
   min-width: 100% !important;
 }
+.supv-container input:hover {
+  border: 1px solid #8a1736 !important;
+  color: #8a1736 !important;
+}
+.supv-container input:focus {
+  border: 1px solid #8a1736 !important;
+  box-shadow: 0 0 0 1px #fef2f5 !important;
+}
+.supv-container input[type=number] {
+  padding-right: 0 !important;
+}
 
 .supv-switch {
   position: relative;
@@ -1199,7 +1210,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #bbb;
+  background-color: #aaa;
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
@@ -1227,9 +1238,12 @@
   transform: translateX(13px);
 }
 .supv-switch-text {
-  color: #8a1736;
+  color: #444;
   font-size: 13px;
   padding-left: 3px;
+}
+.supv-switch-text input {
+  width: 60px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -1445,6 +1459,34 @@
 }
 .supv-autoload-result-list ul {
   list-style: disc;
+}
+
+.supv-secure-login-switch {
+  padding-bottom: 4px;
+  padding-top: 8px;
+}
+.supv-secure-login-settings {
+  margin-top: 10px;
+}
+.supv-secure-login-settings ul {
+  display: inline;
+}
+.supv-secure-login-settings ul li {
+  list-style: none;
+  padding-top: 4px;
+  vertical-align: center;
+}
+.supv-secure-login-settings ul li:first-child {
+  font-weight: bold;
+  float: left;
+  min-width: 140px;
+  padding-top: 9px;
+}
+.supv-secure-login-settings ul li input {
+  width: 60px;
+}
+.supv-secure-login-settings ul p.box-info {
+  display: none;
 }
 
 .supv-wordpress-auto-update-policy-message {

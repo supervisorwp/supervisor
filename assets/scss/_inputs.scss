@@ -17,6 +17,22 @@
 	.supv-w-100 {
 		min-width: 100% !important;
 	}
+
+	input {
+		&:hover {
+			border: 1px solid $red !important;
+			color: $red !important;
+		}
+
+		&:focus {
+			border: 1px solid $red !important;
+			box-shadow: 0 0 0 1px $light-red !important;
+		}
+
+		&[type="number"] {
+			padding-right: 0 !important;
+		}
+	}
 }
 
 .supv-switch {
@@ -39,7 +55,7 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background-color: $silver;
+		background-color: $switch-gray;
 		-webkit-transition: .4s;
 		transition: .4s;
 
@@ -72,9 +88,13 @@
 	}
 
 	&-text {
-		color: $red;
+		color: $gray;
 		font-size: 13px;
 		padding-left: 3px;
+
+		input {
+			width: 60px;
+		}
 	}
 }
 

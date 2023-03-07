@@ -58,6 +58,18 @@ jQuery( document ).ready( function( $ ) {
 
 			return false;
 		} );
+
+	/**
+	 * Adds the onfocus actions.
+	 */
+	$( document )
+		.on( 'focus', '.supv-secure-login-settings > ul > li > input', function() {
+			$( '.supv-secure-login-settings > ul > p.box-info' ).hide();
+			$( this ).parent().next( 'p' ).show();
+		} )
+		.on( 'focusout', '.supv-secure-login-settings > ul > li > input', function() {
+			$( '.supv-secure-login-settings > ul > p.box-info' ).hide();
+		} );
 });
 
 /**

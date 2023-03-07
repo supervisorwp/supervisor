@@ -1,6 +1,8 @@
 <?php
 namespace SUPV\Admin;
 
+use SUPV\Admin\Views\ComponentsView;
+
 /**
  * The Loader class.
  *
@@ -71,6 +73,9 @@ final class Loader {
 		if ( is_admin() || supv_is_doing_wpcli() ) {
 			$this->ajax      = new AJAX();
 			$this->dashboard = new Dashboard();
+
+			// Loads the components.
+			new ComponentsView();
 		}
 	}
 }
