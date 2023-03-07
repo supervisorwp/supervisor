@@ -110,7 +110,7 @@ final class Dashboard {
 		 */
 		$menu_position = apply_filters( 'supv_admin_dashboard_menu_position', 200 );
 
-		$this->hookname = add_menu_page( 'Dashboard', 'Supervisor', 'manage_options', 'supervisor', [ $this, 'dashboard_page' ], 'none', $menu_position );
+		$this->hookname = add_menu_page( 'Supervisor', 'Supervisor', 'manage_options', 'supervisor', [ $this, 'dashboard_page' ], 'none', $menu_position );
 	}
 
 	/**
