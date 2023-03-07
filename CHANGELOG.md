@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.3.0] - 2023-xx-xx
 ### Fixed
+- Renamed the page title from Dashboard to Supervisor. (https://github.com/supervisorwp/supervisor/pull/28)
 - Fixed the condition to include the correct WP version array index. (https://github.com/supervisorwp/supervisor/pull/27)
 
 ## [1.2.0] - 2023-03-01
