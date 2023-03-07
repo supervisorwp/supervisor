@@ -61,7 +61,7 @@ final class TransientsCardView extends AbstractView {
 				<li>
 					<p class="supv-stats-title"><?php esc_html_e( 'Size', 'supervisor' ); ?></p>
 					<p class="supv-stats-data">
-						<span><?php echo ! empty( $stats['size'] ) && is_numeric( $stats['size'] ) ? esc_html( round( $stats['size'], 2 ) ) : '0.00'; ?></span>
+						<span><?php echo ! empty( $stats['size'] ) && is_numeric( $stats['size'] ) ? esc_html( number_format( $stats['size'], 2 ) ) : '0.00'; ?></span>
 						<span class="supv-stats-footer"><?php esc_html_e( 'MB', 'supervisor' ); ?></span>
 					</p>
 				</li>
