@@ -26,7 +26,7 @@ final class ComponentsView {
 	 */
 	public function hooks() {
 
-		add_action( 'supv_admin_views_components_switch', [ $this, 'switch' ] );
+		add_action( 'supv_admin_views_components_switch', [ $this, 'switcher' ] );
 	}
 
 	/**
@@ -36,7 +36,7 @@ final class ComponentsView {
 	 *
 	 * @param array $args The component arguments.
 	 */
-	public function switch( $args ) {
+	public function switcher( $args ) {
 
 		if ( ! is_array( $args ) ) {
 			return;
