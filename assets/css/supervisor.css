@@ -1477,7 +1477,7 @@
   vertical-align: center;
 }
 .supv-secure-login-settings ul li:first-child {
-  font-weight: bold;
+  font-weight: 500;
   float: left;
   min-width: 140px;
   padding-top: 9px;

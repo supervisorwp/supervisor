@@ -32,8 +32,8 @@ final class SecureLoginCardView extends AbstractView {
 				<p class="supv-secure-login-switch">
 					<?php
 					$args = [
-						'id'    => 'supv-secure-login-xxx',
-						'text'  => 'Enable Secure Login Page',
+						'id'    => 'supv-secure-login-restrict-attempts',
+						'text'  => 'Restrict the Number of Login Attempts',
 						'value' => 1,
 					];
 
@@ -67,7 +67,7 @@ final class SecureLoginCardView extends AbstractView {
 		<div class="supv-secure-login-settings">
 			<ul>
 				<li><?php esc_html_e( 'Max Retries', 'supervisor' ); ?></li>
-				<li><input type="number" /></li>
+				<li><input type="number" value="5" /></li>
 
 				<p class="box-info">
 					<span class="supv-icon-info"></span>
@@ -76,7 +76,7 @@ final class SecureLoginCardView extends AbstractView {
 			</ul>
 			<ul>
 				<li><?php esc_html_e( 'Lockout Time', 'supervisor' ); ?></li>
-				<li><input type="number" /> <?php esc_html_e( 'minutes', 'supervisor' ); ?></li>
+				<li><input type="number" value="10" /> <?php esc_html_e( 'minutes', 'supervisor' ); ?></li>
 
 				<p class="box-info">
 					<span class="supv-icon-info"></span>
@@ -85,7 +85,7 @@ final class SecureLoginCardView extends AbstractView {
 			</ul>
 			<ul>
 				<li><?php esc_html_e( 'Max Lockouts', 'supervisor' ); ?></li>
-				<li><input type="number" /></li>
+				<li><input type="number" value="3" /></li>
 
 				<p class="box-info">
 					<span class="supv-icon-info"></span>
@@ -94,7 +94,7 @@ final class SecureLoginCardView extends AbstractView {
 			</ul>
 			<ul>
 				<li><?php esc_html_e( 'Extended Lockout', 'supervisor' ); ?></li>
-				<li><input type="number" /> <?php esc_html_e( 'hours', 'supervisor' ); ?></li>
+				<li><input type="number" value="12" /> <?php esc_html_e( 'hours', 'supervisor' ); ?></li>
 
 				<p class="box-info">
 					<span class="supv-icon-info"></span>
@@ -103,7 +103,7 @@ final class SecureLoginCardView extends AbstractView {
 			</ul>
 			<ul>
 				<li><?php esc_html_e( 'Reset Retries', 'supervisor' ); ?></li>
-				<li><input type="number" /> <?php esc_html_e( 'hours', 'supervisor' ); ?></li>
+				<li><input type="number" value="12" /> <?php esc_html_e( 'hours', 'supervisor' ); ?></li>
 
 				<p class="box-info">
 					<span class="supv-icon-info"></span>
