@@ -36,7 +36,7 @@ final class AJAX {
 			'autoload_options_history',
 			'autoload_update_option',
 			'wordpress_auto_update_policy',
-			'secure_login_restrict_attempts_settings_output',
+			'secure_login_settings_output',
 		];
 
 		$this->hooks();
@@ -205,15 +205,15 @@ final class AJAX {
 	}
 
 	/**
-	 * Outputs the restrict login attempts settings.
+	 * Outputs the Secure Login settings.
 	 *
 	 * @since {VERSION}
 	 */
-	public function secure_login_restrict_attempts_settings_output() {
+	public function secure_login_settings_output() {
 
-		check_ajax_referer( 'supv_secure_login_restrict_attempts_settings_output' );
+		check_ajax_referer( 'supv_secure_login_settings_output' );
 
-		( new SecureLoginCardView() )->output_restrict_login_attempts();
+		( new SecureLoginCardView() )->output_settings();
 
 		wp_die();
 	}

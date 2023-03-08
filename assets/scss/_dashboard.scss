@@ -224,7 +224,7 @@
 		padding-top: 8px;
 	}
 
-	&-restrict-attempts-settings {
+	&-settings {
 		margin-top: 10px;
 
 		ul {
@@ -232,6 +232,7 @@
 
 			li {
 				list-style: none;
+				padding-left: 1px;
 				padding-top: 4px;
 				vertical-align: center;
 
@@ -263,6 +264,12 @@
 .supv-ctas {
 	float: right;
 	margin-top: -47px;
+
+	&-left {
+		float: none !important;
+		margin-top: 16px !important;
+		margin-bottom: 5px;
+	}
 }
 
 @media only screen and (max-width: 1300px) {

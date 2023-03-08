@@ -59,11 +59,11 @@ const Supervisor = ( function( document, $ ) {
 
 				$( '#supv-autoload-options' ).html( '' );
 			} )
-			.on( 'click', '#supv-secure-login-restrict-attempts-switch', function() {
+			.on( 'click', '#supv-secure-login-switch', function() {
 				if ( $( this ).is( ':checked' ) ) {
-					app.ajax_request( 'supv_secure_login_restrict_attempts_settings_output', null, '#supv-secure-login-restrict-attempts-settings' );
+					app.ajax_request( 'supv_secure_login_settings_output', null, '#supv-secure-login-settings' );
 				} else {
-					$( '#supv-secure-login-restrict-attempts-settings' ).empty();
+					$( '#supv-secure-login-settings' ).empty();
 				}
 			} );
 
@@ -81,7 +81,7 @@ const Supervisor = ( function( document, $ ) {
 		$( document )
 			.on( 'submit', '#supv-autoload-form', function() {
 				const data = $( '#supv-autoload-form' ).serializeArray();
-				const params = {};
+				let params = {};
 
 				$( data ).each(
 					function( i, field ) {

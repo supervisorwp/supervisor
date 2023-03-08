@@ -17,17 +17,17 @@ use SUPV\Admin\Views\SystemInfoView;
 final class DashboardView extends AbstractView {
 
 	/**
-	 * The full qualified name for the cards to load.
+	 * The full qualified name for the cards to load and the respective col size (for medium and large screens).
 	 *
 	 * @since 1.0.0
 	 *
 	 * @var string[]
 	 */
 	private $cards = [
-		TransientsCardView::class,
-		AutoloadCardView::class,
-		SecureLoginCardView::class,
-		WordPressCardView::class,
+		TransientsCardView::class  => 12,
+		AutoloadCardView::class    => 12,
+		SecureLoginCardView::class => 6,
+		WordPressCardView::class   => 6,
 	];
 
 	/**
@@ -74,8 +74,8 @@ final class DashboardView extends AbstractView {
 
 		?>
 		<div class="supv-boxes supv-row">
-			<?php foreach ( $this->cards as $card ) : ?>
-				<div class="supv-box supv-col col-lg-12 col-md-12 col-xs-12">
+			<?php foreach ( $this->cards as $card => $col_size ) : ?>
+				<div class="supv-box supv-col col-lg-<?php echo $col_size; ?> col-md-<?php echo $col_size; ?> col-xs-12">
 					<?php ( new $card() )->output(); ?>
 				</div>
 			<?php endforeach; ?>

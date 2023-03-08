@@ -1203,7 +1203,7 @@
   height: 0;
 }
 .supv-switch .supv-switch-slider {
-  border-radius: 5px;
+  border-radius: 18px;
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -1224,7 +1224,7 @@
   background-color: #fff;
   -webkit-transition: 0.4s;
   transition: 0.4s;
-  border-radius: 30%;
+  border-radius: 50%;
 }
 .supv-switch input:checked + .supv-switch-slider {
   background-color: #8a1736;
@@ -1465,27 +1465,28 @@
   padding-bottom: 4px;
   padding-top: 8px;
 }
-.supv-secure-login-restrict-attempts-settings {
+.supv-secure-login-settings {
   margin-top: 10px;
 }
-.supv-secure-login-restrict-attempts-settings ul {
+.supv-secure-login-settings ul {
   display: inline;
 }
-.supv-secure-login-restrict-attempts-settings ul li {
+.supv-secure-login-settings ul li {
   list-style: none;
+  padding-left: 1px;
   padding-top: 4px;
   vertical-align: center;
 }
-.supv-secure-login-restrict-attempts-settings ul li:first-child {
+.supv-secure-login-settings ul li:first-child {
   font-weight: 500;
   float: left;
   min-width: 140px;
   padding-top: 9px;
 }
-.supv-secure-login-restrict-attempts-settings ul li input {
+.supv-secure-login-settings ul li input {
   width: 60px;
 }
-.supv-secure-login-restrict-attempts-settings ul p.box-info {
+.supv-secure-login-settings ul p.box-info {
   display: none;
 }
 
@@ -1496,6 +1497,11 @@
 .supv-ctas {
   float: right;
   margin-top: -47px;
+}
+.supv-ctas-left {
+  float: none !important;
+  margin-top: 16px !important;
+  margin-bottom: 5px;
 }
 
 @media only screen and (max-width: 1300px) {
