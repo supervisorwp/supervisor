@@ -16,7 +16,16 @@ class SecureLogin {
 	 *
 	 * @var string
 	 */
-	const LOGIN_ATTEMPTS_LOG = 'supv_secure_login_attempts_log';
+	const LOGIN_ATTEMPTS_LOG_OPTION = 'supv_secure_login_attempts_log';
+
+	/**
+	 * Option to store the Secure Login settings.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @var string
+	 */
+	const SETTINGS_OPTION = 'supv_secure_login_settings';
 
 	/**
 	 * Constructor.
@@ -94,7 +103,7 @@ class SecureLogin {
 	 */
 	public function cleanup_expired_login_attempts() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh,Generic.Metrics.NestingLevel.MaxExceeded
 
-		$log = get_option( self::LOGIN_ATTEMPTS_LOG );
+		$log = get_option( self::LOGIN_ATTEMPTS_LOG_OPTION );
 
 		if ( ! $log ) {
 			return;
@@ -123,7 +132,7 @@ class SecureLogin {
 			}
 		}
 
-		update_option( self::LOGIN_ATTEMPTS_LOG, $log );
+		update_option( self::LOGIN_ATTEMPTS_LOG_OPTION, $log );
 	}
 
 	/**
@@ -157,6 +166,40 @@ class SecureLogin {
 	}
 
 	/**
+	 * Retrieves the value from all settings, or from a given setting.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param string|false $name The name.
+	 *
+	 * @return string
+	 */
+	public function get_settings( $name = false ) {
+
+		$settings = get_option( self::SETTINGS_OPTION, [] );
+
+		return $name && ! empty( $settings[ $name ] ) ? $settings[ $name ] : $settings;
+	}
+
+	/**
+	 * Updates the settings.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param array $new_settings The new settings.
+	 */
+	public function update_settings( $new_settings ) {
+
+		$settings = get_option( self::SETTINGS_OPTION, [] );
+
+		foreach ( $new_settings as $key => $value ) {
+			$settings[ $key ] = $value;
+		}
+
+		update_option( self::SETTINGS_OPTION, $settings );
+	}
+
+	/**
 	 * Get the login attempts.
 	 *
 	 * @since {VERSION}
@@ -168,7 +211,7 @@ class SecureLogin {
 
 		$response = [];
 
-		$log = get_option( self::LOGIN_ATTEMPTS_LOG );
+		$log = get_option( self::LOGIN_ATTEMPTS_LOG_OPTION );
 
 		if ( $log ) {
 			if ( ! empty( $user_ip ) && ! empty( $log['ips'][ $user_ip ] ) ) {
@@ -210,7 +253,7 @@ class SecureLogin {
 	 */
 	private function log_login_attempt( $user_ip, $username ) {
 
-		$log = get_option( self::LOGIN_ATTEMPTS_LOG );
+		$log = get_option( self::LOGIN_ATTEMPTS_LOG_OPTION );
 
 		$fields = [
 			'ips'       => $user_ip,
@@ -229,6 +272,6 @@ class SecureLogin {
 			];
 		}
 
-		update_option( self::LOGIN_ATTEMPTS_LOG, $log );
+		update_option( self::LOGIN_ATTEMPTS_LOG_OPTION, $log );
 	}
 }

@@ -63,6 +63,10 @@ const Supervisor = ( function( document, $ ) {
 				if ( $( this ).is( ':checked' ) ) {
 					app.ajax_request( 'supv_secure_login_settings_output', null, '#supv-secure-login-settings' );
 				} else {
+					$( '#supv-field-enabled' ).val( '0' );
+
+					$( '#supv-secure-login-settings-form' ).submit();
+
 					$( '#supv-secure-login-settings' ).empty();
 				}
 			} );
@@ -80,18 +84,18 @@ const Supervisor = ( function( document, $ ) {
 		 */
 		$( document )
 			.on( 'submit', '#supv-autoload-form', function() {
-				const data = $( '#supv-autoload-form' ).serializeArray();
-				let params = {};
-
-				$( data ).each(
-					function( i, field ) {
-						params[ field.name ] = field.value;
-					}
-				);
+				const params = app.convert_to_object( $( this ).serializeArray() );
 
 				$( '#supv-autoload-result' ).show();
 
 				app.ajax_request( 'supv_autoload_update_option', params, '#supv-autoload-stats' );
+
+				return false;
+			} )
+			.on( 'submit', '#supv-secure-login-settings-form', function() {
+				const params = app.convert_to_object( $( this ).serializeArray() );
+
+				app.ajax_request( 'supv_secure_login_settings_save', params, false );
 
 				return false;
 			} );
@@ -100,13 +104,32 @@ const Supervisor = ( function( document, $ ) {
 		 * Adds the onfocus events.
 		 */
 		$( document )
-			.on( 'focus', '.supv-secure-login-restrict-attempts-settings > ul > li > input', function() {
-				$( '.supv-secure-login-restrict-attempts-settings > ul > p.box-info' ).hide();
+			.on( 'focus', '.supv-secure-login-settings > form > ul > li > input', function() {
+				$( '.supv-secure-login-settings > form > ul > p.box-info' ).hide();
 				$( this ).parent().next( 'p' ).show();
 			} )
-			.on( 'focusout', '.supv-secure-login-restrict-attempts-settings > ul > li > input', function() {
-				$( '.supv-secure-login-restrict-attempts-settings > ul > p.box-info' ).hide();
+			.on( 'focusout', '.supv-secure-login-settings > form > ul > li > input', function() {
+				$( '.supv-secure-login-settings > form > ul > p.box-info' ).hide();
 			} );
+	};
+
+	/**
+	 * Converts serialized array to object.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param {Object} serializedArray
+	 */
+	app.convert_to_object = function( serializedArray ) {
+		let params = {};
+
+		$( serializedArray ).each(
+			function( i, field ) {
+				params[ field.name ] = field.value;
+			}
+		);
+
+		return params;
 	};
 
 	/**

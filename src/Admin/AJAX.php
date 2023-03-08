@@ -37,6 +37,7 @@ final class AJAX {
 			'autoload_update_option',
 			'wordpress_auto_update_policy',
 			'secure_login_settings_output',
+			'secure_login_settings_save',
 		];
 
 		$this->hooks();
@@ -157,20 +158,12 @@ final class AJAX {
 
 		check_ajax_referer( 'supv_autoload_update_option' );
 
+		$data = $this->extract_form_data( $_POST );
+
 		$options    = [];
 		$is_history = false;
 
-		foreach ( array_keys( $_POST ) as $key ) {
-			if ( ! preg_match( '/^supv-opt-/', sanitize_key( $key ) ) ) {
-				continue;
-			}
-
-			$option_name = preg_replace( '/^supv-opt-/', '', urldecode( sanitize_key( $key ) ) );
-
-			if ( empty( $option_name ) ) {
-				continue;
-			}
-
+		foreach ( $data as $option_name => $value ) {
 			if ( supv()->core()->autoload()->is_deactivated( $option_name ) ) {
 				$options[ $option_name ] = supv()->core()->autoload()->reactivate( $option_name );
 				$is_history              = true;
@@ -216,5 +209,54 @@ final class AJAX {
 		( new SecureLoginCardView() )->output_settings();
 
 		wp_die();
+	}
+
+	/**
+	 * Saves the Secure Login settings to the database.
+	 *
+	 * @since {VERSION}
+	 */
+	public function secure_login_settings_save() {
+
+		check_ajax_referer( 'supv_secure_login_settings_save' );
+
+		$data = $this->extract_form_data( $_POST );
+
+		$settings = array_map( 'intval', $data ); // Converts all the values to int.
+
+		supv()->core()->secure_login()->update_settings( $settings );
+
+		wp_die();
+	}
+
+	/**
+	 * Extracts the form data.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param array $_post The $_POST super global (passed by reference).
+	 *
+	 * @return array The extract
+	 */
+	private function extract_form_data( $_post ) {
+
+		$data = [];
+
+		foreach ( array_keys( $_post ) as $key ) {
+			if ( ! preg_match( '/^supv-field-/', sanitize_key( $key ) ) ) {
+				continue;
+			}
+
+			$value = ! empty( $_post[ $key ] ) ? sanitize_text_field( wp_unslash( $_post[ $key ] ) ) : '';
+			$field = preg_replace( '/^supv-field-/', '', urldecode( sanitize_key( $key ) ) );
+
+			if ( empty( $field ) ) {
+				continue;
+			}
+
+			$data[ $field ] = $value;
+		}
+
+		return $data;
 	}
 }

@@ -32,9 +32,10 @@ final class SecureLoginCardView extends AbstractView {
 				<p class="supv-secure-login-switch">
 					<?php
 					$args = [
-						'id'    => 'supv-secure-login-switch',
-						'text'  => 'Enable Brute Force Protection',
-						'value' => 1,
+						'id'      => 'supv-secure-login-switch',
+						'text'    => 'Enable Brute Force Protection',
+						'value'   => 1,
+						'checked' => ! empty( supv()->core()->secure_login()->get_settings( 'enabled' ) ),
 					];
 
 					/**
@@ -48,7 +49,11 @@ final class SecureLoginCardView extends AbstractView {
 					?>
 				</p>
 
-				<div id="supv-secure-login-settings" class="supv-secure-login-settings"></div>
+				<div id="supv-secure-login-settings" class="supv-secure-login-settings">
+					<?php if ( ! empty( supv()->core()->secure_login()->get_settings( 'enabled' ) ) ) : ?>
+						<?php $this->output_settings(); ?>
+					<?php endif; ?>
+				</div>
 			</div>
 		</div>
 		<?php
@@ -61,11 +66,12 @@ final class SecureLoginCardView extends AbstractView {
 	 */
 	public function output_settings() {
 
+		$settings = supv()->core()->secure_login()->get_settings();
 		?>
-		<form id="supv-secure-login-form" name="supv-secure-login-form">
+		<form id="supv-secure-login-settings-form" name="supv-secure-login-settings-form">
 			<ul>
 				<li><?php esc_html_e( 'Max Retries', 'supervisor' ); ?></li>
-				<li><input type="number" value="5" /></li>
+				<li><input name="supv-field-max-retries" type="number" value="<?php echo ! empty( $settings['max-retries'] ) ? esc_attr( $settings['max-retries'] ) : 5; ?>" /></li>
 
 				<p class="box-info">
 					<span class="supv-icon-info"></span>
@@ -74,7 +80,7 @@ final class SecureLoginCardView extends AbstractView {
 			</ul>
 			<ul>
 				<li><?php esc_html_e( 'Lockout Time', 'supervisor' ); ?></li>
-				<li><input type="number" value="10" /> <?php esc_html_e( 'minutes', 'supervisor' ); ?></li>
+				<li><input name="supv-field-lockout-time" type="number" value="<?php echo ! empty( $settings['lockout-time'] ) ? esc_attr( $settings['lockout-time'] ) : 10; ?>" /> <?php esc_html_e( 'minutes', 'supervisor' ); ?></li>
 
 				<p class="box-info">
 					<span class="supv-icon-info"></span>
@@ -83,7 +89,7 @@ final class SecureLoginCardView extends AbstractView {
 			</ul>
 			<ul>
 				<li><?php esc_html_e( 'Max Lockouts', 'supervisor' ); ?></li>
-				<li><input type="number" value="3" /></li>
+				<li><input name="supv-field-max-lockouts" type="number" value="<?php echo ! empty( $settings['max-lockouts'] ) ? esc_attr( $settings['max-lockouts'] ) : 3; ?>" /></li>
 
 				<p class="box-info">
 					<span class="supv-icon-info"></span>
@@ -92,7 +98,7 @@ final class SecureLoginCardView extends AbstractView {
 			</ul>
 			<ul>
 				<li><?php esc_html_e( 'Extended Lockout', 'supervisor' ); ?></li>
-				<li><input type="number" value="12" /> <?php esc_html_e( 'hours', 'supervisor' ); ?></li>
+				<li><input name="supv-field-extended-lockout" type="number" value="<?php echo ! empty( $settings['extended-lockout'] ) ? esc_attr( $settings['extended-lockout'] ) : 24; ?>" /> <?php esc_html_e( 'hours', 'supervisor' ); ?></li>
 
 				<p class="box-info">
 					<span class="supv-icon-info"></span>
@@ -101,7 +107,7 @@ final class SecureLoginCardView extends AbstractView {
 			</ul>
 			<ul>
 				<li><?php esc_html_e( 'Reset Retries', 'supervisor' ); ?></li>
-				<li><input type="number" value="12" /> <?php esc_html_e( 'hours', 'supervisor' ); ?></li>
+				<li><input name="supv-field-reset-retries" type="number" value="<?php echo ! empty( $settings['reset-retries'] ) ? esc_attr( $settings['reset-retries'] ) : 24; ?>" /> <?php esc_html_e( 'hours', 'supervisor' ); ?></li>
 
 				<p class="box-info">
 					<span class="supv-icon-info"></span>
@@ -110,7 +116,9 @@ final class SecureLoginCardView extends AbstractView {
 			</ul>
 
 			<div class="supv-ctas-left">
-				<button type="button" class="supv-button" id="supv-btn-secure-login-settings-save">
+				<input name="supv-field-enabled" id="supv-field-enabled" type="hidden" value="1" />
+
+				<button type="submit" form="supv-secure-login-settings-form" class="supv-button" id="supv-btn-secure-login-settings-save">
 					<?php esc_html_e( 'Save Settings', 'supervisor' ); ?>
 				</button>
 			</div>

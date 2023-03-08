@@ -120,7 +120,7 @@ final class AutoloadCardView extends AbstractView {
 				<?php foreach ( $opts as $name => $size ) : ?>
 					<?php
 					$title          = '';
-					$id             = 'supv-opt-' . rawurlencode( $name );
+					$id             = 'supv-field-' . rawurlencode( $name );
 					$is_core_option = supv()->core()->autoload()->is_core_option( $name );
 					?>
 
@@ -189,7 +189,7 @@ final class AutoloadCardView extends AbstractView {
 					</ul>
 
 					<?php foreach ( $opts as $name => $timestamp ) : ?>
-						<?php $id = 'supv-opt-' . rawurlencode( $name ); ?>
+						<?php $id = 'supv-field-' . rawurlencode( $name ); ?>
 
 						<ul>
 							<li class="supv-col-check">
