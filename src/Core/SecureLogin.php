@@ -166,7 +166,7 @@ class SecureLogin {
 	}
 
 	/**
-	 * Retrieves the value from all settings, or from a given setting.
+	 * Retrieves all settings, or the value from a given setting.
 	 *
 	 * @since {VERSION}
 	 *
