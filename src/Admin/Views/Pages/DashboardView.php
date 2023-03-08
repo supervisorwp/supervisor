@@ -75,7 +75,7 @@ final class DashboardView extends AbstractView {
 		?>
 		<div class="supv-boxes supv-row">
 			<?php foreach ( $this->cards as $card => $col_size ) : ?>
-				<div class="supv-box supv-col col-lg-<?php echo $col_size; ?> col-md-<?php echo $col_size; ?> col-xs-12">
+				<div class="supv-box supv-col col-lg-<?php echo esc_attr( $col_size ); ?> col-md-<?php echo esc_attr( $col_size ); ?> col-xs-12">
 					<?php ( new $card() )->output(); ?>
 				</div>
 			<?php endforeach; ?>
