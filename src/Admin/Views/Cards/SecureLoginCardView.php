@@ -32,7 +32,7 @@ final class SecureLoginCardView extends AbstractView {
 				<p class="supv-secure-login-switch">
 					<?php
 					$args = [
-						'id'    => 'supv-secure-login-restrict-attempts',
+						'id'    => 'supv-secure-login-restrict-attempts-switch',
 						'text'  => 'Restrict the Number of Login Attempts',
 						'value' => 1,
 					];
@@ -48,69 +48,65 @@ final class SecureLoginCardView extends AbstractView {
 					?>
 				</p>
 
-				<div id="">
-					<?php $this->output_limit_login_attempts(); ?>
-				</div>
+				<div id="supv-secure-login-restrict-attempts-settings" class="supv-secure-login-restrict-attempts-settings"></div>
 			</div>
 		</div>
 		<?php
 	}
 
 	/**
-	 * Outputs the limit login attempts options.
+	 * Outputs the restrict login attempts settings.
 	 *
 	 * @since {VERSION}
 	 */
-	public function output_limit_login_attempts() {
+	public function output_restrict_login_attempts() {
 
 		?>
-		<div class="supv-secure-login-settings">
-			<ul>
-				<li><?php esc_html_e( 'Max Retries', 'supervisor' ); ?></li>
-				<li><input type="number" value="5" /></li>
+		<ul>
+			<li><?php esc_html_e( 'Max Retries', 'supervisor' ); ?></li>
+			<li><input type="number" value="5" /></li>
 
-				<p class="box-info">
-					<span class="supv-icon-info"></span>
-					<?php esc_html_e( 'The maximum number of allowed failed attempts before the user is locked out.', 'supervisor' ); ?>
-				</p>
-			</ul>
-			<ul>
-				<li><?php esc_html_e( 'Lockout Time', 'supervisor' ); ?></li>
-				<li><input type="number" value="10" /> <?php esc_html_e( 'minutes', 'supervisor' ); ?></li>
+			<p class="box-info">
+				<span class="supv-icon-info"></span>
+				<?php esc_html_e( 'The maximum number of allowed failed attempts before the user is locked out.', 'supervisor' ); ?>
+			</p>
+		</ul>
+		<ul>
+			<li><?php esc_html_e( 'Lockout Time', 'supervisor' ); ?></li>
+			<li><input type="number" value="10" /> <?php esc_html_e( 'minutes', 'supervisor' ); ?></li>
 
-				<p class="box-info">
-					<span class="supv-icon-info"></span>
-					<?php esc_html_e( 'This specifies the duration (in minutes) for which a user will be locked out after reaching the maximum number of login retries.', 'supervisor' ); ?>
-				</p>
-			</ul>
-			<ul>
-				<li><?php esc_html_e( 'Max Lockouts', 'supervisor' ); ?></li>
-				<li><input type="number" value="3" /></li>
+			<p class="box-info">
+				<span class="supv-icon-info"></span>
+				<?php esc_html_e( 'This specifies the duration (in minutes) for which a user will be locked out after reaching the maximum number of login retries.', 'supervisor' ); ?>
+			</p>
+		</ul>
+		<ul>
+			<li><?php esc_html_e( 'Max Lockouts', 'supervisor' ); ?></li>
+			<li><input type="number" value="3" /></li>
 
-				<p class="box-info">
-					<span class="supv-icon-info"></span>
-					<?php esc_html_e( 'The maximum number of times a user can be locked out for the standard lockout time, after which they will be locked out for an extended period.', 'supervisor' ); ?>
-				</p>
-			</ul>
-			<ul>
-				<li><?php esc_html_e( 'Extended Lockout', 'supervisor' ); ?></li>
-				<li><input type="number" value="12" /> <?php esc_html_e( 'hours', 'supervisor' ); ?></li>
+			<p class="box-info">
+				<span class="supv-icon-info"></span>
+				<?php esc_html_e( 'The maximum number of times a user can be locked out for the standard lockout time, after which they will be locked out for an extended period.', 'supervisor' ); ?>
+			</p>
+		</ul>
+		<ul>
+			<li><?php esc_html_e( 'Extended Lockout', 'supervisor' ); ?></li>
+			<li><input type="number" value="12" /> <?php esc_html_e( 'hours', 'supervisor' ); ?></li>
 
-				<p class="box-info">
-					<span class="supv-icon-info"></span>
-					<?php esc_html_e( 'This specifies the duration (in hours) for which a user will be locked out after exceeding the maximum number of standard lockouts.', 'supervisor' ); ?>
-				</p>
-			</ul>
-			<ul>
-				<li><?php esc_html_e( 'Reset Retries', 'supervisor' ); ?></li>
-				<li><input type="number" value="12" /> <?php esc_html_e( 'hours', 'supervisor' ); ?></li>
+			<p class="box-info">
+				<span class="supv-icon-info"></span>
+				<?php esc_html_e( 'This specifies the duration (in hours) for which a user will be locked out after exceeding the maximum number of standard lockouts.', 'supervisor' ); ?>
+			</p>
+		</ul>
+		<ul>
+			<li><?php esc_html_e( 'Reset Retries', 'supervisor' ); ?></li>
+			<li><input type="number" value="12" /> <?php esc_html_e( 'hours', 'supervisor' ); ?></li>
 
-				<p class="box-info">
-					<span class="supv-icon-info"></span>
-					<?php esc_html_e( 'After the specified number of hours, the failed login attempts for a user will be reset.', 'supervisor' ); ?>
-				</p>
-			</ul>
-		</div>
+			<p class="box-info">
+				<span class="supv-icon-info"></span>
+				<?php esc_html_e( 'After the specified number of hours, the failed login attempts for a user will be reset.', 'supervisor' ); ?>
+			</p>
+		</ul>
 		<?php
 	}
 }

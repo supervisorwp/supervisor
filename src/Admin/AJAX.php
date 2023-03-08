@@ -2,6 +2,7 @@
 namespace SUPV\Admin;
 
 use SUPV\Admin\Views\Cards\AutoloadCardView;
+use SUPV\Admin\Views\Cards\SecureLoginCardView;
 use SUPV\Admin\Views\Cards\TransientsCardView;
 use SUPV\Admin\Views\Cards\WordPressCardView;
 
@@ -35,6 +36,7 @@ final class AJAX {
 			'autoload_options_history',
 			'autoload_update_option',
 			'wordpress_auto_update_policy',
+			'secure_login_restrict_attempts_settings_output',
 		];
 
 		$this->hooks();
@@ -198,6 +200,20 @@ final class AJAX {
 		}
 
 		( new WordPressCardView() )->output_select( true );
+
+		wp_die();
+	}
+
+	/**
+	 * Outputs the restrict login attempts settings.
+	 *
+	 * @since {VERSION}
+	 */
+	public function secure_login_restrict_attempts_settings_output() {
+
+		check_ajax_referer( 'supv_secure_login_restrict_attempts_settings_output' );
+
+		( new SecureLoginCardView() )->output_restrict_login_attempts();
 
 		wp_die();
 	}

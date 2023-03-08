@@ -58,6 +58,13 @@ const Supervisor = ( function( document, $ ) {
 				$( '#supv-autoload-result' ).hide();
 
 				$( '#supv-autoload-options' ).html( '' );
+			} )
+			.on( 'click', '#supv-secure-login-restrict-attempts-switch', function() {
+				if ( $( this ).is( ':checked' ) ) {
+					app.ajax_request( 'supv_secure_login_restrict_attempts_settings_output', null, '#supv-secure-login-restrict-attempts-settings' );
+				} else {
+					$( '#supv-secure-login-restrict-attempts-settings' ).empty();
+				}
 			} );
 
 		/**
@@ -93,12 +100,12 @@ const Supervisor = ( function( document, $ ) {
 		 * Adds the onfocus events.
 		 */
 		$( document )
-			.on( 'focus', '.supv-secure-login-settings > ul > li > input', function() {
-				$( '.supv-secure-login-settings > ul > p.box-info' ).hide();
+			.on( 'focus', '.supv-secure-login-restrict-attempts-settings > ul > li > input', function() {
+				$( '.supv-secure-login-restrict-attempts-settings > ul > p.box-info' ).hide();
 				$( this ).parent().next( 'p' ).show();
 			} )
-			.on( 'focusout', '.supv-secure-login-settings > ul > li > input', function() {
-				$( '.supv-secure-login-settings > ul > p.box-info' ).hide();
+			.on( 'focusout', '.supv-secure-login-restrict-attempts-settings > ul > li > input', function() {
+				$( '.supv-secure-login-restrict-attempts-settings > ul > p.box-info' ).hide();
 			} );
 	};
 

@@ -55,7 +55,7 @@ final class ComponentsView {
 
 		?>
 		<label class="supv-switch">
-			<input id="<?php echo esc_attr( $args['id'] ); ?>" name="<?php echo esc_attr( $args['id'] ); ?>" type="checkbox" value="<?php esc_attr( $args['value'] ); ?>" <?php echo $args['checked'] ? 'checked' : ''; ?> />
+			<input id="<?php echo esc_attr( $args['id'] ); ?>" name="<?php echo esc_attr( $args['id'] ); ?>" type="checkbox" value="<?php echo esc_attr( $args['value'] ); ?>" <?php echo $args['checked'] ? 'checked' : ''; ?> />
 			<span class="supv-switch-slider"></span>
 		</label>
 
