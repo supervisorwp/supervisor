@@ -26,11 +26,11 @@ final class WordPressCardView extends AbstractView {
 		$wp_curr_version = ! empty( $wp_versions[1] ) ? $wp_versions[1] : '6.1.1';
 		?>
 		<div class="supv-card">
-			<div class="header">
+			<div class="supv-card-header">
 				<div class="text"><?php esc_html_e( 'WordPress Automatic Background Updates', 'supervisor' ); ?></div>
 			</div>
 
-			<div class="content">
+			<div class="supv-card-content">
 				<p>
 					<?php
 					echo sprintf(
@@ -43,7 +43,9 @@ final class WordPressCardView extends AbstractView {
 				</p>
 				<p><?php esc_html_e( 'Minor updates are released more often than major ones. These releases usually includes security updates, fixes, and enhancements.', 'supervisor' ); ?></p>
 				<p><?php esc_html_e( 'Major updates are released 2-4 times a year, and they always include new features, major enhancements, and bug fixes to WordPress.', 'supervisor' ); ?></p>
+			</div>
 
+			<div class="supv-card-actions">
 				<div id="supv-wordpress-update-policy-box">
 					<?php if ( ! supv()->core()->wordpress()->is_auto_update_constant_enabled() ) : ?>
 						<?php $this->output_select(); ?>

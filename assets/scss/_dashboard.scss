@@ -13,8 +13,7 @@
 }
 
 .supv-sysinfo {
-	margin-bottom: 5px;
-	margin-top: 20px;
+	margin: 20px 0 15px 0;
 
 	&-box {
 		background: $white;
@@ -22,6 +21,10 @@
 		display: inline-block;
 		padding: 10px 15px;
 		margin-right: 12px;
+
+		&:last-child {
+			margin-right: 0;
+		}
 
 		p {
 			color: $gray;
@@ -63,19 +66,15 @@
 }
 
 .supv-stats {
-	margin: 12px 0 3px 0;
-	min-height: 50px;
-	width: 100%;
-
 	ul {
 		list-style: none;
-		margin: 0 auto;
+		margin: 0;
 		padding: 0;
 
 		li {
 			float: left;
-			padding-top: 5px;
 			width: 100px;
+			margin: 0;
 
 			&:last-child {
 				border-right: 0;
@@ -99,7 +98,7 @@
 	&-data {
 		color: $red;
 		font-size: 24px;
-		margin: 0 !important;
+		margin: 0;
 	}
 
 	&-footer {
@@ -129,6 +128,28 @@
 	&-info {
 		clear: both;
 		color: $info;
+	}
+}
+
+.supv-transients, .supv-autoload {
+	&-stats {
+		display: grid;
+		grid-template-areas: 'stats ctas';
+		grid-template-columns: auto auto;
+
+		.supv-stats {
+			grid-area: stats;
+			display: flex;
+			align-items: center;
+			align-content: flex-end;
+		}
+
+		.supv-ctas {
+			grid-area: ctas;
+			display: flex;
+			justify-content: flex-end;
+			align-items: center;
+		}
 	}
 }
 
@@ -218,47 +239,13 @@
 	}
 }
 
-.supv-wordpress {
-	&-auto-update-policy-message {
-		margin-bottom: 2px !important;
-	}
-}
-
-.supv-ctas {
-	float: right;
-	margin-top: -47px;
-}
 
 @media only screen and (max-width: 1300px) {
-	.supv-stats {
-		padding: 0 !important;
-	}
+
 }
 
 @media only screen and (max-width: 1042px) {
-	.supv-sysinfo {
-		margin-bottom: 0;
-	}
 
-	.supv-ctas {
-		float: right !important;
-		margin-top: -47px !important;
-
-		.supv-button {
-			margin-right: 5px !important;
-
-			&:last-child {
-				margin-left: 0 !important;
-				margin-right: 0 !important;
-			}
-		}
-	}
-
-	.supv-card {
-		&:first-child {
-			margin: 20px 0 10px 0 !important;
-		}
-	}
 }
 
 @media only screen and (max-width: 782px) {
@@ -268,18 +255,5 @@
 }
 
 @media only screen and (max-width: 600px) {
-	.supv-ctas {
-		float: none !important;
-		margin-bottom: 10px;
-		margin-top: 10px !important;
 
-		.supv-button {
-			margin-right: 5px !important;
-
-			&:last-child {
-				margin-left: 0 !important;
-				margin-right: 0 !important;
-			}
-		}
-	}
 }

@@ -20,11 +20,11 @@ final class TransientsCardView extends AbstractView {
 
 		?>
 		<div class="supv-card">
-			<div class="header">
+			<div class="supv-card-header">
 				<div class="text"><?php esc_html_e( 'Transients', 'supervisor' ); ?></div>
 			</div>
 
-			<div class="content">
+			<div class="supv-card-content">
 				<p><?php esc_html_e( 'WordPress transients are used to temporarily cache specific data. For example, developers often use them to improve their themes and plugins performance by caching database queries and script results.', 'supervisor' ); ?></p>
 				<p><?php esc_html_e( 'However, some badly coded plugins and themes can store too much information on these transients, or can even create an excessively high number of transients, resulting in performance degradation.', 'supervisor' ); ?></p>
 
@@ -32,8 +32,10 @@ final class TransientsCardView extends AbstractView {
 					<span class="supv-icon-info"></span>
 					<?php esc_html_e( 'Cleaning up the transients won\'t affect your site functionality. In fact, plugins, themes, and WordPress itself will recreate them according to their needs.', 'supervisor' ); ?>
 				</p>
+			</div>
 
-				<div id="supv-transients-stats">
+			<div class="supv-card-actions">
+				<div id="supv-transients-stats" class="supv-transients-stats">
 					<?php $this->output_stats(); ?>
 				</div>
 			</div>
