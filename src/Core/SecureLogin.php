@@ -193,7 +193,7 @@ class SecureLogin {
 
 		$settings = get_option( self::SETTINGS_OPTION, [] );
 
-		return $name && ! empty( $settings[ $name ] ) ? $settings[ $name ] : $settings;
+		return $name && isset( $settings[ $name ] ) ? $settings[ $name ] : $settings;
 	}
 
 	/**
