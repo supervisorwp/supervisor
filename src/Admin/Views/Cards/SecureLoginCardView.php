@@ -2,6 +2,7 @@
 namespace SUPV\Admin\Views\Cards;
 
 use SUPV\Admin\Views\AbstractView;
+use SUPV\Core\SecureLogin;
 
 /**
  * The SecureLoginCardView class.
@@ -71,7 +72,7 @@ final class SecureLoginCardView extends AbstractView {
 		<form id="supv-secure-login-settings-form" name="supv-secure-login-settings-form">
 			<ul>
 				<li><?php esc_html_e( 'Max Retries', 'supervisor' ); ?></li>
-				<li><input name="supv-field-max-retries" type="number" value="<?php echo ! empty( $settings['max-retries'] ) ? esc_attr( $settings['max-retries'] ) : 5; ?>" /></li>
+				<li><input name="supv-field-max-retries" type="number" value="<?php echo ! empty( $settings['max-retries'] ) ? esc_attr( $settings['max-retries'] ) : SecureLogin::DEFAULT_SETTINGS['max-retries']; ?>" /></li>
 
 				<p class="box-info">
 					<span class="supv-icon-info"></span>
@@ -80,7 +81,7 @@ final class SecureLoginCardView extends AbstractView {
 			</ul>
 			<ul>
 				<li><?php esc_html_e( 'Lockout Time', 'supervisor' ); ?></li>
-				<li><input name="supv-field-lockout-time" type="number" value="<?php echo ! empty( $settings['lockout-time'] ) ? esc_attr( $settings['lockout-time'] ) : 10; ?>" /> <?php esc_html_e( 'minutes', 'supervisor' ); ?></li>
+				<li><input name="supv-field-lockout-time" type="number" value="<?php echo ! empty( $settings['lockout-time'] ) ? esc_attr( $settings['lockout-time'] ) : SecureLogin::DEFAULT_SETTINGS['lockout-time']; ?>" /> <?php esc_html_e( 'minutes', 'supervisor' ); ?></li>
 
 				<p class="box-info">
 					<span class="supv-icon-info"></span>
@@ -89,7 +90,7 @@ final class SecureLoginCardView extends AbstractView {
 			</ul>
 			<ul>
 				<li><?php esc_html_e( 'Max Lockouts', 'supervisor' ); ?></li>
-				<li><input name="supv-field-max-lockouts" type="number" value="<?php echo ! empty( $settings['max-lockouts'] ) ? esc_attr( $settings['max-lockouts'] ) : 3; ?>" /></li>
+				<li><input name="supv-field-max-lockouts" type="number" value="<?php echo ! empty( $settings['max-lockouts'] ) ? esc_attr( $settings['max-lockouts'] ) : SecureLogin::DEFAULT_SETTINGS['max-lockouts']; ?>" /></li>
 
 				<p class="box-info">
 					<span class="supv-icon-info"></span>
@@ -98,7 +99,7 @@ final class SecureLoginCardView extends AbstractView {
 			</ul>
 			<ul>
 				<li><?php esc_html_e( 'Extended Lockout', 'supervisor' ); ?></li>
-				<li><input name="supv-field-extended-lockout" type="number" value="<?php echo ! empty( $settings['extended-lockout'] ) ? esc_attr( $settings['extended-lockout'] ) : 24; ?>" /> <?php esc_html_e( 'hours', 'supervisor' ); ?></li>
+				<li><input name="supv-field-extended-lockout" type="number" value="<?php echo ! empty( $settings['extended-lockout'] ) ? esc_attr( $settings['extended-lockout'] ) : SecureLogin::DEFAULT_SETTINGS['extended-lockout']; ?>" /> <?php esc_html_e( 'hours', 'supervisor' ); ?></li>
 
 				<p class="box-info">
 					<span class="supv-icon-info"></span>
@@ -107,7 +108,7 @@ final class SecureLoginCardView extends AbstractView {
 			</ul>
 			<ul>
 				<li><?php esc_html_e( 'Reset Retries', 'supervisor' ); ?></li>
-				<li><input name="supv-field-reset-retries" type="number" value="<?php echo ! empty( $settings['reset-retries'] ) ? esc_attr( $settings['reset-retries'] ) : 24; ?>" /> <?php esc_html_e( 'hours', 'supervisor' ); ?></li>
+				<li><input name="supv-field-reset-retries" type="number" value="<?php echo ! empty( $settings['reset-retries'] ) ? esc_attr( $settings['reset-retries'] ) : SecureLogin::DEFAULT_SETTINGS['reset-retries']; ?>" /> <?php esc_html_e( 'hours', 'supervisor' ); ?></li>
 
 				<p class="box-info">
 					<span class="supv-icon-info"></span>

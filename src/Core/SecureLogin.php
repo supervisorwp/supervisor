@@ -10,6 +10,21 @@ namespace SUPV\Core;
 class SecureLogin {
 
 	/**
+	 * The default Secure Login settings.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @var array
+	 */
+	const DEFAULT_SETTINGS = [
+		'max-retries'      => 5,
+		'lockout-time'     => 10,
+		'max-lockouts'     => 3,
+		'extended-lockout' => 24,
+		'reset-retries'    => 24,
+	];
+
+	/**
 	 * Option to store the log of login attempts.
 	 *
 	 * @since {VERSION}
@@ -190,12 +205,21 @@ class SecureLogin {
 	 */
 	public function update_settings( $new_settings ) {
 
+		// Populates the settings.
 		$settings = get_option( self::SETTINGS_OPTION, [] );
 
 		foreach ( $new_settings as $key => $value ) {
 			$settings[ $key ] = $value;
 		}
 
+		// Populates the settings with the default values if needed.
+		foreach ( self::DEFAULT_SETTINGS as $key => $value ) {
+			if ( empty( $settings[ $key ] ) ) {
+				$settings[ $key ] = $value;
+			}
+		}
+
+		// Updates the settings.
 		update_option( self::SETTINGS_OPTION, $settings );
 	}
 

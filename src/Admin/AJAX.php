@@ -208,6 +208,12 @@ final class AJAX {
 
 		( new SecureLoginCardView() )->output_settings();
 
+		supv()->core()->secure_login()->update_settings(
+			[
+				'enabled' => 1,
+			]
+		);
+
 		wp_die();
 	}
 
