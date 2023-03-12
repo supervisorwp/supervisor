@@ -77,7 +77,7 @@ final class TransientsCardView extends AbstractView {
 		</div>
 
 		<?php if ( $success ) : ?>
-			<div class="supv-text-success">
+			<div class="supv-text-success supv-full-span-col">
 				<?php esc_html_e( 'Yay! The transients were cleaned up successfully.', 'supervisor' ); ?>
 			</div>
 		<?php endif; ?>

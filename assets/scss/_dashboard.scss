@@ -65,91 +65,28 @@
 	}
 }
 
-.supv-stats {
-	ul {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-
-		li {
-			float: left;
-			width: 100px;
-			margin: 0;
-
-			&:last-child {
-				border-right: 0;
-			}
-
-			p, span {
-				line-height: 1.4;
-				padding: 0;
-			}
-		}
-	}
-
-	&-title {
-		color: $red;
-		font-size: 12px;
-		font-weight: 500;
-		line-height: 0.8 !important;
-		margin: 0 !important;
-	}
-
-	&-data {
-		color: $red;
-		font-size: 24px;
-		margin: 0;
-	}
-
-	&-footer {
-		color: $light-gray;
-		font-size: 12px;
-		line-height: 0.8 !important;
-		margin-left: -2px !important;
-	}
-}
-
 .supv-text {
+	clear: both;
+	margin: 0.5em 0 0 0;
+
 	&-success {
-		clear: both;
+		@extend .supv-text;
 		color: $success;
 	}
 
 	&-error {
-		clear: both;
+		@extend .supv-text;
 		color: $error;
 	}
 
 	&-warning {
-		clear: both;
+		@extend .supv-text;
 		color: $warning;
 	}
 
 	&-info {
-		clear: both;
+		@extend .supv-text;
 		color: $info;
-	}
-}
-
-.supv-transients, .supv-autoload {
-	&-stats {
-		display: grid;
-		grid-template-areas: 'stats ctas';
-		grid-template-columns: auto auto;
-
-		.supv-stats {
-			grid-area: stats;
-			display: flex;
-			align-items: center;
-			align-content: flex-end;
-		}
-
-		.supv-ctas {
-			grid-area: ctas;
-			display: flex;
-			justify-content: flex-end;
-			align-items: center;
-		}
 	}
 }
 
@@ -227,8 +164,6 @@
 	}
 
 	&-result {
-		margin-top: 1em;
-
 		&-list {
 			margin-left: 1em;
 
@@ -239,21 +174,24 @@
 	}
 }
 
+.supv-wordpress {
+	&-update-policy-box {
+		margin-top: 5px;
 
-@media only screen and (max-width: 1300px) {
+		p {
+			margin-top: -5px;
+			margin-bottom: 1em;
+		}
 
-}
-
-@media only screen and (max-width: 1042px) {
-
+		.supv-wordpress-auto-update-policy-message {
+			margin-bottom: 2px;
+			margin-top: 5px;
+		}
+	}
 }
 
 @media only screen and (max-width: 782px) {
 	.toplevel_page_supervisor #wpcontent {
 		padding-left: 0 !important;
 	}
-}
-
-@media only screen and (max-width: 600px) {
-
 }

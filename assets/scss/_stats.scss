@@ -1,0 +1,68 @@
+.supv-stats {
+	flex-wrap: wrap;
+	padding-top: 5px;
+
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+
+		li {
+			float: left;
+			width: 100px;
+			margin: 0;
+
+			&:last-child {
+				border-right: 0;
+			}
+
+			p, span {
+				line-height: 1.4;
+				padding: 0;
+			}
+		}
+	}
+
+	&-title {
+		color: $red;
+		font-size: 12px;
+		font-weight: 500;
+		line-height: 0.8 !important;
+		margin: 0 !important;
+	}
+
+	&-data {
+		color: $red;
+		font-size: 24px;
+		margin: 0;
+	}
+
+	&-footer {
+		color: $light-gray;
+		font-size: 12px;
+		line-height: 0.8 !important;
+		margin-left: -2px !important;
+	}
+}
+
+.supv-transients, .supv-autoload {
+	&-stats {
+		display: grid;
+		grid-template-areas: 'stats ctas';
+		grid-template-columns: auto auto;
+
+		.supv-stats {
+			grid-area: stats;
+			display: flex;
+			align-items: center;
+			align-content: flex-end;
+		}
+
+		.supv-ctas {
+			grid-area: ctas;
+			display: flex;
+			justify-content: flex-end;
+			align-items: center;
+		}
+	}
+}

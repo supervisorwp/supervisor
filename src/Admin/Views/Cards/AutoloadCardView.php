@@ -84,7 +84,8 @@ final class AutoloadCardView extends AbstractView {
 			<?php endif; ?>
 		</div>
 
-		<div id="supv-autoload-options">
+		<div id="supv-autoload-options" class="supv-full-span-col">
+
 			<?php if ( ! is_null( $is_history ) ) : ?>
 
 				<?php if ( $is_history ) : ?>
@@ -94,6 +95,7 @@ final class AutoloadCardView extends AbstractView {
 				<?php endif; ?>
 
 			<?php endif; ?>
+
 		</div>
 
 		<?php
@@ -270,7 +272,7 @@ final class AutoloadCardView extends AbstractView {
 					/* translators: %1$s is the option name, %2$s is the status ('deactivated' or 'reactivated'). */
 					echo sprintf( esc_html__( 'Yay, the %1$s option was %2$s successfully.', 'supervisor' ), '<strong>' . sanitize_key( key( $success ) ) . '</strong>', esc_html( $message_singular ) );
 					?>
-				<p>
+				</p>
 			</div>
 		<?php elseif ( count( $success ) > 1 ) : ?>
 			<div id="supv-autoload-result" class="supv-autoload-result">

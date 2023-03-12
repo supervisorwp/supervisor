@@ -46,7 +46,7 @@ final class WordPressCardView extends AbstractView {
 			</div>
 
 			<div class="supv-card-actions">
-				<div id="supv-wordpress-update-policy-box">
+				<div id="supv-wordpress-update-policy-box" class="supv-wordpress-update-policy-box">
 					<?php if ( ! supv()->core()->wordpress()->is_auto_update_constant_enabled() ) : ?>
 						<?php $this->output_select(); ?>
 					<?php else : ?>
@@ -92,10 +92,11 @@ final class WordPressCardView extends AbstractView {
 		</p>
 
 		<?php if ( $success ) : ?>
-			<p class="supv-wordpress-auto-update-policy-message supv-text-success">
+			<p class="supv-wordpress-auto-update-policy-message supv-text-success supv-full-span-col">
 				<?php esc_html_e( 'The WordPress Automatic Background Updates policy has been updated.', 'supervisor' ); ?>
 			</p>
 		<?php endif; ?>
+
 		<?php
 	}
 }

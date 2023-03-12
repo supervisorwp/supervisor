@@ -38,6 +38,10 @@
 			line-height: $card-content-line-height;
 			margin: 0.5em 0;
 
+			&:last-child {
+				margin-bottom: 0.2em;
+			}
+
 			&.box-info {
 				background: $box-info;
 				border-left: 2px solid $info;
@@ -59,6 +63,6 @@
 
 	&-actions {
 		grid-area: actions;
-		padding: 0 20px 15px 20px;
+		padding: 0 20px 10px 20px;
 	}
 }

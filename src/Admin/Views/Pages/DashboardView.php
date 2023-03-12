@@ -16,16 +16,16 @@ use SUPV\Admin\Views\SystemInfoView;
 final class DashboardView extends AbstractView {
 
 	/**
-	 * The full qualified name for the cards to load.
+	 * The full qualified name for the cards to load and whether the col should be spanned or not.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @var string[]
 	 */
 	private $cards = [
-		TransientsCardView::class,
-		AutoloadCardView::class,
-		WordPressCardView::class,
+		TransientsCardView::class => true,
+		AutoloadCardView::class   => true,
+		WordPressCardView::class  => false,
 	];
 
 	/**
@@ -72,8 +72,8 @@ final class DashboardView extends AbstractView {
 
 		?>
 		<div class="supv-boxes">
-			<?php foreach ( $this->cards as $card ) : ?>
-				<div class="supv-box">
+			<?php foreach ( $this->cards as $card => $col_span ) : ?>
+				<div class="supv-box <?php echo $col_span ? 'supv-full-span-col' : ''; ?>">
 					<?php ( new $card() )->output(); ?>
 				</div>
 			<?php endforeach; ?>
