@@ -36,7 +36,7 @@ final class SecureLoginCardView extends AbstractView {
 						'id'      => 'supv-secure-login-switch',
 						'text'    => 'Enable Brute Force Protection',
 						'value'   => 1,
-						'checked' => ! empty( supv()->core()->secure_login()->get_settings( 'enabled' ) ),
+						'checked' => supv()->core()->secure_login()->is_enabled(),
 					];
 
 					/**
@@ -51,7 +51,7 @@ final class SecureLoginCardView extends AbstractView {
 				</p>
 
 				<div id="supv-secure-login-settings" class="supv-secure-login-settings">
-					<?php if ( ! empty( supv()->core()->secure_login()->get_settings( 'enabled' ) ) ) : ?>
+					<?php if ( supv()->core()->secure_login()->is_enabled() ) : ?>
 						<?php $this->output_settings(); ?>
 					<?php endif; ?>
 				</div>
@@ -72,7 +72,7 @@ final class SecureLoginCardView extends AbstractView {
 		<form id="supv-secure-login-settings-form" name="supv-secure-login-settings-form">
 			<ul>
 				<li><?php esc_html_e( 'Max Retries', 'supervisor' ); ?></li>
-				<li><input name="supv-field-max-retries" type="number" value="<?php echo ! empty( $settings['max-retries'] ) ? esc_attr( $settings['max-retries'] ) : SecureLogin::DEFAULT_SETTINGS['max-retries']; ?>" /></li>
+				<li><input name="supv-field-max-retries" type="number" value="<?php echo ! empty( $settings['max-retries'] ) ? esc_attr( $settings['max-retries'] ) : esc_attr( SecureLogin::DEFAULT_SETTINGS['max-retries'] ); ?>" /></li>
 
 				<p class="box-info">
 					<span class="supv-icon-info"></span>
@@ -81,7 +81,7 @@ final class SecureLoginCardView extends AbstractView {
 			</ul>
 			<ul>
 				<li><?php esc_html_e( 'Lockout Time', 'supervisor' ); ?></li>
-				<li><input name="supv-field-lockout-time" type="number" value="<?php echo ! empty( $settings['lockout-time'] ) ? esc_attr( $settings['lockout-time'] ) : SecureLogin::DEFAULT_SETTINGS['lockout-time']; ?>" /> <?php esc_html_e( 'minutes', 'supervisor' ); ?></li>
+				<li><input name="supv-field-lockout-time" type="number" value="<?php echo ! empty( $settings['lockout-time'] ) ? esc_attr( $settings['lockout-time'] ) : esc_attr( SecureLogin::DEFAULT_SETTINGS['lockout-time'] ); ?>" /> <?php esc_html_e( 'minutes', 'supervisor' ); ?></li>
 
 				<p class="box-info">
 					<span class="supv-icon-info"></span>
@@ -90,7 +90,7 @@ final class SecureLoginCardView extends AbstractView {
 			</ul>
 			<ul>
 				<li><?php esc_html_e( 'Max Lockouts', 'supervisor' ); ?></li>
-				<li><input name="supv-field-max-lockouts" type="number" value="<?php echo ! empty( $settings['max-lockouts'] ) ? esc_attr( $settings['max-lockouts'] ) : SecureLogin::DEFAULT_SETTINGS['max-lockouts']; ?>" /></li>
+				<li><input name="supv-field-max-lockouts" type="number" value="<?php echo ! empty( $settings['max-lockouts'] ) ? esc_attr( $settings['max-lockouts'] ) : esc_attr( SecureLogin::DEFAULT_SETTINGS['max-lockouts'] ); ?>" /></li>
 
 				<p class="box-info">
 					<span class="supv-icon-info"></span>
@@ -99,7 +99,7 @@ final class SecureLoginCardView extends AbstractView {
 			</ul>
 			<ul>
 				<li><?php esc_html_e( 'Extended Lockout', 'supervisor' ); ?></li>
-				<li><input name="supv-field-extended-lockout" type="number" value="<?php echo ! empty( $settings['extended-lockout'] ) ? esc_attr( $settings['extended-lockout'] ) : SecureLogin::DEFAULT_SETTINGS['extended-lockout']; ?>" /> <?php esc_html_e( 'hours', 'supervisor' ); ?></li>
+				<li><input name="supv-field-extended-lockout" type="number" value="<?php echo ! empty( $settings['extended-lockout'] ) ? esc_attr( $settings['extended-lockout'] ) : esc_attr( SecureLogin::DEFAULT_SETTINGS['extended-lockout'] ); ?>" /> <?php esc_html_e( 'hours', 'supervisor' ); ?></li>
 
 				<p class="box-info">
 					<span class="supv-icon-info"></span>
@@ -108,7 +108,7 @@ final class SecureLoginCardView extends AbstractView {
 			</ul>
 			<ul>
 				<li><?php esc_html_e( 'Reset Retries', 'supervisor' ); ?></li>
-				<li><input name="supv-field-reset-retries" type="number" value="<?php echo ! empty( $settings['reset-retries'] ) ? esc_attr( $settings['reset-retries'] ) : SecureLogin::DEFAULT_SETTINGS['reset-retries']; ?>" /> <?php esc_html_e( 'hours', 'supervisor' ); ?></li>
+				<li><input name="supv-field-reset-retries" type="number" value="<?php echo ! empty( $settings['reset-retries'] ) ? esc_attr( $settings['reset-retries'] ) : esc_attr( SecureLogin::DEFAULT_SETTINGS['reset-retries'] ); ?>" /> <?php esc_html_e( 'hours', 'supervisor' ); ?></li>
 
 				<p class="box-info">
 					<span class="supv-icon-info"></span>

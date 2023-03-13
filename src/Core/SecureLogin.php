@@ -49,7 +49,10 @@ class SecureLogin {
 	 */
 	public function __construct() {
 
-		$this->hooks();
+		// Loads the hooks only if the Secure Login is enabled.
+		if ( $this->is_enabled() ) {
+			$this->hooks();
+		}
 	}
 
 	/**
@@ -99,14 +102,14 @@ class SecureLogin {
 		$user_ip  = supv_get_user_ip();
 		$username = strtolower( $username );
 
-		if ( $this->is_limit_reached( $user_ip, $username ) ) {
+		if ( $this->is_user_blocked( $user_ip, $username ) ) {
 			$error = supv_prepare_wp_error(
 				'supv_too_many_attempts',
 				esc_html__( 'You have exceeded the maximum number of login attempts. Please try again later.', 'supervisor' )
 			);
+		} else {
+			$this->log_login_attempt( $user_ip, $username );
 		}
-
-		$this->log_login_attempt( $user_ip, $username );
 
 		return ! empty( $error ) ? $error : $user;
 	}
@@ -129,21 +132,11 @@ class SecureLogin {
 			'usernames',
 		];
 
-		$limit_timestamp = strtotime( '-5 minutes' );
+		$reset_retries = $this->get_settings( 'reset-retries' );
 
 		foreach ( $fields as $field ) {
 			foreach ( $log[ $field ] as $key => $data ) {
-				foreach ( $data['timestamps'] as $index => $timestamp ) {
-					if ( $timestamp < $limit_timestamp ) {
-						unset( $log[ $field ][ $key ]['timestamps'][ $index ] );
-
-						--$log[ $field ][ $key ]['count'];
-					}
-				}
-
-				if ( empty( $log[ $field ][ $key ]['timestamps'] ) ) {
-					unset( $log[ $field ][ $key ] );
-				}
+				continue;
 			}
 		}
 
@@ -168,7 +161,7 @@ class SecureLogin {
 			$message = sprintf(
 				/* translators: %s is the username. */
 				esc_html__( 'The password you entered for the username %s is incorrect.', 'supervisor' ),
-				$username
+				'<strong>' . $username . '</strong>'
 			);
 
 			$error = supv_prepare_wp_error(
@@ -181,19 +174,33 @@ class SecureLogin {
 	}
 
 	/**
+	 * Determines whether the Secure Login setting is enabled or not.
+	 *
+	 * @since {VERSION}
+	 */
+	public function is_enabled() {
+
+		return ! empty( $this->get_settings( 'enabled' ) );
+	}
+
+	/**
 	 * Retrieves all settings, or the value from a given setting.
 	 *
 	 * @since {VERSION}
 	 *
-	 * @param string|false $name The name.
+	 * @param string|false $name The setting name.
 	 *
-	 * @return string
+	 * @return string|false
 	 */
 	public function get_settings( $name = false ) {
 
 		$settings = get_option( self::SETTINGS_OPTION, [] );
 
-		return $name && isset( $settings[ $name ] ) ? $settings[ $name ] : $settings;
+		if ( ! empty( $name ) ) {
+			$settings = isset( $settings[ $name ] ) ? $settings[ $name ] : false;
+		}
+
+		return $settings;
 	}
 
 	/**
@@ -251,7 +258,7 @@ class SecureLogin {
 	}
 
 	/**
-	 * Confirms if a given user and IP address have reached the limit.
+	 * Confirms whether a given username and/or IP address are blocked or not.
 	 *
 	 * @since {VERSION}
 	 *
@@ -260,11 +267,21 @@ class SecureLogin {
 	 *
 	 * @return bool
 	 */
-	private function is_limit_reached( $user_ip, $username ) {
+	private function is_user_blocked( $user_ip, $username ) {
 
 		$attempts = $this->get_login_attempts( $user_ip, $username );
 
-		return ! empty( $attempts['ip']['count'] ) && (int) $attempts['ip']['count'] > 20;
+		$now = time();
+
+		if ( ! empty( $attempts['ip']['lock_until'] ) && $now < $attempts['ip']['lock_until'] ) {
+			return true;
+		}
+
+		if ( ! empty( $attempts['username']['lock_until'] ) && $now < $attempts['username']['lock_until'] ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -275,23 +292,62 @@ class SecureLogin {
 	 * @param string $user_ip  The user IP address.
 	 * @param string $username The username.
 	 */
-	private function log_login_attempt( $user_ip, $username ) {
+	private function log_login_attempt( $user_ip, $username ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
 		$log = get_option( self::LOGIN_ATTEMPTS_LOG_OPTION );
 
 		$fields = [
-			'ips'       => $user_ip,
-			'usernames' => $username,
+			'ips' => $user_ip,
 		];
 
+		if ( ! empty( $username ) ) {
+			$fields['usernames'] = $username;
+		}
+
+		$settings = $this->get_settings();
+
 		foreach ( $fields as $field => $value ) {
-			$count      = ! empty( $log[ $field ][ $value ]['count'] ) ? (int) $log[ $field ][ $value ]['count'] : 0;
+			$now = time();
+
+			// If the user is already locked, do not log the login attempt.
+			$lock_until = ! empty( $log[ $field ][ $value ]['lock_until'] ) ? $log[ $field ][ $value ]['lock_until'] : false;
+
+			if ( ! empty( $lock_until ) ) {
+				// If the lock is expired, then allow user to proceed with the login.
+				if ( $lock_until < $now ) {
+					$lock_until = false;
+				} else {
+					continue;
+				}
+			}
+
+			// Retrieves the current user information from the logs.
+			$retries    = ! empty( $log[ $field ][ $value ]['retries'] ) ? (int) $log[ $field ][ $value ]['retries'] : 0;
+			$lockouts   = ! empty( $log[ $field ][ $value ]['lockouts'] ) ? (int) $log[ $field ][ $value ]['lockouts'] : 0;
 			$timestamps = ! empty( $log[ $field ][ $value ]['timestamps'] ) ? $log[ $field ][ $value ]['timestamps'] : [];
 
-			array_unshift( $timestamps, time() );
+			++$retries;
+
+			// If the number of retries is equal or greater than allowed, then add a lockout.
+			$max_retries = $lockouts === 0 ? $settings['max-retries'] : ( $lockouts + 1 ) * $settings['max-retries'];
+
+			if ( $retries >= $max_retries ) {
+				$lockouts++;
+
+				$lock_until = strtotime( '+' . $settings['lockout-time'] . ' minutes' );
+			}
+
+			// If the number of lockouts is equal or greater than allowed, then add an extended lockout.
+			if ( $lockouts >= $settings['max-lockouts'] ) {
+				$lock_until = strtotime( '+' . $settings['extended-lockout'] . ' hours' );
+			}
+
+			array_unshift( $timestamps, $now );
 
 			$log[ $field ][ $value ] = [
-				'count'      => ++$count,
+				'retries'    => $retries,
+				'lockouts'   => $lockouts,
+				'lock_until' => $lock_until,
 				'timestamps' => $timestamps,
 			];
 		}
