@@ -226,6 +226,7 @@
 
 	&-settings {
 		margin-top: 10px;
+		position: relative;
 
 		ul {
 			display: inline;
@@ -234,7 +235,6 @@
 				list-style: none;
 				padding-left: 1px;
 				padding-top: 4px;
-				vertical-align: center;
 
 				&:first-child {
 					font-weight: 500;

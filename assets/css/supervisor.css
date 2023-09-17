@@ -114,6 +114,7 @@
   flex-wrap: wrap;
   margin-right: -0.5rem;
   margin-left: -0.5rem;
+  align-items: flex-start;
 }
 .supv-row.reverse {
   -webkit-box-orient: horizontal;
@@ -1156,7 +1157,6 @@
   font-size: 13px;
   padding-right: 3px;
   top: 2px;
-  position: relative;
 }
 .supv-card div.supv-settings-row:last-child {
   margin-bottom: 0;
@@ -1467,6 +1467,7 @@
 }
 .supv-secure-login-settings {
   margin-top: 10px;
+  position: relative;
 }
 .supv-secure-login-settings ul {
   display: inline;
@@ -1475,7 +1476,6 @@
   list-style: none;
   padding-left: 1px;
   padding-top: 4px;
-  vertical-align: center;
 }
 .supv-secure-login-settings ul li:first-child {
   font-weight: 500;

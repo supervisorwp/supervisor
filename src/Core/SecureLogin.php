@@ -127,16 +127,21 @@ class SecureLogin {
 			return;
 		}
 
-		$fields = [
-			'ips',
-			'usernames',
-		];
-
+		$now           = time();
 		$reset_retries = $this->get_settings( 'reset-retries' );
 
-		foreach ( $fields as $field ) {
-			foreach ( $log[ $field ] as $key => $data ) {
-				continue;
+		foreach ( $log['ips'] as $key => $data ) {
+			foreach ( $data['timestamps'] as $index => $timestamp ) {
+				$hours_diff = ( $now - $timestamp ) / 3600;
+
+				if ( $hours_diff > $reset_retries ) {
+					unset( $log['ips'][ $key ]['timestamps'][ $index ] );
+				}
+			}
+
+			if ( empty( $log['ips'][ $key ]['timestamps'] ) ) {
+				$log['ips'][ $key ]['retries']  = 0;
+				$log['ips'][ $key ]['lockouts'] = 0;
 			}
 		}
 
@@ -248,10 +253,6 @@ class SecureLogin {
 			if ( ! empty( $user_ip ) && ! empty( $log['ips'][ $user_ip ] ) ) {
 				$response['ip'] = $log['ips'][ $user_ip ];
 			}
-
-			if ( ! empty( $log['usernames'][ $username ] ) ) {
-				$response['username'] = $log['usernames'][ $username ];
-			}
 		}
 
 		return $response;
@@ -271,17 +272,7 @@ class SecureLogin {
 
 		$attempts = $this->get_login_attempts( $user_ip, $username );
 
-		$now = time();
-
-		if ( ! empty( $attempts['ip']['lock_until'] ) && $now < $attempts['ip']['lock_until'] ) {
-			return true;
-		}
-
-		if ( ! empty( $attempts['username']['lock_until'] ) && $now < $attempts['username']['lock_until'] ) {
-			return true;
-		}
-
-		return false;
+		return $attempts['ip']['lock_until'] && time() < $attempts['ip']['lock_until'];
 	}
 
 	/**
@@ -296,61 +287,51 @@ class SecureLogin {
 
 		$log = get_option( self::LOGIN_ATTEMPTS_LOG_OPTION );
 
-		$fields = [
-			'ips' => $user_ip,
-		];
+		$now = time();
 
-		if ( ! empty( $username ) ) {
-			$fields['usernames'] = $username;
+		// If the user is already locked, do not log the login attempt.
+		$lock_until = ! empty( $log['ips'][ $user_ip ]['lock_until'] ) ? $log['ips'][ $user_ip ]['lock_until'] : false;
+
+		if ( ! empty( $lock_until ) ) {
+			// If the lock is expired, then allow user to proceed with the login.
+			if ( $lock_until < $now ) {
+				$lock_until = false;
+			} else {
+				return;
+			}
 		}
 
+		// Retrieves the settings and the current IP information from the logs.
 		$settings = $this->get_settings();
 
-		foreach ( $fields as $field => $value ) {
-			$now = time();
+		$retries    = ! empty( $log['ips'][ $user_ip ]['retries'] ) ? (int) $log['ips'][ $user_ip ]['retries'] : 0;
+		$lockouts   = ! empty( $log['ips'][ $user_ip ]['lockouts'] ) ? (int) $log['ips'][ $user_ip ]['lockouts'] : 0;
+		$timestamps = ! empty( $log['ips'][ $user_ip ]['timestamps'] ) ? $log['ips'][ $user_ip ]['timestamps'] : [];
 
-			// If the user is already locked, do not log the login attempt.
-			$lock_until = ! empty( $log[ $field ][ $value ]['lock_until'] ) ? $log[ $field ][ $value ]['lock_until'] : false;
+		++$retries;
 
-			if ( ! empty( $lock_until ) ) {
-				// If the lock is expired, then allow user to proceed with the login.
-				if ( $lock_until < $now ) {
-					$lock_until = false;
-				} else {
-					continue;
-				}
-			}
+		// If the number of retries is equal or greater than allowed, then add a lockout.
+		$max_retries = $lockouts === 0 ? $settings['max-retries'] : ( $lockouts + 1 ) * $settings['max-retries'];
 
-			// Retrieves the current user information from the logs.
-			$retries    = ! empty( $log[ $field ][ $value ]['retries'] ) ? (int) $log[ $field ][ $value ]['retries'] : 0;
-			$lockouts   = ! empty( $log[ $field ][ $value ]['lockouts'] ) ? (int) $log[ $field ][ $value ]['lockouts'] : 0;
-			$timestamps = ! empty( $log[ $field ][ $value ]['timestamps'] ) ? $log[ $field ][ $value ]['timestamps'] : [];
+		if ( $retries >= $max_retries ) {
+			$lockouts++;
 
-			++$retries;
-
-			// If the number of retries is equal or greater than allowed, then add a lockout.
-			$max_retries = $lockouts === 0 ? $settings['max-retries'] : ( $lockouts + 1 ) * $settings['max-retries'];
-
-			if ( $retries >= $max_retries ) {
-				$lockouts++;
-
-				$lock_until = strtotime( '+' . $settings['lockout-time'] . ' minutes' );
-			}
-
-			// If the number of lockouts is equal or greater than allowed, then add an extended lockout.
-			if ( $lockouts >= $settings['max-lockouts'] ) {
-				$lock_until = strtotime( '+' . $settings['extended-lockout'] . ' hours' );
-			}
-
-			array_unshift( $timestamps, $now );
-
-			$log[ $field ][ $value ] = [
-				'retries'    => $retries,
-				'lockouts'   => $lockouts,
-				'lock_until' => $lock_until,
-				'timestamps' => $timestamps,
-			];
+			$lock_until = strtotime( '+' . $settings['lockout-time'] . ' minutes' );
 		}
+
+		// If the number of lockouts is equal or greater than allowed, then add an extended lockout.
+		if ( $lockouts >= $settings['max-lockouts'] ) {
+			$lock_until = strtotime( '+' . $settings['extended-lockout'] . ' hours' );
+		}
+
+		array_unshift( $timestamps, $now );
+
+		$log['ips'][ $user_ip ] = [
+			'retries'    => $retries,
+			'lockouts'   => $lockouts,
+			'lock_until' => $lock_until,
+			'timestamps' => $timestamps,
+		];
 
 		update_option( self::LOGIN_ATTEMPTS_LOG_OPTION, $log );
 	}

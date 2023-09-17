@@ -154,7 +154,7 @@ final class Loader {
 		// Loads the SecureLogin class globally.
 		$this->secure_login = new SecureLogin();
 
-		// Loads the plugin classes only if you are using Dashboard or WP-CLI.
+		// Loads the plugin classes only if you are using Roles or WP-CLI.
 		if ( is_admin() || supv_is_doing_wpcli() ) {
 			$this->server     = new Server();
 			$this->ssl        = new SSL();

@@ -6,7 +6,7 @@ use SUPV\Admin\Views\Notices\SSLView;
 use SUPV\Admin\Views\Pages\DashboardView;
 
 /**
- * The Dashboard class.
+ * The Roles class.
  *
  * @package supervisor
  * @since 1.0.0
@@ -94,7 +94,7 @@ final class Dashboard {
 	}
 
 	/**
-	 * Adds a menu and sub menu pages on WordPress Dashboard.
+	 * Adds a menu and sub menu pages on WordPress Roles.
 	 *
 	 * @since 1.0.0
 	 */
