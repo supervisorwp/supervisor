@@ -49,6 +49,9 @@ class SecureLogin {
 	 */
 	public function __construct() {
 
+		// Creates the settings if they do not exist.
+		$this->maybe_reset_settings();
+
 		// Loads the hooks only if the Secure Login is enabled.
 		if ( $this->is_enabled() ) {
 			$this->hooks();
@@ -97,12 +100,21 @@ class SecureLogin {
 	 *
 	 * @return WP_User|WP_Error WP_User on success, WP_Error on failure.
 	 */
-	public function check_login_attempt( $user, $username, $password ) {
+	public function check_login_attempt( $user, $username, $password ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
 		$user_ip  = supv_get_user_ip();
 		$username = strtolower( $username );
 
 		if ( $this->is_user_blocked( $user_ip, $username ) ) {
+			/**
+			 * Fires when a blocked IP address tries to log into your site.
+			 *
+			 * @since {VERSION}
+			 *
+			 * @param string|false $user_ip The user's IP address, or false on error.
+			 */
+			do_action( 'supv_core_secure_login_blocked_user', $user_ip );
+
 			$error = supv_prepare_wp_error(
 				'supv_too_many_attempts',
 				esc_html__( 'You have exceeded the maximum number of login attempts. Please try again later.', 'supervisor' )
@@ -130,18 +142,27 @@ class SecureLogin {
 		$now           = time();
 		$reset_retries = $this->get_settings( 'reset-retries' );
 
-		foreach ( $log['ips'] as $key => $data ) {
+		foreach ( $log['ips'] as $user_ip => $data ) {
 			foreach ( $data['timestamps'] as $index => $timestamp ) {
 				$hours_diff = ( $now - $timestamp ) / 3600;
 
 				if ( $hours_diff > $reset_retries ) {
-					unset( $log['ips'][ $key ]['timestamps'][ $index ] );
+					unset( $log['ips'][ $user_ip ]['timestamps'][ $index ] );
 				}
 			}
 
-			if ( empty( $log['ips'][ $key ]['timestamps'] ) ) {
-				$log['ips'][ $key ]['retries']  = 0;
-				$log['ips'][ $key ]['lockouts'] = 0;
+			if ( empty( $log['ips'][ $user_ip ]['timestamps'] ) ) {
+				$log['ips'][ $user_ip ]['retries']  = 0;
+				$log['ips'][ $user_ip ]['lockouts'] = 0;
+
+				/**
+				 * Fires when an user IP is unblocked from your site.
+				 *
+				 * @since {VERSION}
+				 *
+				 * @param string|false $user_ip The user's IP address, or false on error.
+				 */
+				do_action( 'supv_core_secure_login_blocked_user', $user_ip );
 			}
 		}
 
@@ -149,7 +170,7 @@ class SecureLogin {
 	}
 
 	/**
-	 * Maybe replaces the invalid_username error message. By default, this error message indicates whether the user
+	 * Maybe replaces the invalid_username error message. Per default, this error message indicates whether the user
 	 * exists in the database or not.
 	 *
 	 * @since {VERSION}
@@ -160,7 +181,7 @@ class SecureLogin {
 	 *
 	 * @return WP_User|WP_Error WP_User on success, WP_Error on failure.
 	 */
-	public function maybe_replace_invalid_username_error( $user, $username, $password ) {
+	public function maybe_replace_invalid_username_error( $user, $username, $password ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
 		if ( is_wp_error( $user ) && $user->get_error_code() === 'invalid_username' ) {
 			$message = sprintf(
@@ -202,10 +223,20 @@ class SecureLogin {
 		$settings = get_option( self::SETTINGS_OPTION, [] );
 
 		if ( ! empty( $name ) ) {
-			$settings = isset( $settings[ $name ] ) ? $settings[ $name ] : false;
+			$settings = $settings[ $name ] ?? false;
 		}
 
 		return $settings;
+	}
+
+	/**
+	 * Maybe resets the settings.
+	 *
+	 * @since {VERSION}
+	 */
+	public function maybe_reset_settings() {
+
+		$this->update_settings( [] );
 	}
 
 	/**
@@ -243,16 +274,14 @@ class SecureLogin {
 	 * @param string $user_ip  The user IP address.
 	 * @param string $username The username.
 	 */
-	private function get_login_attempts( $user_ip, $username ) {
+	private function get_login_attempts( $user_ip, $username ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
 		$response = [];
 
 		$log = get_option( self::LOGIN_ATTEMPTS_LOG_OPTION );
 
-		if ( $log ) {
-			if ( ! empty( $user_ip ) && ! empty( $log['ips'][ $user_ip ] ) ) {
-				$response['ip'] = $log['ips'][ $user_ip ];
-			}
+		if ( $log && ! empty( $user_ip ) && ! empty( $log['ips'][ $user_ip ] ) ) {
+			$response['ip'] = $log['ips'][ $user_ip ];
 		}
 
 		return $response;
@@ -272,7 +301,7 @@ class SecureLogin {
 
 		$attempts = $this->get_login_attempts( $user_ip, $username );
 
-		return $attempts['ip']['lock_until'] && time() < $attempts['ip']['lock_until'];
+		return ! empty( $attempts['ip']['lock_until'] ) && time() < $attempts['ip']['lock_until'];
 	}
 
 	/**
@@ -283,7 +312,7 @@ class SecureLogin {
 	 * @param string $user_ip  The user IP address.
 	 * @param string $username The username.
 	 */
-	private function log_login_attempt( $user_ip, $username ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
+	private function log_login_attempt( $user_ip, $username ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded,Generic.Metrics.CyclomaticComplexity.TooHigh,Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
 		$log = get_option( self::LOGIN_ATTEMPTS_LOG_OPTION );
 
@@ -314,7 +343,7 @@ class SecureLogin {
 		$max_retries = $lockouts === 0 ? $settings['max-retries'] : ( $lockouts + 1 ) * $settings['max-retries'];
 
 		if ( $retries >= $max_retries ) {
-			$lockouts++;
+			++$lockouts;
 
 			$lock_until = strtotime( '+' . $settings['lockout-time'] . ' minutes' );
 		}

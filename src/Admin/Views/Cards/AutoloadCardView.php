@@ -243,14 +243,14 @@ final class AutoloadCardView extends AbstractView {
 
 		$fail = array_filter(
 			$updated_options,
-			function( $k ) {
+			function ( $k ) {
 				return $k === false;
 			}
 		);
 
 		$success = array_filter(
 			$updated_options,
-			function( $k ) {
+			function ( $k ) {
 				return $k !== false;
 			}
 		);
@@ -266,7 +266,7 @@ final class AutoloadCardView extends AbstractView {
 				<p class="supv-text-success">
 					<?php
 					/* translators: %1$s is the option name, %2$s is the status ('deactivated' or 'reactivated'). */
-					echo sprintf( esc_html__( 'Yay, the %1$s option was %2$s successfully.', 'supervisor' ), '<strong>' . sanitize_key( key( $success ) ) . '</strong>', esc_html( $message_singular ) );
+					printf( esc_html__( 'Yay, the %1$s option was %2$s successfully.', 'supervisor' ), '<strong>' . sanitize_key( key( $success ) ) . '</strong>', esc_html( $message_singular ) );
 					?>
 				<p>
 			</div>
@@ -275,7 +275,7 @@ final class AutoloadCardView extends AbstractView {
 				<p class="supv-text-success">
 					<?php
 					/* translators: %1$s is the status ('deactivated' or 'reactivated'). */
-					echo sprintf( esc_html__( 'Yay, the below options were %1$s successfully:', 'supervisor' ), esc_html( $message_plural ) );
+					printf( esc_html__( 'Yay, the below options were %1$s successfully:', 'supervisor' ), esc_html( $message_plural ) );
 					?>
 				</p>
 
@@ -295,7 +295,7 @@ final class AutoloadCardView extends AbstractView {
 					<p class="supv-text-error">
 						<?php
 						/* translators: %1$s is the status ('deactivate' or 'reactivate'), %2$s is the option name. */
-						echo sprintf( esc_html__( 'Oops, for some reason we couldn\'t %1$s the <strong>%2$s</strong> option.', 'supervisor' ), esc_html( $message ),  esc_html( $name ) );
+						printf( esc_html__( 'Oops, for some reason we couldn\'t %1$s the <strong>%2$s</strong> option.', 'supervisor' ), esc_html( $message ),  esc_html( $name ) );
 						?>
 					</p>
 				</div>
