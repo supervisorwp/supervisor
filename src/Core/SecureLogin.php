@@ -152,6 +152,7 @@ class SecureLogin {
 				}
 			}
 
+			// If no timestamps were found associated with the given IP, then reset the retries and lockouts.
 			if ( empty( $log['ips'][ $user_ip ]['timestamps'] ) ) {
 				$log['ips'][ $user_ip ]['retries']  = 0;
 				$log['ips'][ $user_ip ]['lockouts'] = 0;
@@ -227,7 +228,7 @@ class SecureLogin {
 
 		$settings = get_option( self::SETTINGS_OPTION, [] );
 
-		if ( ! empty( $name ) ) {
+		if ( ! empty( $name ) && is_array( $settings ) ) {
 			$settings = $settings[ $name ] ?? false;
 		}
 
