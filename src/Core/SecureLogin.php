@@ -111,9 +111,10 @@ class SecureLogin {
 			 *
 			 * @since {VERSION}
 			 *
-			 * @param string|false $user_ip The user's IP address, or false on error.
+			 * @param string|false $user_ip  The user's IP address, or false on error.
+			 * @param string       $username The username.
 			 */
-			do_action( 'supv_core_secure_login_blocked_user', $user_ip );
+			do_action( 'supv_core_secure_login_block_ip', $user_ip, $username );
 
 			$error = supv_prepare_wp_error(
 				'supv_too_many_attempts',
@@ -155,6 +156,10 @@ class SecureLogin {
 				$log['ips'][ $user_ip ]['retries']  = 0;
 				$log['ips'][ $user_ip ]['lockouts'] = 0;
 
+				if ( ! empty( $log['ips'][ $user_ip ]['lock_until'] ) ) {
+					unset( $log['ips'][ $user_ip ]['lock_until'] );
+				}
+
 				/**
 				 * Fires when an user IP is unblocked from your site.
 				 *
@@ -162,7 +167,7 @@ class SecureLogin {
 				 *
 				 * @param string|false $user_ip The user's IP address, or false on error.
 				 */
-				do_action( 'supv_core_secure_login_blocked_user', $user_ip );
+				do_action( 'supv_core_secure_login_unblock_ip', $user_ip );
 			}
 		}
 
