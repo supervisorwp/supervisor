@@ -158,7 +158,7 @@ final class AJAX {
 
 		check_ajax_referer( 'supv_autoload_update_option' );
 
-		$data = $this->extract_form_data( $_POST );
+		$data = $this->extract_form_data();
 
 		$options    = [];
 		$is_history = false;
@@ -226,9 +226,7 @@ final class AJAX {
 
 		check_ajax_referer( 'supv_secure_login_settings_save' );
 
-		$data = $this->extract_form_data( $_POST );
-
-		$settings = array_map( 'intval', $data ); // Converts all the values to int.
+		$settings = array_map( 'intval', $this->extract_form_data() ); // Converts all the values to int.
 
 		supv()->core()->secure_login()->update_settings( $settings );
 
@@ -240,20 +238,18 @@ final class AJAX {
 	 *
 	 * @since {VERSION}
 	 *
-	 * @param array $_post The $_POST super global (passed by reference).
-	 *
-	 * @return array The extract
+	 * @return array
 	 */
-	private function extract_form_data( $_post ) {
+	private function extract_form_data() {
 
 		$data = [];
 
-		foreach ( array_keys( $_post ) as $key ) {
+		foreach ( array_keys( $_POST ) as $key ) {
 			if ( ! preg_match( '/^supv-field-/', sanitize_key( $key ) ) ) {
 				continue;
 			}
 
-			$value = ! empty( $_post[ $key ] ) ? sanitize_text_field( wp_unslash( $_post[ $key ] ) ) : '';
+			$value = ! empty( $_POST[ $key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $key ] ) ) : '';
 			$field = preg_replace( '/^supv-field-/', '', urldecode( sanitize_key( $key ) ) );
 
 			if ( empty( $field ) ) {

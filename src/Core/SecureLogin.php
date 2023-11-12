@@ -232,7 +232,7 @@ class SecureLogin {
 
 		$settings = get_option( self::SETTINGS_OPTION, [] );
 
-		return ! empty( $settings[ $name ] ) ? $settings[ $name ] : $settings;
+		return $settings[ $name ] ?? $settings;
 	}
 
 	/**
