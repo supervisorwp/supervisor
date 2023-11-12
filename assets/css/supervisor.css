@@ -114,6 +114,7 @@
   flex-wrap: wrap;
   margin-right: -0.5rem;
   margin-left: -0.5rem;
+  align-items: flex-start;
 }
 .supv-row.reverse {
   -webkit-box-orient: horizontal;
@@ -1156,7 +1157,6 @@
   font-size: 13px;
   padding-right: 3px;
   top: 2px;
-  position: relative;
 }
 .supv-card div.supv-settings-row:last-child {
   margin-bottom: 0;
@@ -1178,6 +1178,72 @@
 }
 .supv-container .supv-w-100 {
   min-width: 100% !important;
+}
+.supv-container input:hover {
+  border: 1px solid #8a1736 !important;
+  color: #8a1736 !important;
+}
+.supv-container input:focus {
+  border: 1px solid #8a1736 !important;
+  box-shadow: 0 0 0 1px #fef2f5 !important;
+}
+.supv-container input[type=number] {
+  padding-right: 0 !important;
+}
+
+.supv-switch {
+  position: relative;
+  display: inline-block;
+  width: 31px;
+  height: 18px;
+}
+.supv-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.supv-switch-slider {
+  border-radius: 18px;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #aaa;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+.supv-switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #fff;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+.supv-switch input:checked + .supv-switch-slider {
+  background-color: #8a1736;
+}
+.supv-switch input:focus + .supv-switch-slider {
+  box-shadow: 0 0 1px #8a1736;
+}
+.supv-switch input:checked + .supv-switch-slider:before {
+  -webkit-transform: translateX(13px);
+  -ms-transform: translateX(13px);
+  transform: translateX(13px);
+}
+.supv-switch-text {
+  color: #444;
+  font-size: 13px;
+  padding-left: 3px;
+}
+.supv-switch-text input {
+  width: 60px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -1395,6 +1461,35 @@
   list-style: disc;
 }
 
+.supv-secure-login-switch {
+  padding-bottom: 4px;
+  padding-top: 8px;
+}
+.supv-secure-login-settings {
+  margin-top: 10px;
+  position: relative;
+}
+.supv-secure-login-settings ul {
+  display: inline;
+}
+.supv-secure-login-settings ul li {
+  list-style: none;
+  padding-left: 1px;
+  padding-top: 4px;
+}
+.supv-secure-login-settings ul li:first-child {
+  font-weight: 500;
+  float: left;
+  min-width: 140px;
+  padding-top: 9px;
+}
+.supv-secure-login-settings ul li input {
+  width: 60px;
+}
+.supv-secure-login-settings ul p.box-info {
+  display: none;
+}
+
 .supv-wordpress-auto-update-policy-message {
   margin-bottom: 2px !important;
 }
@@ -1402,6 +1497,11 @@
 .supv-ctas {
   float: right;
   margin-top: -47px;
+}
+.supv-ctas-left {
+  float: none !important;
+  margin-top: 16px !important;
+  margin-bottom: 5px;
 }
 
 @media only screen and (max-width: 1300px) {

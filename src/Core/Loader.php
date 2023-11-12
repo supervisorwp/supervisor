@@ -18,6 +18,15 @@ final class Loader {
 	private $autoload;
 
 	/**
+	 * The SecureLogin object.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @var SecureLogin
+	 */
+	private $secure_login;
+
+	/**
 	 * The Server object.
 	 *
 	 * @since 1.0.0
@@ -76,6 +85,18 @@ final class Loader {
 	}
 
 	/**
+	 * Get the SecureLogin object.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @return SecureLogin
+	 */
+	public function secure_login() {
+
+		return $this->secure_login;
+	}
+
+	/**
 	 * Get the Server object.
 	 *
 	 * @since 1.0.0
@@ -130,10 +151,16 @@ final class Loader {
 	 */
 	public function setup() {
 
-		$this->server     = new Server();
-		$this->ssl        = new SSL();
-		$this->autoload   = new Autoload();
-		$this->transients = new Transients();
-		$this->wordpress  = new WordPress();
+		// Loads the SecureLogin class globally.
+		$this->secure_login = new SecureLogin();
+
+		// Loads the plugin classes only if you are using Roles or WP-CLI.
+		if ( is_admin() || supv_is_doing_wpcli() ) {
+			$this->server     = new Server();
+			$this->ssl        = new SSL();
+			$this->autoload   = new Autoload();
+			$this->transients = new Transients();
+			$this->wordpress  = new WordPress();
+		}
 	}
 }

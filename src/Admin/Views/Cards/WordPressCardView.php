@@ -33,7 +33,7 @@ final class WordPressCardView extends AbstractView {
 			<div class="content">
 				<p>
 					<?php
-					echo sprintf(
+					printf(
 						/* translators: %1$s is the latest WordPress version, %2$s is the next major WordPress release. */
 						esc_html__( 'From WordPress 5.6 onwards, automatic updates are enabled by default for both minor and major releases. For example, WordPress %1$s will automatically be updated to %2$s upon release.', 'supervisor' ),
 						esc_html( $wp_curr_version ),

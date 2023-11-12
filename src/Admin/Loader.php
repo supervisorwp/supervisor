@@ -1,6 +1,8 @@
 <?php
 namespace SUPV\Admin;
 
+use SUPV\Admin\Views\ComponentsView;
+
 /**
  * The Loader class.
  *
@@ -18,7 +20,7 @@ final class Loader {
 	private $ajax;
 
 	/**
-	 * The Dashboard object.
+	 * The Roles object.
 	 *
 	 * @since 1.0.0
 	 *
@@ -49,7 +51,7 @@ final class Loader {
 	}
 
 	/**
-	 * Get the Dashboard object.
+	 * Get the Roles object.
 	 *
 	 * @since 1.0.0
 	 *
@@ -67,7 +69,13 @@ final class Loader {
 	 */
 	private function setup() {
 
-		$this->ajax      = new AJAX();
-		$this->dashboard = new Dashboard();
+		// Loads the plugin classes only if you are using Roles or WP-CLI.
+		if ( is_admin() || supv_is_doing_wpcli() ) {
+			$this->ajax      = new AJAX();
+			$this->dashboard = new Dashboard();
+
+			// Loads the components.
+			new ComponentsView();
+		}
 	}
 }

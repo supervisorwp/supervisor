@@ -1,111 +1,188 @@
-jQuery( document ).ready( function( $ ) {
-	/**
-	 * Add the onclick actions.
-	 */
-	$( document )
-		.on('click', '.supv-notice .notice-dismiss', function() {
-			const classes  = $( this ).closest( '.supv-notice' ).attr( 'class' );
-			const software = classes.match(/supv-notice-(?:ssl|https)\s/)[0].replace( 'supv-notice-', '' );
+'use strict';
 
-			supv_do_ajax( 'supv_hide_admin_notice', { 'software': software }, false );
-		} )
-		.on( 'click', '#supv-btn-transients-clear', function() {
-			supv_do_ajax( 'supv_transients_cleanup', null, '#supv-transients-stats' );
-		} )
-		.on( 'click', '#supv-btn-autoload-options', function () {
-			$( '#supv-autoload-result' ).hide();
-
-			if ( $( '#supv-autoload-options' ).html().trim() === '' ) {
-				supv_do_ajax( 'supv_autoload_options_list', null, '#supv-autoload-options' );
-			} else {
-				$( '#supv-autoload-options' ).html( '' );
-			}
-		} )
-		.on( 'click', '#supv-btn-autoload-history', function () {
-			$( '#supv-autoload-result' ).hide();
-
-			supv_do_ajax( 'supv_autoload_options_history', null, '#supv-autoload-options' );
-		} )
-		.on( 'click', '#supv-btn-autoload-close', function() {
-			$( '#supv-autoload-result' ).hide();
-
-			$( '#supv-autoload-options' ).html( '' );
-		} );
+const Supervisor = ( function( document, $ ) {
+	const app = {};
 
 	/**
-	 * Add the onchange actions.
+	 * Init.
+	 *
+	 * @since {VERSION}
 	 */
-	$( document )
-		.on( 'change', '#supv-wordpress-update-policy', function () {
-			supv_do_ajax( 'supv_wordpress_auto_update_policy', { 'wp_auto_update_policy': $( '#supv-wordpress-update-policy' ).find( ':selected' ).val() }, '#supv-wordpress-update-policy-box' );
-		} );
-
-	/**
-	 * Add the onsubmit actions.
-	 */
-	$( document )
-		.on( 'submit', '#supv-autoload-form', function() {
-			let data   = $( '#supv-autoload-form' ).serializeArray();
-			let params = {};
-
-			$( data ).each( function( i, field ) {
-				params[ field.name ] = field.value;
-			} );
-
-			$( '#supv-autoload-result' ).show();
-
-			supv_do_ajax( 'supv_autoload_update_option', params, '#supv-autoload-stats' );
-
-			return false;
-		} );
-});
-
-/**
- * Run the AJAX requests.
- *
- * @param {string} action
- * @param {Object} params
- * @param {string|false} target
- */
-function supv_do_ajax(action, params, target) {
-	var data = {
-		'action': action
+	app.init = function() {
+		$( document ).ready( app.ready );
 	};
 
-	if (jQuery('#' + action + '_wpnonce').length) {
-		_wpnonce = jQuery('#' + action + '_wpnonce').val();
+	/**
+	 * Document ready.
+	 *
+	 * @since {VERSION}
+	 */
+	app.ready = function() {
+		app.events();
+	};
 
-		data = jQuery.extend(data, {'_wpnonce': _wpnonce});
-	}
+	/**
+	 * Events.
+	 *
+	 * @since {VERSION}
+	 */
+	app.events = function() {
+		/**
+		 * Add the onclick events.
+		 */
+		$( document )
+			.on( 'click', '.supv-notice .notice-dismiss', function() {
+				const classes = $( this ).closest( '.supv-notice' ).attr( 'class' );
+				const software = classes.match( /supv-notice-(?:ssl|https)\s/ )[ 0 ].replace( 'supv-notice-', '' );
 
-	if (typeof params === 'object') {
-		data = jQuery.extend(data, params);
-	}
+				app.ajax_request( 'supv_hide_admin_notice', { software }, false );
+			} )
+			.on( 'click', '#supv-btn-transients-clear', function() {
+				app.ajax_request( 'supv_transients_cleanup', null, '#supv-transients-stats' );
+			} )
+			.on( 'click', '#supv-btn-autoload-options', function() {
+				$( '#supv-autoload-result' ).hide();
 
-	if (typeof target === 'string') {
-		if (jQuery(target).length) {
-			target = jQuery(target);
-		} else {
-			target = false;
+				if ( $( '#supv-autoload-options' ).html().trim() === '' ) {
+					app.ajax_request( 'supv_autoload_options_list', null, '#supv-autoload-options' );
+				} else {
+					$( '#supv-autoload-options' ).html( '' );
+				}
+			} )
+			.on( 'click', '#supv-btn-autoload-history', function() {
+				$( '#supv-autoload-result' ).hide();
+
+				app.ajax_request( 'supv_autoload_options_history', null, '#supv-autoload-options' );
+			} )
+			.on( 'click', '#supv-btn-autoload-close', function() {
+				$( '#supv-autoload-result' ).hide();
+
+				$( '#supv-autoload-options' ).html( '' );
+			} )
+			.on( 'click', '#supv-secure-login-switch', function() {
+				if ( $( this ).is( ':checked' ) ) {
+					app.ajax_request( 'supv_secure_login_settings_output', null, '#supv-secure-login-settings' );
+				} else {
+					$( '#supv-field-enabled' ).val( '0' );
+
+					$( '#supv-secure-login-settings-form' ).submit();
+
+					$( '#supv-secure-login-settings' ).empty();
+				}
+			} );
+
+		/**
+		 * Add the onchange events.
+		 */
+		$( document )
+			.on( 'change', '#supv-wordpress-update-policy', function() {
+				app.ajax_request( 'supv_wordpress_auto_update_policy', { wp_auto_update_policy: $( '#supv-wordpress-update-policy' ).find( ':selected' ).val() }, '#supv-wordpress-update-policy-box' );
+			} );
+
+		/**
+		 * Add the onsubmit events.
+		 */
+		$( document )
+			.on( 'submit', '#supv-autoload-form', function() {
+				const params = app.convert_to_object( $( this ).serializeArray() );
+
+				$( '#supv-autoload-result' ).show();
+
+				app.ajax_request( 'supv_autoload_update_option', params, '#supv-autoload-stats' );
+
+				return false;
+			} )
+			.on( 'submit', '#supv-secure-login-settings-form', function() {
+				const params = app.convert_to_object( $( this ).serializeArray() );
+
+				app.ajax_request( 'supv_secure_login_settings_save', params, false );
+
+				return false;
+			} );
+
+		/**
+		 * Adds the onfocus events.
+		 */
+		$( document )
+			.on( 'focus', '.supv-secure-login-settings > form > ul > li > input', function() {
+				$( '.supv-secure-login-settings > form > ul > p.box-info' ).hide();
+				$( this ).parent().next( 'p' ).show();
+			} )
+			.on( 'focusout', '.supv-secure-login-settings > form > ul > li > input', function() {
+				$( '.supv-secure-login-settings > form > ul > p.box-info' ).hide();
+			} );
+	};
+
+	/**
+	 * Converts serialized array to object.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param {Object} serializedArray
+	 */
+	app.convert_to_object = function( serializedArray ) {
+		let params = {};
+
+		$( serializedArray ).each(
+			function( i, field ) {
+				params[ field.name ] = field.value;
+			}
+		);
+
+		return params;
+	};
+
+	/**
+	 * Run the AJAX requests.
+	 *
+	 * @param {string}       action
+	 * @param {Object}       params
+	 * @param {string|false} target
+	 */
+	app.ajax_request = function( action, params, target ) {
+		let data = {
+			action,
+		};
+
+		if ( $( '#' + action + '_wpnonce' ).length ) {
+			const _wpnonce = $( '#' + action + '_wpnonce' ).val();
+
+			data = $.extend( data, { _wpnonce } );
 		}
-	}
 
-	jQuery.ajax({
-		method: 'POST',
-		url: ajaxurl,
-		data: data,
-		beforeSend: function() {
-			if (target) {
-				target.html('<p class="supv_loading"><img src="/wp-includes/images/spinner.gif"> ' + supv.loading + '</p>');
+		if ( typeof params === 'object' ) {
+			data = $.extend( data, params );
+		}
+
+		if ( typeof target === 'string' ) {
+			if ( $( target ).length ) {
+				target = $( target );
+			} else {
+				target = false;
 			}
 		}
-	})
-	.done(function(response) {
-		if (target) {
-			target.html(response);
-		}
-	})
-	.fail(function() {
-		console.log('Supervisor: Unable to process the AJAX request for ' + action + '.');
-	});
-}
+
+		$.ajax( {
+			method: 'POST',
+			url: ajaxurl,
+			data,
+			beforeSend() {
+				if ( target ) {
+					target.html( '<p class="supv_loading"><img src="/wp-includes/images/spinner.gif"> ' + supv.loading + '</p>' );
+				}
+			},
+		} )
+			.done( function( response ) {
+				if ( target ) {
+					target.html( response );
+				}
+			} )
+			.fail( function() {
+				// console.log( 'Supervisor: Unable to process the AJAX request for ' + action + '.' );
+			} );
+	};
+
+	return app;
+}( document, jQuery ) );
+
+Supervisor.init();

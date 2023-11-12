@@ -3,6 +3,7 @@ namespace SUPV\Admin\Views\Pages;
 
 use SUPV\Admin\Views\AbstractView;
 use SUPV\Admin\Views\Cards\AutoloadCardView;
+use SUPV\Admin\Views\Cards\SecureLoginCardView;
 use SUPV\Admin\Views\Cards\TransientsCardView;
 use SUPV\Admin\Views\Cards\WordPressCardView;
 use SUPV\Admin\Views\SystemInfoView;
@@ -25,6 +26,7 @@ final class DashboardView extends AbstractView {
 	private $cards = [
 		TransientsCardView::class,
 		AutoloadCardView::class,
+		SecureLoginCardView::class,
 		WordPressCardView::class,
 	];
 
@@ -73,7 +75,7 @@ final class DashboardView extends AbstractView {
 		?>
 		<div class="supv-boxes supv-row">
 			<?php foreach ( $this->cards as $card ) : ?>
-				<div class="supv-box supv-col col-lg-12 col-md-12 col-xs-12">
+				<div class="supv-box supv-col col-lg-6 col-md-12 col-xs-12">
 					<?php ( new $card() )->output(); ?>
 				</div>
 			<?php endforeach; ?>

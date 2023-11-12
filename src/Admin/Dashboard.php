@@ -3,11 +3,10 @@ namespace SUPV\Admin;
 
 use SUPV\Admin\Views\Notices\HTTPSView;
 use SUPV\Admin\Views\Notices\SSLView;
-use SUPV\Admin\Views\Pages\AutoloadView;
 use SUPV\Admin\Views\Pages\DashboardView;
 
 /**
- * The Dashboard class.
+ * The Roles class.
  *
  * @package supervisor
  * @since 1.0.0
@@ -95,7 +94,7 @@ final class Dashboard {
 	}
 
 	/**
-	 * Adds a menu and sub menu pages on WordPress Dashboard.
+	 * Adds a menu and sub menu pages on WordPress Roles.
 	 *
 	 * @since 1.0.0
 	 */
@@ -121,16 +120,6 @@ final class Dashboard {
 	public function dashboard_page() {
 
 		( new DashboardView() )->output();
-	}
-
-	/**
-	 * Loads the autoload options page view.
-	 *
-	 * @since 1.0.0
-	 */
-	public function autoload_page() {
-
-		( new AutoloadView() )->output();
 	}
 
 	/**

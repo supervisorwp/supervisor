@@ -218,6 +218,43 @@
 	}
 }
 
+.supv-secure-login {
+	&-switch {
+		padding-bottom: 4px;
+		padding-top: 8px;
+	}
+
+	&-settings {
+		margin-top: 10px;
+		position: relative;
+
+		ul {
+			display: inline;
+
+			li {
+				list-style: none;
+				padding-left: 1px;
+				padding-top: 4px;
+
+				&:first-child {
+					font-weight: 500;
+					float: left;
+					min-width: 140px;
+					padding-top: 9px;
+				}
+
+				input {
+					width: 60px;
+				}
+			}
+
+			p.box-info {
+				display: none;
+			}
+		}
+	}
+}
+
 .supv-wordpress {
 	&-auto-update-policy-message {
 		margin-bottom: 2px !important;
@@ -227,6 +264,12 @@
 .supv-ctas {
 	float: right;
 	margin-top: -47px;
+
+	&-left {
+		float: none !important;
+		margin-top: 16px !important;
+		margin-bottom: 5px;
+	}
 }
 
 @media only screen and (max-width: 1300px) {

@@ -30,7 +30,7 @@ final class HTTPSView extends AbstractView {
 
 				<strong>
 					<?php
-					echo sprintf(
+					printf(
 						/* translators: %s is "Let's Encrypt". */
 						esc_html__( '%s offers free SSL certificates!', 'supervisor' ),
 						'<a href="https://letsencrypt.org/">Let\'s Encrypt</a>'

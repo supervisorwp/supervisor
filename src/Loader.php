@@ -62,16 +62,12 @@ final class Loader {
 		// Loads the Upgrade class.
 		new Upgrade();
 
-		// Load the plugin classes only if you are using Dashboard or WP-CLI.
-		if ( is_admin() || supv_is_doing_wpcli() ) {
+		// Loads the plugin classes.
+		$this->core  = new Core\Loader();
+		$this->admin = new Admin\Loader();
 
-			// Loads the plugin classes.
-			$this->core  = new Core\Loader();
-			$this->admin = new Admin\Loader();
-
-			// Loads the plugin hooks.
-			new Install();
-		}
+		// Loads the plugin hooks.
+		new Install();
 	}
 
 	/**

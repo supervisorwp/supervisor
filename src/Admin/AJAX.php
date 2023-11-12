@@ -2,6 +2,7 @@
 namespace SUPV\Admin;
 
 use SUPV\Admin\Views\Cards\AutoloadCardView;
+use SUPV\Admin\Views\Cards\SecureLoginCardView;
 use SUPV\Admin\Views\Cards\TransientsCardView;
 use SUPV\Admin\Views\Cards\WordPressCardView;
 
@@ -35,6 +36,8 @@ final class AJAX {
 			'autoload_options_history',
 			'autoload_update_option',
 			'wordpress_auto_update_policy',
+			'secure_login_settings_output',
+			'secure_login_settings_save',
 		];
 
 		$this->hooks();
@@ -155,20 +158,12 @@ final class AJAX {
 
 		check_ajax_referer( 'supv_autoload_update_option' );
 
+		$data = $this->extract_form_data();
+
 		$options    = [];
 		$is_history = false;
 
-		foreach ( array_keys( $_POST ) as $key ) {
-			if ( ! preg_match( '/^supv-opt-/', sanitize_key( $key ) ) ) {
-				continue;
-			}
-
-			$option_name = preg_replace( '/^supv-opt-/', '', urldecode( sanitize_key( $key ) ) );
-
-			if ( empty( $option_name ) ) {
-				continue;
-			}
-
+		foreach ( $data as $option_name => $value ) {
 			if ( supv()->core()->autoload()->is_deactivated( $option_name ) ) {
 				$options[ $option_name ] = supv()->core()->autoload()->reactivate( $option_name );
 				$is_history              = true;
@@ -200,5 +195,74 @@ final class AJAX {
 		( new WordPressCardView() )->output_select( true );
 
 		wp_die();
+	}
+
+	/**
+	 * Outputs the Secure Login settings.
+	 *
+	 * @since {VERSION}
+	 */
+	public function secure_login_settings_output() {
+
+		check_ajax_referer( 'supv_secure_login_settings_output' );
+
+		( new SecureLoginCardView() )->output_settings();
+
+		supv()->core()->secure_login()->update_settings(
+			[
+				'enabled' => 1,
+			]
+		);
+
+		wp_die();
+	}
+
+	/**
+	 * Saves the Secure Login settings to the database.
+	 *
+	 * @since {VERSION}
+	 */
+	public function secure_login_settings_save() {
+
+		check_ajax_referer( 'supv_secure_login_settings_save' );
+
+		$settings = array_map( 'intval', $this->extract_form_data() ); // Converts all the values to int.
+
+		supv()->core()->secure_login()->update_settings( $settings );
+
+		wp_die();
+	}
+
+	/**
+	 * Extracts the form data.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @return array
+	 */
+	private function extract_form_data() {
+
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
+
+		$data = [];
+
+		foreach ( array_keys( $_POST ) as $key ) {
+			if ( ! preg_match( '/^supv-field-/', sanitize_key( $key ) ) ) {
+				continue;
+			}
+
+			$value = ! empty( $_POST[ $key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $key ] ) ) : '';
+			$field = preg_replace( '/^supv-field-/', '', urldecode( sanitize_key( $key ) ) );
+
+			if ( empty( $field ) ) {
+				continue;
+			}
+
+			$data[ $field ] = $value;
+		}
+
+		return $data;
+
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 }
