@@ -2,7 +2,7 @@
 Contributors: tiagohillebrandt
 Tags: performance, transients, autoload, healthcheck, load time, ssl, https, check, site performance
 Requires at least: 5.0
-Tested up to: 6.3.2
+Tested up to: 6.4.1
 Requires PHP: 7.0
 Stable tag: 1.3.0
 License: GPLv3+
@@ -48,7 +48,7 @@ If you are a developer and want to contribute by writing new features, enhanceme
 
 == Changelog ==
 
-= [1.3.0] - 2023-11-02 =
+= [1.3.0] - 2023-11-12 =
 * Added: Ability to secure your log in page.
 * Changed: Bumped minimum PHP version to 7.0.
 * Changed: Bumped minimum WordPress version to 5.0.
@@ -56,12 +56,12 @@ If you are a developer and want to contribute by writing new features, enhanceme
 = [1.2.0] - 2023-03-01 =
 * Added: Ability to manage WordPress auto updates policy.
 * Added: Implemented some filters so developers can customize the plugin data.
-* Added: Cleans up the plugin transients after WP core or plugin updates.
+* Added: Cleaned up the plugin transients after WP core or plugin updates.
 * Changed: Minor improvements to the UI.
 
 = [1.1.0] - 2023-02-22 =
-* Added: Implemented a check to confirm if the server softwares are updated.
-* Changed: Added border to the top of the header on Supervisor screen.
+* Added: Implemented a check to confirm whether the server software is updated or not.
+* Changed: Added a border to the top of the header on the Supervisor screen.
 * Changed: Hides notices on Supervisor screen.
 
 = [1.0.0] - 2023-02-22 =
