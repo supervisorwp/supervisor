@@ -242,6 +242,8 @@ final class AJAX {
 	 */
 	private function extract_form_data() {
 
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
+
 		$data = [];
 
 		foreach ( array_keys( $_POST ) as $key ) {
@@ -260,5 +262,7 @@ final class AJAX {
 		}
 
 		return $data;
+
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 }
