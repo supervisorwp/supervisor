@@ -37,9 +37,11 @@ define( 'SUPV_INC_DIR', SUPV_PLUGIN_DIR . '/includes' );
  *
  * @since 1.0.0
  */
-if ( file_exists( SUPV_PLUGIN_DIR . '/vendor/autoload.php' ) ) {
-	require_once SUPV_PLUGIN_DIR . '/vendor/autoload.php';
+if ( ! file_exists( SUPV_PLUGIN_DIR . '/vendor/autoload.php' ) ) {
+	return;
 }
+
+require_once SUPV_PLUGIN_DIR . '/vendor/autoload.php';
 
 /**
  * Plugin loader.

@@ -83,7 +83,16 @@ function supv_get_user_ip() {
 		}
 	}
 
-	return $user_ip ? $user_ip : false;
+	/**
+	 * Filters the user IP address.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param string|false $user_ip The user's IP address, or false on error.
+	 */
+	$user_ip = apply_filters( 'supv_helpers_get_user_ip', $user_ip );
+
+	return $user_ip ?? false;
 }
 
 /**
