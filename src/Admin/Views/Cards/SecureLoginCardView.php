@@ -64,8 +64,10 @@ final class SecureLoginCardView extends AbstractView {
 	 * Outputs the Brute Force protection settings.
 	 *
 	 * @since {VERSION}
+	 *
+	 * @param bool $success True if should display the success message.
 	 */
-	public function output_settings() {
+	public function output_settings( $success = false ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 		$settings = supv()->core()->secure_login()->get_settings();
 		?>
@@ -123,6 +125,12 @@ final class SecureLoginCardView extends AbstractView {
 					<?php esc_html_e( 'Save Settings', 'supervisor' ); ?>
 				</button>
 			</div>
+
+			<?php if ( $success ) : ?>
+				<div class="supv-text-success">
+					<?php esc_html_e( 'Your Brute Force Protection settings have been successfully updated!', 'supervisor' ); ?>
+				</div>
+			<?php endif; ?>
 		</form>
 		<?php
 	}

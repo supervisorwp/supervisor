@@ -1264,6 +1264,7 @@
   margin-right: 5px;
   min-height: 30px;
   padding: 5px 20px;
+  position: relative;
   text-decoration: none;
   transition: all 0.1s ease-in-out;
   white-space: nowrap;
@@ -1286,6 +1287,33 @@
   color: #fff;
 }
 
+.supv-loading-button {
+  text-indent: -9999px;
+}
+.supv-loading-button::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: 3px solid transparent;
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1s ease infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .supv-header {
   background-color: #fff;
   border-top: 5px solid #8a1736;
@@ -1488,6 +1516,9 @@
 }
 .supv-secure-login-settings ul p.box-info {
   display: none;
+}
+.supv-secure-login-settings .supv-text-success {
+  margin-top: 10px;
 }
 
 .supv-wordpress-auto-update-policy-message {

@@ -206,13 +206,13 @@ final class AJAX {
 
 		check_ajax_referer( 'supv_secure_login_settings_output' );
 
-		( new SecureLoginCardView() )->output_settings();
-
 		supv()->core()->secure_login()->update_settings(
 			[
 				'enabled' => 1,
 			]
 		);
+
+		( new SecureLoginCardView() )->output_settings();
 
 		wp_die();
 	}
@@ -229,6 +229,8 @@ final class AJAX {
 		$settings = array_map( 'intval', $this->extract_form_data() ); // Converts all the values to int.
 
 		supv()->core()->secure_login()->update_settings( $settings );
+
+		( new SecureLoginCardView() )->output_settings( true );
 
 		wp_die();
 	}
