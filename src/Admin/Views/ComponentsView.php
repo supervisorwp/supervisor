@@ -5,14 +5,14 @@ namespace SUPV\Admin\Views;
  * The ComponentsView class.
  *
  * @package supervisor
- * @since {VERSION}
+ * @since 1.3.0
  */
 final class ComponentsView {
 
 	/**
 	 * Constructor.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 */
 	public function __construct() {
 
@@ -22,7 +22,7 @@ final class ComponentsView {
 	/**
 	 * WordPress actions and filters.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 */
 	public function hooks() {
 
@@ -32,7 +32,7 @@ final class ComponentsView {
 	/**
 	 * The switch component.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 *
 	 * @param array $args The component arguments.
 	 */

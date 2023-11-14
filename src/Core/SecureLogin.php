@@ -5,14 +5,14 @@ namespace SUPV\Core;
  * The SecureLogin class.
  *
  * @package supervisor
- * @since {VERSION}
+ * @since 1.3.0
  */
 class SecureLogin {
 
 	/**
 	 * The default Secure Login settings.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 *
 	 * @var array
 	 */
@@ -28,7 +28,7 @@ class SecureLogin {
 	/**
 	 * Option to store the log of login attempts.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 *
 	 * @var string
 	 */
@@ -37,7 +37,7 @@ class SecureLogin {
 	/**
 	 * Option to store the Secure Login settings.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 *
 	 * @var string
 	 */
@@ -46,7 +46,7 @@ class SecureLogin {
 	/**
 	 * Constructor.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 */
 	public function __construct() {
 
@@ -62,7 +62,7 @@ class SecureLogin {
 	/**
 	 * WordPress actions and filters.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 */
 	public function hooks() {
 
@@ -77,7 +77,7 @@ class SecureLogin {
 	/**
 	 * Adds Supervisor's error codes to the list of 'shake_error_codes'.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 *
 	 * @param string[] $error_codes The error codes that shake the login form.
 	 *
@@ -93,7 +93,7 @@ class SecureLogin {
 	/**
 	 * Checks the login attempt.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 *
 	 * @param WP_User|WP_Error|null $user     WP_User or WP_Error object from a previous callback. Default null.
 	 * @param string                $username Username. If not empty, cancels the cookie authentication.
@@ -110,7 +110,7 @@ class SecureLogin {
 			/**
 			 * Fires when a blocked IP address tries to log into your site.
 			 *
-			 * @since {VERSION}
+			 * @since 1.3.0
 			 *
 			 * @param string|false $user_ip  The user's IP address, or false on error.
 			 * @param string       $username The username.
@@ -131,7 +131,7 @@ class SecureLogin {
 	/**
 	 * Cleans up the expired login attempts.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 */
 	public function cleanup_expired_login_attempts() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
@@ -169,7 +169,7 @@ class SecureLogin {
 				/**
 				 * Fires when an user IP is unblocked from your site.
 				 *
-				 * @since {VERSION}
+				 * @since 1.3.0
 				 *
 				 * @param string|false $user_ip The user's IP address, or false on error.
 				 */
@@ -184,7 +184,7 @@ class SecureLogin {
 	 * Maybe replaces the invalid_username error message. Per default, this error message indicates whether the user
 	 * exists in the database or not.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 *
 	 * @param WP_User|WP_Error|null $user     WP_User or WP_Error object from a previous callback. Default null.
 	 * @param string                $username Username. If not empty, cancels the cookie authentication.
@@ -213,7 +213,7 @@ class SecureLogin {
 	/**
 	 * Determines whether the Secure Login setting is enabled or not.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 */
 	public function is_enabled() {
 
@@ -223,7 +223,7 @@ class SecureLogin {
 	/**
 	 * Retrieves all settings, or the value from a given setting.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 *
 	 * @param string|false $name The setting name.
 	 *
@@ -239,7 +239,7 @@ class SecureLogin {
 	/**
 	 * Maybe resets the settings.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 */
 	public function maybe_reset_settings() {
 
@@ -249,7 +249,7 @@ class SecureLogin {
 	/**
 	 * Updates the settings.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 *
 	 * @param array $new_settings The new settings.
 	 */
@@ -276,7 +276,7 @@ class SecureLogin {
 	/**
 	 * Get the login attempts.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 *
 	 * @param string $user_ip  The user IP address.
 	 * @param string $username The username.
@@ -297,7 +297,7 @@ class SecureLogin {
 	/**
 	 * Confirms whether a given username and/or IP address are blocked or not.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 *
 	 * @param string $user_ip  The user IP address.
 	 * @param string $username The username.
@@ -314,7 +314,7 @@ class SecureLogin {
 	/**
 	 * Logs the login attempt to the option.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 *
 	 * @param string $user_ip  The user IP address.
 	 * @param string $username The username.

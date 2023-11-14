@@ -20,7 +20,7 @@ final class Loader {
 	/**
 	 * The SecureLogin object.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 *
 	 * @var SecureLogin
 	 */
@@ -87,7 +87,7 @@ final class Loader {
 	/**
 	 * Get the SecureLogin object.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 *
 	 * @return SecureLogin
 	 */

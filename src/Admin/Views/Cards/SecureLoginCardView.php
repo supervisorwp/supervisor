@@ -8,14 +8,14 @@ use SUPV\Core\SecureLogin;
  * The SecureLoginCardView class.
  *
  * @package supervisor
- * @since {VERSION}
+ * @since 1.3.0
  */
 final class SecureLoginCardView extends AbstractView {
 
 	/**
 	 * Outputs the view.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 */
 	public function output() {
 
@@ -42,7 +42,7 @@ final class SecureLoginCardView extends AbstractView {
 					/**
 					 * Outputs the switch component.
 					 *
-					 * @since {VERSION}
+					 * @since 1.3.0
 					 *
 					 * @param array $args The component arguments.
 					 */
@@ -63,7 +63,7 @@ final class SecureLoginCardView extends AbstractView {
 	/**
 	 * Outputs the Brute Force protection settings.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 *
 	 * @param bool $success True if should display the success message.
 	 */

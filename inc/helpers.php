@@ -47,7 +47,7 @@ function supv_is_doing_wpcli() {
 /**
  * Gets the user IP address.
  *
- * @since {VERSION}
+ * @since 1.3.0
  *
  * @return string|false The user's IP address, or false on error.
  */
@@ -86,7 +86,7 @@ function supv_get_user_ip() {
 	/**
 	 * Filters the user IP address.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 *
 	 * @param string|false $user_ip The user's IP address, or false on error.
 	 */
@@ -98,7 +98,7 @@ function supv_get_user_ip() {
 /**
  * Prepares a WP Error object.
  *
- * @since {VERSION}
+ * @since 1.3.0
  *
  * @param string $error_code    The error code.
  * @param string $error_message The error message.

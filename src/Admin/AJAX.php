@@ -200,7 +200,7 @@ final class AJAX {
 	/**
 	 * Outputs the Secure Login settings.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 */
 	public function secure_login_settings_output() {
 
@@ -220,7 +220,7 @@ final class AJAX {
 	/**
 	 * Saves the Secure Login settings to the database.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 */
 	public function secure_login_settings_save() {
 
@@ -238,7 +238,7 @@ final class AJAX {
 	/**
 	 * Extracts the form data.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 *
 	 * @return array
 	 */
