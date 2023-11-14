@@ -38,7 +38,7 @@ const Supervisor = ( function( document, $ ) {
 				app.ajax_request( 'supv_hide_admin_notice', { software }, false );
 			} )
 			.on( 'click', '#supv-btn-transients-clear', function() {
-				app.ajax_request( 'supv_transients_cleanup', null, '#supv-transients-stats' );
+				app.ajax_request( 'supv_transients_cleanup', null, '#supv-transients-stats', '#supv-btn-transients-clear' );
 			} )
 			.on( 'click', '#supv-btn-autoload-options', function() {
 				$( '#supv-autoload-result' ).hide();
@@ -76,7 +76,13 @@ const Supervisor = ( function( document, $ ) {
 		 */
 		$( document )
 			.on( 'change', '#supv-wordpress-update-policy', function() {
-				app.ajax_request( 'supv_wordpress_auto_update_policy', { wp_auto_update_policy: $( '#supv-wordpress-update-policy' ).find( ':selected' ).val() }, '#supv-wordpress-update-policy-box' );
+				app.ajax_request(
+					'supv_wordpress_auto_update_policy',
+					{
+						wp_auto_update_policy: $( '#supv-wordpress-update-policy' ).find( ':selected' ).val()
+					},
+					'#supv-wordpress-update-policy-box'
+				);
 			} );
 
 		/**
@@ -95,7 +101,9 @@ const Supervisor = ( function( document, $ ) {
 			.on( 'submit', '#supv-secure-login-settings-form', function() {
 				const params = app.convert_to_object( $( this ).serializeArray() );
 
-				app.ajax_request( 'supv_secure_login_settings_save', params, false );
+				const targetId = ( params[ 'supv-field-enabled' ] === '0' ) ? null : '#supv-secure-login-settings';
+
+				app.ajax_request( 'supv_secure_login_settings_save', params, targetId, '#supv-btn-secure-login-settings-save' );
 
 				return false;
 			} );
@@ -138,8 +146,9 @@ const Supervisor = ( function( document, $ ) {
 	 * @param {string}       action
 	 * @param {Object}       params
 	 * @param {string|false} target
+	 * @param {string|null}  buttonId
 	 */
-	app.ajax_request = function( action, params, target ) {
+	app.ajax_request = function( action, params, target, buttonId = null ) {
 		let data = {
 			action,
 		};
@@ -167,12 +176,23 @@ const Supervisor = ( function( document, $ ) {
 			url: ajaxurl,
 			data,
 			beforeSend() {
-				if ( target ) {
+				if ( buttonId ) {
+					$( buttonId ).addClass( 'supv-loading-button' );
+				} else if ( target ) {
 					target.html( '<p class="supv_loading"><img src="/wp-includes/images/spinner.gif"> ' + supv.loading + '</p>' );
 				}
 			},
 		} )
 			.done( function( response ) {
+				if ( buttonId ) {
+					setTimeout(
+						() => {
+							$( buttonId ).removeClass( 'supv-loading-button' );
+						},
+						1500
+					);
+				}
+
 				if ( target ) {
 					target.html( response );
 				}
