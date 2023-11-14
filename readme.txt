@@ -14,13 +14,15 @@ Supervisor is a plugin to help improve the performance and security of your Word
 
 [Supervisor](https://supervisorwp.com) is a plugin to help improve the performance and security of your WordPress install.
 
-It detects some useful information regarding your site's health and then displays them conveniently via the WordPress Dashboard.
+It detects some useful information about your site's health and conveniently displays it through the WordPress Dashboard.
 
-This plugin can help you improve your site performance by cleaning up the transients and deactivating autoload options.
+This plugin can assist you in optimizing your site's performance by cleaning up transients and deactivating autoload options.
 
-Supervisor also verifies the software versions in use by your server.
+Additionally, it provides Brute Force Protection to safeguard your site from attacks attempting to collect user information.
 
-Besides that, Supervisor also checks for your SSL certificate expiration date and notifies you via Dashboard when it is near expiration or expired.
+Supervisor also verifies the software versions in use on your server.
+
+Furthermore, it checks your SSL certificate expiration date and notifies you via the Dashboard when it is near expiration or has expired.
 
 == Frequently Asked Questions ==
 
@@ -48,10 +50,14 @@ If you are a developer and want to contribute by writing new features, enhanceme
 
 == Changelog ==
 
-= [1.3.0] - 2023-11-12 =
-* Added: Ability to secure your log in page.
+= [1.3.0] - 2023-11-14 =
+* Added: Implemented Brute Force Protection.
+* Changed: Formatted the numbers to always include 2 decimals.
+* Changed: Updated some buttons to include a CSS loading spinner on AJAX requests.
 * Changed: Bumped minimum PHP version to 7.0.
 * Changed: Bumped minimum WordPress version to 5.0.
+* Fixed: Renamed the page title from Dashboard to Supervisor.
+* Fixed: Fixed the condition to include the correct WP version array index.
 
 = [1.2.0] - 2023-03-01 =
 * Added: Ability to manage WordPress auto updates policy.
