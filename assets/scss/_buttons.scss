@@ -11,6 +11,7 @@
 	margin-right: 5px;
 	min-height: 30px;
 	padding: 5px 20px;
+	position: relative;
 	text-decoration: none;
 	transition: all 0.1s ease-in-out;
 	white-space: nowrap;
@@ -34,5 +35,35 @@
 		background: $gray;
 		border: 1px solid $gray;
 		color: $white;
+	}
+}
+
+.supv-loading-button {
+	text-indent: -9999px;
+
+	&::after {
+		content: "";
+		position: absolute;
+		width: 16px;
+		height: 16px;
+		right: 0;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		margin: auto;
+		border: 3px solid transparent;
+		border-top-color: #fff;
+		border-radius: 50%;
+		animation: spin 1s ease infinite;
+	}
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
 	}
 }
