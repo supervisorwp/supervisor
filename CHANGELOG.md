@@ -6,10 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.3.0] - 2023-xx-xx
 ### Added
-- Implements the Secure Login Page. https://github.com/supervisorwp/supervisor/pull/23
+- Implements the Secure Login Page. (https://github.com/supervisorwp/supervisor/pull/23)
 
 ### Changed
 - Formats the numbers to always include 2 decimals. (https://github.com/supervisorwp/supervisor/pull/29)
+- Updated some buttons to include a CSS loading spinner on AJAX requests. (https://github.com/supervisorwp/supervisor/pull/35)
 
 ### Fixed
 - Renamed the page title from Dashboard to Supervisor. (https://github.com/supervisorwp/supervisor/pull/28)
