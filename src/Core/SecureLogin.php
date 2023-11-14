@@ -22,6 +22,7 @@ class SecureLogin {
 		'max-lockouts'     => 3,
 		'extended-lockout' => 24,
 		'reset-retries'    => 24,
+		'enabled'          => 0,
 	];
 
 	/**
@@ -65,7 +66,7 @@ class SecureLogin {
 	 */
 	public function hooks() {
 
-		add_action( 'login_init', [ $this, 'cleanup_expired_login_attempts' ] );
+		add_action( 'init', [ $this, 'cleanup_expired_login_attempts' ] );
 
 		add_filter( 'authenticate', [ $this, 'check_login_attempt' ], 21, 3 );
 		add_filter( 'authenticate', [ $this, 'maybe_replace_invalid_username_error' ], 21, 3 );
