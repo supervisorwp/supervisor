@@ -67,7 +67,7 @@ final class SecureLoginCardView extends AbstractView {
 	 *
 	 * @param bool $success True if should display the success message.
 	 */
-	public function output_settings( $success = false ) {
+	public function output_settings( $success = false ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 		$settings = supv()->core()->secure_login()->get_settings();
 		?>
