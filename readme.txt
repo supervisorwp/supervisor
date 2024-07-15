@@ -1,5 +1,6 @@
 === Supervisor ===
 Contributors: tiagohillebrandt
+Donate link: https://www.paypal.com/donate/?hosted_button_id=45R6Q8J8JERVS
 Tags: performance, transients, autoload, healthcheck, load time, ssl, https, check, site performance
 Requires at least: 5.0
 Tested up to: 6.5.5
@@ -8,45 +9,46 @@ Stable tag: 1.3.1
 License: GPLv3+
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Supervisor is a plugin to help improve the performance and security of your WordPress install.
+Supervisor is a powerful plugin designed to enhance both the performance and security of your WordPress installation.
 
 == Description ==
 
-[Supervisor](https://supervisorwp.com) is a plugin to help improve the performance and security of your WordPress install.
+**Optimize and Secure Your WordPress Site with Supervisor**
 
-It detects some useful information about your site's health and conveniently displays it through the WordPress Dashboard.
+Boost the performance and security of your WordPress site effortlessly with our powerful plugin. Supervisor provides vital insights into your site's health directly through your WordPress Dashboard.
 
-This plugin can assist you in optimizing your site's performance by cleaning up transients and deactivating autoload options.
+**Key Features:**
 
-Additionally, it provides Brute Force Protection to safeguard your site from attacks attempting to collect user information.
+- **Performance Optimization:** Improve your site's speed by cleaning up transients and deactivating unnecessary autoload options.
+- **Brute Force Protection:** Shield your site from attacks with robust security measures designed to prevent unauthorized access.
+- **Web Server Software Verification:** Ensure your server software is up-to-date, keeping your site running smoothly and securely.
+- **SSL Certificate Monitoring:** Stay informed about your SSL certificate status with dashboard notifications for impending expirations or expired certificates.
 
-Supervisor also verifies the software versions in use on your server.
-
-Furthermore, it checks your SSL certificate expiration date and notifies you via the Dashboard when it is near expiration or has expired.
+Experience a faster and more secure WordPress site with Supervisor. Download it today and feel the difference!
 
 == Frequently Asked Questions ==
 
 = Where can I get support and talk to other users? =
 
-If you have any questions, you can post a new thread in our [Community Forum](https://wordpress.org/support/plugin/supervisor), available on WordPress.org.
+For questions and community interaction, you can start a new thread in our [Community Forum](https://wordpress.org/support/plugin/supervisor/) on WordPress.org.
 
-We review it weekly and our team will be happy to assist you there.
+We review the forum weekly, and our team is ready to assist you.
 
-For Premium Support, you can contact us through the email tiago AT tiagohillebrandt DOT com.
+For Premium Support, please contact us at **tiago AT tiagohillebrandt DOT com**.
 
-= Where can I report any bugs? =
+= Where can I report bugs? =
 
-Please report any bugs to our [issues](https://github.com/supervisorwp/supervisor/issues) page.
+Report any bugs on our [issues](https://github.com/supervisorwp/supervisor/issues) page on GitHub.
 
-If you are not sure if something is a bug or not, you can always ask for guidance in our [Community Forum](https://wordpress.org/support/plugin/supervisor).
+If you're unsure whether something is a bug, feel free to seek guidance in our [Community Forum](https://wordpress.org/support/plugin/supervisor).
 
-= How can I translate Supervisor to my language? =
+= How can I translate Supervisor into my language? =
 
-You can translate it to your language through the [WordPress translations platform](https://translate.wordpress.org).
+You can help translate Supervisor into your language using the [WordPress translations platform](https://translate.wordpress.org/projects/wp-plugins/supervisor/stable/).
 
 = How can I contribute to the project? =
 
-If you are a developer and want to contribute by writing new features, enhancements, bug fixes, or tests, please send your Pull Requests to our [GitHub repository](https://github.com/supervisorwp/supervisor).
+If you're a developer and would like to contribute by adding new features, enhancements, bug fixes, or tests, please submit your Pull Requests to our [GitHub repository](https://github.com/supervisorwp/supervisor).
 
 == Changelog ==
 
