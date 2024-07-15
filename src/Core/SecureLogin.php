@@ -177,7 +177,7 @@ class SecureLogin {
 			}
 		}
 
-		update_option( self::LOGIN_ATTEMPTS_LOG_OPTION, $log );
+		update_option( self::LOGIN_ATTEMPTS_LOG_OPTION, $log, false );
 	}
 
 	/**
@@ -369,6 +369,6 @@ class SecureLogin {
 			'timestamps' => $timestamps,
 		];
 
-		update_option( self::LOGIN_ATTEMPTS_LOG_OPTION, $log );
+		update_option( self::LOGIN_ATTEMPTS_LOG_OPTION, $log, false );
 	}
 }
