@@ -3,7 +3,7 @@
  * Plugin Name: Supervisor
  * Plugin URI:  https://supervisorwp.com
  * Description: A plugin to help improve the performance and security of your WordPress install.
- * Version:     1.3.0
+ * Version:     1.3.1
  * Author:      Supervisor Team
  * Author URI:  https://supervisorwp.com/contributors
  * License:     GPL-3.0+
