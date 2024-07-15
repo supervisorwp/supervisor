@@ -2,7 +2,7 @@
 Contributors: tiagohillebrandt
 Tags: performance, transients, autoload, healthcheck, load time, ssl, https, check, site performance
 Requires at least: 5.0
-Tested up to: 6.4.1
+Tested up to: 6.5.5
 Requires PHP: 7.0
 Stable tag: 1.3.0
 License: GPLv3+
@@ -49,6 +49,10 @@ You can translate it to your language through the [WordPress translations platfo
 If you are a developer and want to contribute by writing new features, enhancements, bug fixes, or tests, please send your Pull Requests to our [GitHub repository](https://github.com/supervisorwp/supervisor).
 
 == Changelog ==
+
+= [1.3.1] - 2024-07-15 =
+* Changed: Bumped the tested WP version up to 6.5.5.
+* Fixed: Disabled the autoloading of the login attempts log option for performance reasons.
 
 = [1.3.0] - 2023-11-14 =
 * Added: Implemented Brute Force Protection.
