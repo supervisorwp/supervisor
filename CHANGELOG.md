@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 - Bumped the minimum required WordPress version to 5.5.
 - Bumped the minimum required PHP version to 7.2.
+- Bumped the tested up to WordPress version to 6.8.1.
 
 ### Fixed
 - Fixed the Secure Login implementation to remove empty IP entries after the "Reset Entries" time is reached. https://github.com/supervisorwp/supervisor/pull/42

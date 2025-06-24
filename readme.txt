@@ -3,7 +3,7 @@ Contributors: tiagohillebrandt
 Donate link: https://www.paypal.com/donate/?hosted_button_id=45R6Q8J8JERVS
 Tags: performance, transients, autoload, healthcheck, load time, ssl, https, check, site performance
 Requires at least: 5.5
-Tested up to: 6.5.5
+Tested up to: 6.8.1
 Requires PHP: 7.2
 Stable tag: 1.3.1
 License: GPLv3+
