@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Bumped the minimum required WordPress version to 5.5.
+- Bumped the minimum required PHP version to 7.2.
+
 ### Fixed
 - Fixed the Secure Login implementation to remove empty IP entries after the "Reset Entries" time is reached. https://github.com/supervisorwp/supervisor/pull/42
 
