@@ -53,8 +53,8 @@ If you're a developer and would like to contribute by adding new features, enhan
 == Changelog ==
 
 = [1.3.2] - 2025-06-24 =
-- Fixed: Fixed the Secure Login implementation to remove empty IP entries after the "Reset Entries" time is reached. https://github.com/supervisorwp/supervisor/pull/42
-- Changed: Added support for the new autoload values introduced in WordPress 6.6. https://github.com/supervisorwp/supervisor/pull/44
+- Fixed: Fixed the Secure Login implementation to remove empty IP entries after the "Reset Entries" time is reached.
+- Changed: Added support for the new autoload values introduced in WordPress 6.6.
 - Changed: Bumped the minimum required WordPress version to 5.5.
 - Changed: Bumped the minimum required PHP version to 7.2.
 - Changed: Bumped the tested up to WordPress version to 6.8.1.
