@@ -395,7 +395,12 @@ class Autoload {
 		$history = get_option( self::DEACTIVATION_HISTORY_OPTION );
 
 		if ( ! $history ) {
-			add_option( self::DEACTIVATION_HISTORY_OPTION, [], '', 'no' );
+			add_option(
+				self::DEACTIVATION_HISTORY_OPTION,
+				[],
+				'',
+				$this->determine_autoload_value( 'no' )
+			);
 
 			return [];
 		}
