@@ -20,7 +20,7 @@ class Autoload {
 	/**
 	 * Autoload values that are considered active.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.2
 	 *
 	 * @var array
 	 */
@@ -29,7 +29,7 @@ class Autoload {
 	/**
 	 * Autoload values that are considered deactivated.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.2
 	 *
 	 * @var array
 	 */
@@ -306,7 +306,7 @@ class Autoload {
 	/**
 	 * Validates that the autoload state matches expectations.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.2
 	 *
 	 * @param string $option_name     The option name.
 	 * @param bool   $should_autoload Whether the option should be autoloaded.
@@ -331,7 +331,7 @@ class Autoload {
 	/**
 	 * Updates the deactivation history based on autoload action.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.2
 	 *
 	 * @param string $option_name     The option name.
 	 * @param bool   $should_autoload Whether the option should be autoloaded.
@@ -348,7 +348,7 @@ class Autoload {
 	/**
 	 * Removes an option from the deactivation history.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.2
 	 *
 	 * @param string $option_name The option name.
 	 */
@@ -370,7 +370,7 @@ class Autoload {
 	/**
 	 * Adds an option to the deactivation history.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.2
 	 *
 	 * @param string $option_name The option name.
 	 */
@@ -386,7 +386,7 @@ class Autoload {
 	/**
 	 * Gets the deactivation history or creates it if it doesn't exist.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.2
 	 *
 	 * @return array The deactivation history array.
 	 */
@@ -411,7 +411,7 @@ class Autoload {
 	/**
 	 * Determines the autoload value based on the provided autoload string.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.2
 	 *
 	 * @param string $autoload The autoload value to determine.
 	 *
