@@ -159,12 +159,7 @@ class SecureLogin {
 
 			// If no timestamps were found associated with the given IP, then reset the retries and lockouts.
 			if ( empty( $log['ips'][ $user_ip ]['timestamps'] ) ) {
-				$log['ips'][ $user_ip ]['retries']  = 0;
-				$log['ips'][ $user_ip ]['lockouts'] = 0;
-
-				if ( ! empty( $log['ips'][ $user_ip ]['lock_until'] ) ) {
-					unset( $log['ips'][ $user_ip ]['lock_until'] );
-				}
+				unset( $log['ips'][ $user_ip ] );
 
 				/**
 				 * Fires when an user IP is unblocked from your site.
