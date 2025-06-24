@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.3.2] - 2025-06-24
 ### Changed
+- Added support for the new autoload values introduced in WordPress 6.6. https://github.com/supervisorwp/supervisor/pull/44
 - Bumped the minimum required WordPress version to 5.5.
 - Bumped the minimum required PHP version to 7.2.
 - Bumped the tested up to WordPress version to 6.8.1.
