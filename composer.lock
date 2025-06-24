@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "922402edd522e914061d873575762441",
+    "content-hash": "6060a58f306873b21f4b5a85ddd30250",
     "packages": [],
     "packages-dev": [
         {
@@ -14,6 +14,12 @@
                 "type": "git",
                 "url": "https://github.com/awesomemotive/wpforms-phpcs.git",
                 "reference": "0d8a61f04deea1a9ef3837d7717cb4f72a6017cd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/awesomemotive/wpforms-phpcs/zipball/0d8a61f04deea1a9ef3837d7717cb4f72a6017cd",
+                "reference": "0d8a61f04deea1a9ef3837d7717cb4f72a6017cd",
+                "shasum": ""
             },
             "require": {
                 "phpcompatibility/php-compatibility": "^9.3.5",
@@ -25,24 +31,15 @@
                 "roave/security-advisories": "dev-latest"
             },
             "type": "phpcodesniffer-standard",
-            "autoload-dev": {
-                "psr-4": {
-                    "WPForms\\": "WPForms",
-                    "WPForms\\Tests\\Tests\\": "WPForms/Tests"
-                }
-            },
-            "scripts": {
-                "cs": [
-                    "vendor/bin/phpcs --standard=.phpcs.xml ./WPForms -s"
-                ],
-                "unit": [
-                    "vendor/bin/phpunit --configuration ./WPForms/Tests/phpunit.xml"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-2.0-or-later"
             ],
             "description": "WPForms Coding Standards",
+            "support": {
+                "issues": "https://github.com/awesomemotive/wpforms-phpcs/issues",
+                "source": "https://github.com/awesomemotive/wpforms-phpcs/tree/1.2.0"
+            },
             "time": "2024-02-08T19:53:33+00:00"
         },
         {
@@ -500,10 +497,10 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
+    "platform": {},
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

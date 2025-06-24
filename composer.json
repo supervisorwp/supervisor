@@ -1,17 +1,11 @@
 {
-	"repositories": {
-		"wpforms-phpcs": {
-			"type": "git",
-			"url": "https://github.com/awesomemotive/wpforms-phpcs.git"
-		}
-	},
 	"config": {
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
 	},
 	"require-dev": {
-		"awesomemotive/wpforms-phpcs": "^1.0"
+		"awesomemotive/wpforms-phpcs": "^1.2"
 	},
 	"autoload": {
 		"psr-4": {
