@@ -18,6 +18,24 @@ class Autoload {
 	const DEACTIVATION_HISTORY_OPTION = 'supv_autoload_deactivation_history';
 
 	/**
+	 * Autoload values that are considered active.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @var array
+	 */
+	const ACTIVE_VALUES = [ 'yes', 'on', 'auto-on', 'auto' ];
+
+	/**
+	 * Autoload values that are considered deactivated.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @var array
+	 */
+	const DEACTIVATED_VALUES = [ 'no', 'off', 'auto-off' ];
+
+	/**
 	 * Returns the biggest WordPress autoload options.
 	 *
 	 * @since 1.0.0
@@ -39,13 +57,17 @@ class Autoload {
 			$limit = 10;
 		}
 
+		// Prepare the autoload values for the SQL query.
+		$active_values = "'" . implode( "','", self::ACTIVE_VALUES ) . "'";
+
+		// Get the biggest autoload options.
 		global $wpdb;
 
 		$options = [];
 
 		$result = $wpdb->get_results(
 			$wpdb->prepare(
-				"SELECT option_name, ROUND(LENGTH(option_value) / POWER(1024,2), 3) AS size FROM $wpdb->options WHERE autoload = 'yes' AND option_name NOT REGEXP '^_(site_)?transient' ORDER BY size DESC LIMIT 0,%d;",
+				"SELECT option_name, ROUND(LENGTH(option_value) / POWER(1024,2), 3) AS size FROM $wpdb->options WHERE autoload IN ($active_values) AND option_name NOT REGEXP '^_(site_)?transient' ORDER BY size DESC LIMIT 0,%d;",
 				$limit
 			)
 		);
@@ -73,16 +95,19 @@ class Autoload {
 	 */
 	public function get_stats() {
 
+		// Prepare the autoload values for the SQL query.
+		$active_values = "'" . implode( "','", self::ACTIVE_VALUES ) . "'";
+
+		// Get the autoload options stats.
 		global $wpdb;
 
-		$result = $wpdb->get_row( "SELECT COUNT(*) AS count, SUM(LENGTH(option_value)) / POWER(1024,2) AS size FROM $wpdb->options WHERE autoload = 'yes' AND option_name NOT REGEXP '^_(site_)?transient';" );
-
-		$count = (int) $result->count;
-		$size  = (float) $result->size;
+		$result = $wpdb->get_row(
+			"SELECT COUNT(*) AS count, SUM(LENGTH(option_value)) / POWER(1024,2) AS size FROM $wpdb->options WHERE autoload IN ($active_values) AND option_name NOT REGEXP '^_(site_)?transient';"
+		);
 
 		$stats = [
-			'count' => $count,
-			'size'  => $size,
+			'count' => (int) ($result->count ?? 0),
+			'size'  => (float) ($result->size ?? 0.0),
 		];
 
 		/**
@@ -156,9 +181,14 @@ class Autoload {
 
 		global $wpdb;
 
-		$autoload = $wpdb->get_var( $wpdb->prepare( "SELECT autoload FROM $wpdb->options WHERE option_name = %s;", $option_name ) );
+		$autoload = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT autoload FROM $wpdb->options WHERE option_name = %s;",
+				$option_name
+			)
+		);
 
-		return ( $autoload === 'no' );
+		return in_array( $autoload, self::DEACTIVATED_VALUES, true );
 	}
 
 	/**
@@ -233,71 +263,166 @@ class Autoload {
 	 *
 	 * @return int|false Number of affected rows or false on error.
 	 */
-	private function update( $option_name, $autoload = 'no', $logging = true ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded,Generic.Metrics.NestingLevel.MaxExceeded
-
-		global $wpdb;
+	private function update( $option_name, $autoload = 'no', $logging = true ) {
 
 		if ( ! get_option( $option_name ) ) {
 			return false;
 		}
 
-		$should_autoload = ( $autoload === 'yes' );
+		$should_autoload = in_array( $autoload, self::ACTIVE_VALUES, true );
 
-		// update option's autoload value to $autoload.
-		$result = $wpdb->query( $wpdb->prepare( "UPDATE $wpdb->options SET autoload = %s WHERE option_name LIKE %s;", $autoload, $option_name ) );
+		// Update option's autoload value.
+		global $wpdb;
+
+		$result = $wpdb->query(
+			$wpdb->prepare(
+				"UPDATE $wpdb->options SET autoload = %s WHERE option_name = %s;",
+				$this->determine_autoload_value( $autoload ),
+				$option_name
+			)
+		);
 
 		if ( empty( $result ) ) {
 			return false;
 		}
 
-		if ( $should_autoload && $this->is_deactivated( $option_name ) ) {
+		// Validate the update was successful.
+		if ( ! $this->validate_autoload_state( $option_name, $should_autoload ) ) {
 			return false;
 		}
 
-		if ( ! $should_autoload && ! $this->is_deactivated( $option_name ) ) {
-			return false;
-		}
-
-		if ( ! $logging ) {
-			return $result;
-		}
-
-		$updated = false;
-
-		if ( $should_autoload ) {
-			// removes option name and timestamp from history.
-			$history = get_option( self::DEACTIVATION_HISTORY_OPTION );
-
-			if ( $history && is_array( $history ) ) {
-				foreach ( $history as $name => $timestamp ) {
-					if ( get_option( $name ) && $name === $option_name ) {
-						unset( $history[ $name ] );
-
-						$updated = true;
-
-						break;
-					}
-				}
-			}
-		} else {
-			// adds option name and timestamp to history.
-			if ( ! get_option( self::DEACTIVATION_HISTORY_OPTION ) ) {
-				add_option( self::DEACTIVATION_HISTORY_OPTION, '', '', 'no' );
-			}
-
-			$history = get_option( self::DEACTIVATION_HISTORY_OPTION );
-
-			if ( ! is_array( $history ) ) {
-				$history = [];
-			}
-
-			$history[ $option_name ] = time();
-		}
-
-		if ( ! $should_autoload || $updated ) {
-			update_option( self::DEACTIVATION_HISTORY_OPTION, $history );
+		if ( $logging ) {
+			$this->update_history( $option_name, $should_autoload );
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Validates that the autoload state matches expectations.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param string $option_name     The option name.
+	 * @param bool   $should_autoload Whether the option should be autoloaded.
+	 *
+	 * @return bool True if state is valid, false otherwise.
+	 */
+	private function validate_autoload_state( $option_name, $should_autoload ) {
+
+		$is_deactivated = $this->is_deactivated( $option_name );
+
+		if ( $should_autoload && $is_deactivated ) {
+			return false;
+		}
+
+		if ( ! $should_autoload && ! $is_deactivated ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Updates the deactivation history based on autoload action.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param string $option_name     The option name.
+	 * @param bool   $should_autoload Whether the option should be autoloaded.
+	 */
+	private function update_history( $option_name, $should_autoload ) {
+
+		if ( $should_autoload ) {
+			$this->remove_from_history( $option_name );
+		} else {
+			$this->add_to_history( $option_name );
+		}
+	}
+
+	/**
+	 * Removes an option from the deactivation history.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param string $option_name The option name.
+	 */
+	private function remove_from_history( $option_name ) {
+
+		$history = get_option( self::DEACTIVATION_HISTORY_OPTION );
+
+		if ( ! is_array( $history ) ) {
+			return;
+		}
+
+		if ( isset( $history[ $option_name ] ) ) {
+			unset( $history[ $option_name ] );
+
+			update_option( self::DEACTIVATION_HISTORY_OPTION, $history );
+		}
+	}
+
+	/**
+	 * Adds an option to the deactivation history.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param string $option_name The option name.
+	 */
+	private function add_to_history( $option_name ) {
+
+		$history = $this->get_or_create_history();
+
+		$history[ $option_name ] = time();
+
+		update_option( self::DEACTIVATION_HISTORY_OPTION, $history );
+	}
+
+	/**
+	 * Gets the deactivation history or creates it if it doesn't exist.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @return array The deactivation history array.
+	 */
+	private function get_or_create_history() {
+
+		$history = get_option( self::DEACTIVATION_HISTORY_OPTION );
+
+		if ( ! $history ) {
+			add_option( self::DEACTIVATION_HISTORY_OPTION, [], '', 'no' );
+
+			return [];
+		}
+
+		return is_array( $history ) ? $history : [];
+	}
+
+	/**
+	 * Determines the autoload value based on the provided autoload string.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param string $autoload The autoload value to determine.
+	 *
+	 * @return string The appropriate autoload value for the current WordPress version.
+	 */
+	private function determine_autoload_value( $autoload ) {
+
+		if ( ! in_array( $autoload, array_merge( self::ACTIVE_VALUES, self::DEACTIVATED_VALUES ), true ) ) {
+			return $autoload;
+		}
+
+		$use_legacy_values = ! function_exists( 'wp_determine_option_autoload_value' );
+
+		if ( in_array( $autoload, self::ACTIVE_VALUES, true ) ) {
+			return $use_legacy_values ? 'yes' : 'on';
+		}
+
+		if ( in_array( $autoload, self::DEACTIVATED_VALUES, true ) ) {
+			return $use_legacy_values ? 'no' : 'off';
+		}
+
+		return $autoload;
 	}
 }
