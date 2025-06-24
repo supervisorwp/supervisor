@@ -61,12 +61,13 @@ class Autoload {
 		$active_values = "'" . implode( "','", self::ACTIVE_VALUES ) . "'";
 
 		// Get the biggest autoload options.
-		global $wpdb;
-
 		$options = [];
+
+		global $wpdb;
 
 		$result = $wpdb->get_results(
 			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 				"SELECT option_name, ROUND(LENGTH(option_value) / POWER(1024,2), 3) AS size FROM $wpdb->options WHERE autoload IN ($active_values) AND option_name NOT REGEXP '^_(site_)?transient' ORDER BY size DESC LIMIT 0,%d;",
 				$limit
 			)
@@ -102,12 +103,16 @@ class Autoload {
 		global $wpdb;
 
 		$result = $wpdb->get_row(
-			"SELECT COUNT(*) AS count, SUM(LENGTH(option_value)) / POWER(1024,2) AS size FROM $wpdb->options WHERE autoload IN ($active_values) AND option_name NOT REGEXP '^_(site_)?transient';"
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				"SELECT COUNT(*) AS count, SUM(LENGTH(option_value)) / POWER(1024,2) AS size FROM $wpdb->options WHERE autoload IN ($active_values) AND option_name NOT REGEXP %s;",
+				'^_(site_)?transient'
+			)
 		);
 
 		$stats = [
-			'count' => (int) ($result->count ?? 0),
-			'size'  => (float) ($result->size ?? 0.0),
+			'count' => (int) ( $result->count ?? 0 ),
+			'size'  => (float) ( $result->size ?? 0.0 ),
 		];
 
 		/**
