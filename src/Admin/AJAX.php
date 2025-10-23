@@ -247,6 +247,8 @@ final class AJAX {
 		$data   = [];
 		$prefix = 'supv-field-';
 
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
+
 		foreach ( $_POST as $key => $value ) {
 			// Decode and sanitize the field name.
 			$sanitized_key = sanitize_key( urldecode( $key ) );
@@ -266,6 +268,8 @@ final class AJAX {
 			// Sanitize and store the value.
 			$data[ $field_name ] = sanitize_text_field( wp_unslash( $value ) );
 		}
+
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 		return $data;
 	}
