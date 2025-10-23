@@ -26,7 +26,7 @@ final class SSLView extends AbstractView {
 
 		$ssl_status = $days_to_expire <= 0 ? 'expired' : 'expiring_soon';
 
-		$ssl_data = get_transient( \SUPV\Core\SSL::SSL_DATA_TRANSIENT ); // phpcs:ignore WPForms.PHP.BackSlash.UseShortSyntax
+		$ssl_data = get_transient( \SUPV\Core\SSL::DATA_TRANSIENT ); // phpcs:ignore WPForms.PHP.BackSlash.UseShortSyntax
 
 		$issuer = empty( $ssl_data['issuer'] ) ? '' : ' (' . $ssl_data['issuer'] . ')';
 		$days   = _n( 'day', 'days', abs( $days_to_expire ), 'supervisor' );
