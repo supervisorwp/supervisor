@@ -88,7 +88,7 @@ final class AJAX {
 	 */
 	public function hide_admin_notice() {
 
-		check_ajax_referer( 'supv_hide_admin_notice' );
+		$this->verify_ajax_request( 'hide_admin_notice' );
 
 		if ( ! empty( $_POST['software'] ) && preg_match( '/(?:ssl|https)/', sanitize_key( wp_unslash( $_POST['software'] ) ) ) ) {
 			$notices_transient = get_transient( Dashboard::HIDE_NOTICES_TRANSIENT );
@@ -112,7 +112,7 @@ final class AJAX {
 	 */
 	public function transients_cleanup() {
 
-		check_ajax_referer( 'supv_transients_cleanup' );
+		$this->verify_ajax_request( 'transients_cleanup' );
 
 		supv()->core()->transients()->cleanup( isset( $_POST['expired'] ) );
 
@@ -156,7 +156,7 @@ final class AJAX {
 	 */
 	public function autoload_update_option() {
 
-		check_ajax_referer( 'supv_autoload_update_option' );
+		$this->verify_ajax_request( 'autoload_update_option' );
 
 		$data = $this->extract_form_data();
 
@@ -184,7 +184,7 @@ final class AJAX {
 	 */
 	public function wordpress_auto_update_policy() {
 
-		check_ajax_referer( 'supv_wordpress_auto_update_policy' );
+		$this->verify_ajax_request( 'wordpress_auto_update_policy' );
 
 		$policy = ! empty( $_POST['wp_auto_update_policy'] ) ? sanitize_key( wp_unslash( $_POST['wp_auto_update_policy'] ) ) : false;
 
@@ -204,7 +204,7 @@ final class AJAX {
 	 */
 	public function secure_login_settings_output() {
 
-		check_ajax_referer( 'supv_secure_login_settings_output' );
+		$this->verify_ajax_request( 'secure_login_settings_output' );
 
 		supv()->core()->secure_login()->update_settings(
 			[
@@ -224,7 +224,7 @@ final class AJAX {
 	 */
 	public function secure_login_settings_save() {
 
-		check_ajax_referer( 'supv_secure_login_settings_save' );
+		$this->verify_ajax_request( 'secure_login_settings_save' );
 
 		$settings = array_map( 'intval', $this->extract_form_data() ); // Converts all the values to int.
 
@@ -266,5 +266,21 @@ final class AJAX {
 		return $data;
 
 		// phpcs:enable WordPress.Security.NonceVerification.Missing
+	}
+
+	/**
+	 * Verifies AJAX request security (nonce and capability).
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param string $action The action name for nonce verification.
+	 */
+	private function verify_ajax_request( $action ) {
+
+		check_ajax_referer( 'supv_' . $action );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'You do not have permission to perform this action.', 'supervisor' ) );
+		}
 	}
 }
