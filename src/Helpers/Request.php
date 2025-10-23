@@ -5,14 +5,14 @@ namespace SUPV\Helpers;
  * The Request class.
  *
  * @package supervisor
- * @since {VERSION}
+ * @since 1.3.3
  */
 final class Request {
 
 	/**
 	 * Allowed sanitization callbacks.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.3
 	 *
 	 * @var array
 	 */
@@ -24,7 +24,7 @@ final class Request {
 	/**
 	 * Gets a GET parameter.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.3
 	 *
 	 * @param string   $key           The parameter key.
 	 * @param mixed    $default_value Optional. Default value if not found. Default null.
@@ -53,7 +53,7 @@ final class Request {
 	/**
 	 * Gets a POST parameter.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.3
 	 *
 	 * @param string   $key           The parameter key.
 	 * @param mixed    $default_value Optional. Default value if not found. Default null.

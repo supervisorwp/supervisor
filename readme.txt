@@ -5,7 +5,7 @@ Tags: performance, transients, autoload, healthcheck, load time, ssl, https, che
 Requires at least: 5.5
 Tested up to: 6.8.3
 Requires PHP: 7.2
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 License: GPLv3+
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
