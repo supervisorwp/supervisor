@@ -3,7 +3,7 @@ Contributors: tiagohillebrandt
 Donate link: https://www.paypal.com/donate/?hosted_button_id=45R6Q8J8JERVS
 Tags: performance, transients, autoload, healthcheck, load time, ssl, https, check, site performance
 Requires at least: 5.5
-Tested up to: 6.8.1
+Tested up to: 6.8.3
 Requires PHP: 7.2
 Stable tag: 1.3.2
 License: GPLv3+
@@ -51,6 +51,10 @@ You can help translate Supervisor into your language using the [WordPress transl
 If you're a developer and would like to contribute by adding new features, enhancements, bug fixes, or tests, please submit your Pull Requests to our [GitHub repository](https://github.com/supervisorwp/supervisor).
 
 == Changelog ==
+
+= [1.3.3] - 2025-10-23 =
+- Security fix: Added a capability check to prevent unauthorized AJAX requests.
+- Fixed an incorrect constant name that could cause a PHP fatal error.
 
 = [1.3.2] - 2025-06-24 =
 - Fixed: Fixed the Secure Login implementation to remove empty IP entries after the "Reset Entries" time is reached.
