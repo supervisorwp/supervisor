@@ -5,6 +5,7 @@ use SUPV\Admin\Views\Cards\AutoloadCardView;
 use SUPV\Admin\Views\Cards\SecureLoginCardView;
 use SUPV\Admin\Views\Cards\TransientsCardView;
 use SUPV\Admin\Views\Cards\WordPressCardView;
+use SUPV\Helpers\Request as RequestHelper;
 
 /**
  * The AJAX class.
@@ -90,14 +91,16 @@ final class AJAX {
 
 		$this->verify_ajax_request( 'hide_admin_notice' );
 
-		if ( ! empty( $_POST['software'] ) && preg_match( '/(?:ssl|https)/', sanitize_key( wp_unslash( $_POST['software'] ) ) ) ) {
+		$software = RequestHelper::get_post_arg( 'software', null, 'sanitize_key' );
+
+		if ( ! empty( $software ) && preg_match( '/(?:ssl|https)/', $software ) ) {
 			$notices_transient = get_transient( Dashboard::HIDE_NOTICES_TRANSIENT );
 
 			if ( $notices_transient === false ) {
 				$notices_transient = [];
 			}
 
-			$notices_transient[ sanitize_key( wp_unslash( $_POST['software'] ) ) ] = 1;
+			$notices_transient[ $software ] = 1;
 
 			set_transient( Dashboard::HIDE_NOTICES_TRANSIENT, $notices_transient, DAY_IN_SECONDS );
 		}
@@ -114,7 +117,9 @@ final class AJAX {
 
 		$this->verify_ajax_request( 'transients_cleanup' );
 
-		supv()->core()->transients()->cleanup( isset( $_POST['expired'] ) );
+		$expired = RequestHelper::get_post_arg( 'expired', false );
+
+		supv()->core()->transients()->cleanup( (bool) $expired );
 
 		( new TransientsCardView() )->output_stats( true );
 
@@ -186,7 +191,7 @@ final class AJAX {
 
 		$this->verify_ajax_request( 'wordpress_auto_update_policy' );
 
-		$policy = ! empty( $_POST['wp_auto_update_policy'] ) ? sanitize_key( wp_unslash( $_POST['wp_auto_update_policy'] ) ) : false;
+		$policy = RequestHelper::get_post_arg( 'wp_auto_update_policy', null, 'sanitize_key' );
 
 		if ( ! empty( $policy ) && preg_match( '/^(?:minor|major|disabled|dev)$/', $policy ) ) {
 			supv()->core()->wordpress()->set_auto_update_policy( $policy );
@@ -247,9 +252,7 @@ final class AJAX {
 		$data   = [];
 		$prefix = 'supv-field-';
 
-		// phpcs:disable WordPress.Security.NonceVerification.Missing
-
-		foreach ( $_POST as $key => $value ) {
+		foreach ( $_POST as $key => $value ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			// Decode and sanitize the field name.
 			$sanitized_key = sanitize_key( urldecode( $key ) );
 
@@ -268,8 +271,6 @@ final class AJAX {
 			// Sanitize and store the value.
 			$data[ $field_name ] = sanitize_text_field( wp_unslash( $value ) );
 		}
-
-		// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 		return $data;
 	}
