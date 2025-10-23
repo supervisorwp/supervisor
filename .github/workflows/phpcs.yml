@@ -25,6 +25,6 @@ jobs:
 
       - name: Check coding standards
         run: |
-          git checkout master # checkout the master branch so it is available to run the diff
+          git checkout master # checkout the main branch so it is available to run the diff
           git checkout -
-          composer run phpcs $(git diff --name-only master..${{ github.head_ref }} -- '*.php')
+          composer run phpcs $(git diff --name-only main..${{ github.head_ref }} -- '*.php')
