@@ -70,7 +70,7 @@ class WordPress {
 	 */
 	public function set_auto_update_policy( $policy ) {
 
-		if ( $this->get_auto_update_policy() ) {
+		if ( $this->get_auto_update_policy() !== false ) {
 			update_option( self::CORE_AUTO_UPDATE_OPTION, $policy );
 		}
 	}

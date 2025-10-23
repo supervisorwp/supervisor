@@ -5,6 +5,7 @@ use SUPV\Admin\Views\Cards\AutoloadCardView;
 use SUPV\Admin\Views\Cards\SecureLoginCardView;
 use SUPV\Admin\Views\Cards\TransientsCardView;
 use SUPV\Admin\Views\Cards\WordPressCardView;
+use SUPV\Helpers\Request as RequestHelper;
 
 /**
  * The AJAX class.
@@ -88,16 +89,18 @@ final class AJAX {
 	 */
 	public function hide_admin_notice() {
 
-		check_ajax_referer( 'supv_hide_admin_notice' );
+		$this->verify_ajax_request( 'hide_admin_notice' );
 
-		if ( ! empty( $_POST['software'] ) && preg_match( '/(?:ssl|https)/', sanitize_key( wp_unslash( $_POST['software'] ) ) ) ) {
+		$software = RequestHelper::get_post_arg( 'software', null, 'sanitize_key' );
+
+		if ( ! empty( $software ) && preg_match( '/(?:ssl|https)/', $software ) ) {
 			$notices_transient = get_transient( Dashboard::HIDE_NOTICES_TRANSIENT );
 
 			if ( $notices_transient === false ) {
 				$notices_transient = [];
 			}
 
-			$notices_transient[ sanitize_key( wp_unslash( $_POST['software'] ) ) ] = 1;
+			$notices_transient[ $software ] = 1;
 
 			set_transient( Dashboard::HIDE_NOTICES_TRANSIENT, $notices_transient, DAY_IN_SECONDS );
 		}
@@ -112,9 +115,11 @@ final class AJAX {
 	 */
 	public function transients_cleanup() {
 
-		check_ajax_referer( 'supv_transients_cleanup' );
+		$this->verify_ajax_request( 'transients_cleanup' );
 
-		supv()->core()->transients()->cleanup( isset( $_POST['expired'] ) );
+		$expired = RequestHelper::get_post_arg( 'expired', false );
+
+		supv()->core()->transients()->cleanup( (bool) $expired );
 
 		( new TransientsCardView() )->output_stats( true );
 
@@ -128,7 +133,7 @@ final class AJAX {
 	 */
 	public function autoload_options_list() {
 
-		check_ajax_referer( 'supv_autoload_options_list' );
+		$this->verify_ajax_request( 'autoload_options_list' );
 
 		( new AutoloadCardView() )->output_options();
 
@@ -142,7 +147,7 @@ final class AJAX {
 	 */
 	public function autoload_options_history() {
 
-		check_ajax_referer( 'supv_autoload_options_history' );
+		$this->verify_ajax_request( 'autoload_options_history' );
 
 		( new AutoloadCardView() )->output_history();
 
@@ -156,7 +161,7 @@ final class AJAX {
 	 */
 	public function autoload_update_option() {
 
-		check_ajax_referer( 'supv_autoload_update_option' );
+		$this->verify_ajax_request( 'autoload_update_option' );
 
 		$data = $this->extract_form_data();
 
@@ -184,9 +189,9 @@ final class AJAX {
 	 */
 	public function wordpress_auto_update_policy() {
 
-		check_ajax_referer( 'supv_wordpress_auto_update_policy' );
+		$this->verify_ajax_request( 'wordpress_auto_update_policy' );
 
-		$policy = ! empty( $_POST['wp_auto_update_policy'] ) ? sanitize_key( wp_unslash( $_POST['wp_auto_update_policy'] ) ) : false;
+		$policy = RequestHelper::get_post_arg( 'wp_auto_update_policy', null, 'sanitize_key' );
 
 		if ( ! empty( $policy ) && preg_match( '/^(?:minor|major|disabled|dev)$/', $policy ) ) {
 			supv()->core()->wordpress()->set_auto_update_policy( $policy );
@@ -204,7 +209,7 @@ final class AJAX {
 	 */
 	public function secure_login_settings_output() {
 
-		check_ajax_referer( 'supv_secure_login_settings_output' );
+		$this->verify_ajax_request( 'secure_login_settings_output' );
 
 		supv()->core()->secure_login()->update_settings(
 			[
@@ -224,7 +229,7 @@ final class AJAX {
 	 */
 	public function secure_login_settings_save() {
 
-		check_ajax_referer( 'supv_secure_login_settings_save' );
+		$this->verify_ajax_request( 'secure_login_settings_save' );
 
 		$settings = array_map( 'intval', $this->extract_form_data() ); // Converts all the values to int.
 
@@ -244,27 +249,45 @@ final class AJAX {
 	 */
 	private function extract_form_data() {
 
-		// phpcs:disable WordPress.Security.NonceVerification.Missing
+		$data   = [];
+		$prefix = 'supv-field-';
 
-		$data = [];
+		foreach ( $_POST as $key => $value ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			// Decode and sanitize the field name.
+			$sanitized_key = sanitize_key( urldecode( $key ) );
 
-		foreach ( array_keys( $_POST ) as $key ) {
-			if ( ! preg_match( '/^supv-field-/', sanitize_key( $key ) ) ) {
+			// Skip if not a supervisor field.
+			if ( strpos( $sanitized_key, $prefix ) !== 0 ) {
 				continue;
 			}
 
-			$value = ! empty( $_POST[ $key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $key ] ) ) : '';
-			$field = preg_replace( '/^supv-field-/', '', urldecode( sanitize_key( $key ) ) );
+			// Extract field name by removing prefix.
+			$field_name = substr( $sanitized_key, strlen( $prefix ) );
 
-			if ( empty( $field ) ) {
+			if ( empty( $field_name ) ) {
 				continue;
 			}
 
-			$data[ $field ] = $value;
+			// Sanitize and store the value.
+			$data[ $field_name ] = sanitize_text_field( wp_unslash( $value ) );
 		}
 
 		return $data;
+	}
 
-		// phpcs:enable WordPress.Security.NonceVerification.Missing
+	/**
+	 * Verifies AJAX request security (nonce and capability).
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param string $action The action name for nonce verification.
+	 */
+	private function verify_ajax_request( $action ) {
+
+		check_ajax_referer( 'supv_' . $action );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'You do not have permission to perform this action.', 'supervisor' ) );
+		}
 	}
 }

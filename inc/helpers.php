@@ -1,4 +1,7 @@
 <?php
+
+use SUPV\Helpers\Request as RequestHelper;
+
 /**
  * Gets the asset URL.
  *
@@ -29,7 +32,9 @@ function supv_get_asset_url( $name, $type = 'images' ) {
  */
 function supv_is_supervisor_screen() {
 
-	return is_admin() && ! empty( $_GET['page'] ) && 'supervisor' === sanitize_key( wp_unslash( $_GET['page'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$page = RequestHelper::get_arg( 'page', null, 'sanitize_key' );
+
+	return is_admin() && $page === 'supervisor';
 }
 
 /**
