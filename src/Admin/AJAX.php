@@ -278,7 +278,7 @@ final class AJAX {
 	/**
 	 * Verifies AJAX request security (nonce and capability).
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.3
 	 *
 	 * @param string $action The action name for nonce verification.
 	 */
