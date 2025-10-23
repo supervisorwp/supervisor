@@ -21,6 +21,7 @@ class Transients {
 
 		$transients = [];
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 		$result = $wpdb->get_results( "SELECT option_name, ROUND(LENGTH(option_value) / POWER(1024,2), 3) AS size FROM $wpdb->options WHERE option_name REGEXP '^_(site_)?transient' ORDER BY size DESC LIMIT 0,10;" );
 
 		foreach ( $result as $transient ) {
@@ -41,6 +42,7 @@ class Transients {
 
 		global $wpdb;
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 		$result = $wpdb->get_row( "SELECT COUNT(*) AS count, SUM(LENGTH(option_value)) / POWER(1024,2) AS size FROM $wpdb->options WHERE option_name REGEXP '^_(site_)?transient';" );
 
 		$count = (int) $result->count;
@@ -79,6 +81,7 @@ class Transients {
 		}
 
 		if ( $only_expired ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 			return $wpdb->query(
 				$wpdb->prepare(
 					"DELETE a, b FROM $wpdb->options a INNER JOIN $wpdb->options b ON b.option_name = REPLACE(a.option_name, '_timeout', '') WHERE a.option_name REGEXP '^(_site)?_transient_timeout' AND a.option_value < %s;",
@@ -87,6 +90,7 @@ class Transients {
 			);
 		}
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 		return $wpdb->query( "DELETE FROM $wpdb->options WHERE option_name REGEXP '^_(site_)?transient';" );
 	}
 }

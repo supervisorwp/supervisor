@@ -76,7 +76,7 @@ final class Dashboard {
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		// Loads JS only if current screen is the Supervisor dashboard.
-		wp_register_script( 'supv-js', supv_get_asset_url( 'supervisor' . $suffix . '.js', 'js' ), false, SUPV_VERSION );
+		wp_register_script( 'supv-js', supv_get_asset_url( 'supervisor' . $suffix . '.js', 'js' ), [], SUPV_VERSION, true );
 
 		wp_localize_script(
 			'supv-js',
