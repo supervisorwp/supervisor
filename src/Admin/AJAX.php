@@ -128,7 +128,7 @@ final class AJAX {
 	 */
 	public function autoload_options_list() {
 
-		check_ajax_referer( 'supv_autoload_options_list' );
+		$this->verify_ajax_request( 'autoload_options_list' );
 
 		( new AutoloadCardView() )->output_options();
 
@@ -142,7 +142,7 @@ final class AJAX {
 	 */
 	public function autoload_options_history() {
 
-		check_ajax_referer( 'supv_autoload_options_history' );
+		$this->verify_ajax_request( 'autoload_options_history' );
 
 		( new AutoloadCardView() )->output_history();
 
@@ -244,28 +244,30 @@ final class AJAX {
 	 */
 	private function extract_form_data() {
 
-		// phpcs:disable WordPress.Security.NonceVerification.Missing
+		$data   = [];
+		$prefix = 'supv-field-';
 
-		$data = [];
+		foreach ( $_POST as $key => $value ) {
+			// Decode and sanitize the field name.
+			$sanitized_key = sanitize_key( urldecode( $key ) );
 
-		foreach ( array_keys( $_POST ) as $key ) {
-			if ( ! preg_match( '/^supv-field-/', sanitize_key( $key ) ) ) {
+			// Skip if not a supervisor field.
+			if ( strpos( $sanitized_key, $prefix ) !== 0 ) {
 				continue;
 			}
 
-			$value = ! empty( $_POST[ $key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $key ] ) ) : '';
-			$field = preg_replace( '/^supv-field-/', '', urldecode( sanitize_key( $key ) ) );
+			// Extract field name by removing prefix.
+			$field_name = substr( $sanitized_key, strlen( $prefix ) );
 
-			if ( empty( $field ) ) {
+			if ( empty( $field_name ) ) {
 				continue;
 			}
 
-			$data[ $field ] = $value;
+			// Sanitize and store the value.
+			$data[ $field_name ] = sanitize_text_field( wp_unslash( $value ) );
 		}
 
 		return $data;
-
-		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	/**
