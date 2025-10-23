@@ -55,6 +55,7 @@ If you're a developer and would like to contribute by adding new features, enhan
 = [1.3.3] - 2025-10-23 =
 - Security fix: Added a capability check to prevent unauthorized AJAX requests.
 - Fixed an incorrect constant name that could cause a PHP fatal error.
+- Changed: Bumped the tested up to WordPress version to 6.8.3.
 
 = [1.3.2] - 2025-06-24 =
 - Fixed: Fixed the Secure Login implementation to remove empty IP entries after the "Reset Entries" time is reached.
